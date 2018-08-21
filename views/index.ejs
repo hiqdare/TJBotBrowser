@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="TJBot Admin Screen">
+    <meta name="author" content="Henrique Säuberli">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>TJBot Cockpit</title>
+
+    <!-- Bootstrap core CSS -->
+    <!--link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"-->
+
+    <!-- Custom styles for this template -->
+    
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+  	<header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">The cockpit shows the list of TJBots running the client.</p>
+            </div>
+            <div class="col-sm-4 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li><a href="https://twitter.com/Hiqdare" class="text-white">Follow on Twitter</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand">TJBot Cockpit</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <!--section class="jumbotron text-left"-->
+        <div class="container">
+          <p class="lead text-muted" id="botcount">-</p>
+        </div>
+      <!--/section-->
+
+      <div class="album text-muted">
+        <div class="container">
+
+          <div class="row" id="rowbot">
+            <div class="card" id="nobots">
+            		<p class="card_text">No TJBots connected</p>
+            </div>
+            <div class="card">
+            		<p class="card_text">No TJBots connected</p>
+            </div>
+            <div class="card">
+            		<p class="card_text">No TJBots connected</p>
+            </div>
+            <div class="card">
+            		<p class="card_text">No TJBots connected</p>
+            </div>
+            <div class="card">
+            		<p class="card_text">No TJBots connected</p>
+            </div>
+            <div class="card">
+            		<p class="card_text">No TJBots connected</p>
+            </div>
+            <div class="card">
+            		<p class="card_text">No TJBots connected</p>
+            </div>
+            <div class="card d-none" id="bot">
+            		<table class="table table-sm" id="bot-table">
+            			<tbody />
+            		</table>
+              	<!--img data-src="holder.js/100px280?theme=thumb" alt="Card image cap"-->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main> 
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    -->
+    <script src="javascripts/assets/js/holder.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+    <script>
+      $(function(){
+        var i = 0;
+        var row = document.getElementById('rowbot');
+        var botdiv = document.getElementById('bot');
+        var nobots = document.getElementById('nobots');
+        
+        var socket = io('//' + document.location.hostname + ':' + document.location.port);
+          
+        socket.on('start', function(data) {
+          console.log('start: ' + data);
+          socket.emit('browser');
+        });
+      
+        socket.on('botlist', function(data) {
+          botlist = JSON.parse(data);
+          clear(row, botdiv, nobots);
+          console.log("new bot list: " + botlist.length);
+          $("#botcount").text("TJBots online: " + botlist.length);
+          if (botlist.length > 0) {
+            nobots.className = "card d-none";
+              for (var i = 0; i < botlist.length; i++) {
+                addBotToList(botlist[i], botdiv);
+              }
+            }
+        });
+      
+        socket.on('disconnectBot', function(data) {
+          console.log('a user disconnected');
+        });
+      
+        function clear(row, bot, nobots) {
+          $("#rowbot div").remove("cv.copy");
+          console.log('clearing ' + row.id);
+  // 			nobots.className = "card";
+  // 			console.log("childs: " + row.childNodes.length);
+  // 			console.log("last: " + row.lastChild.id);
+  // 			while (row.hasChildNodes() && row.lastChild.id == "undefined") {
+  // 				console.log("remove child " + row.lastChild.id);
+  // 				row.removeChild(row.lastChild);
+  // 			}
+  // 			console.log("remove not child " + row.lastChild.id);
+        }
+            
+        
+        function addBotToList(bot, divtemplate) {
+          var node;
+          var clone = divtemplate.cloneNode(true); // "deep" clone
+          clone.removeAttribute('id');
+          clone.className = "card copy";
+          table = clone.getElementsByTagName("TABLE")[0];
+          divtemplate.parentNode.appendChild(clone);
+          for (var key in bot) {
+            if (bot.hasOwnProperty(key)) { 
+              row = table.insertRow(0);
+              keyCell = row.insertCell(0);
+              textCell = row.insertCell(1);
+              keyCell.innerHTML = key;
+              textCell.innerHTML = bot[key];
+            }
+          }
+        }
+      }); 
+    </script>
+  </body>
+</html>
