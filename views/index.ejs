@@ -56,28 +56,7 @@
         <div class="container">
 
           <div class="row" id="rowbot">
-            <div class="card" id="nobots">
-            		<p class="card_text">No TJBots connected</p>
-            </div>
-            <div class="card">
-            		<p class="card_text">No TJBots connected</p>
-            </div>
-            <div class="card">
-            		<p class="card_text">No TJBots connected</p>
-            </div>
-            <div class="card">
-            		<p class="card_text">No TJBots connected</p>
-            </div>
-            <div class="card">
-            		<p class="card_text">No TJBots connected</p>
-            </div>
-            <div class="card">
-            		<p class="card_text">No TJBots connected</p>
-            </div>
-            <div class="card">
-            		<p class="card_text">No TJBots connected</p>
-            </div>
-            <div class="card d-none" id="bot">
+            <div class="template d-none" id="bot">
             		<table class="table table-sm" id="bot-table">
             			<tbody />
             		</table>
@@ -116,9 +95,7 @@
     <script>
       $(function(){
         var i = 0;
-        var row = document.getElementById('rowbot');
-        var botdiv = document.getElementById('bot');
-        var nobots = document.getElementById('nobots');
+        var botdiv = $('#bot');
         
         var socket = io('//' + document.location.hostname + ':' + document.location.port);
           
@@ -129,40 +106,21 @@
       
         socket.on('botlist', function(data) {
           botlist = JSON.parse(data);
-          clear(row, botdiv, nobots);
+          $("#rowbot").children(".card").remove();
           console.log("new bot list: " + botlist.length);
           $("#botcount").text("TJBots online: " + botlist.length);
           if (botlist.length > 0) {
-            nobots.className = "card d-none";
-              for (var i = 0; i < botlist.length; i++) {
-                addBotToList(botlist[i], botdiv);
-              }
+            for (var i = 0; i < botlist.length; i++) {
+              addBotToList(botlist[i], botdiv);
             }
-        });
-      
-        socket.on('disconnectBot', function(data) {
-          console.log('a user disconnected');
-        });
-      
-        function clear(row, bot, nobots) {
-          $("#rowbot div").remove("cv.copy");
-          console.log('clearing ' + row.id);
-  // 			nobots.className = "card";
-  // 			console.log("childs: " + row.childNodes.length);
-  // 			console.log("last: " + row.lastChild.id);
-  // 			while (row.hasChildNodes() && row.lastChild.id == "undefined") {
-  // 				console.log("remove child " + row.lastChild.id);
-  // 				row.removeChild(row.lastChild);
-  // 			}
-  // 			console.log("remove not child " + row.lastChild.id);
-        }
-            
+          }
+        }); 
         
         function addBotToList(bot, divtemplate) {
           var node;
           var clone = divtemplate.cloneNode(true); // "deep" clone
           clone.removeAttribute('id');
-          clone.className = "card copy";
+          clone.className = "card";
           table = clone.getElementsByTagName("TABLE")[0];
           divtemplate.parentNode.appendChild(clone);
           for (var key in bot) {
