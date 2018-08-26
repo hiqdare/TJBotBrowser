@@ -95,7 +95,6 @@
     <script>
       $(function(){
         var i = 0;
-        var botdiv = $('#bot');
         
         var socket = io('//' + document.location.hostname + ':' + document.location.port);
           
@@ -111,18 +110,19 @@
           $("#botcount").text("TJBots online: " + botlist.length);
           if (botlist.length > 0) {
             for (var i = 0; i < botlist.length; i++) {
-              addBotToList(botlist[i], botdiv);
+              addBotToList(botlist[i]);
             }
           }
         }); 
         
-        function addBotToList(bot, divtemplate) {
+        function addBotToList(bot) {
           var node;
-          var clone = divtemplate.cloneNode(true); // "deep" clone
-          clone.removeAttribute('id');
-          clone.className = "card";
-          table = clone.getElementsByTagName("TABLE")[0];
-          divtemplate.parentNode.appendChild(clone);
+          var clone = $('#bot').clone(true); // "deep" clone
+          clone.removeAttr('id');
+          clone.removeClass();
+          clone.addClass("card");
+          table = clone.children(".table")[0];
+          $('#bot').parent().append(clone);
           for (var key in bot) {
             if (bot.hasOwnProperty(key)) { 
               row = table.insertRow(0);
