@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       pkg: grunt.file.readJSON('package.json'),
       
 
-      bower: {
+      /*bower: {
         install: {
             options: {
                 targetDir: "static/bower_components",
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 }
             }
         },
-      },
+      },*/
 
       mochaTest: {
           'server-side': {
@@ -127,17 +127,6 @@ module.exports = function(grunt) {
           }
       },
 
-      sass: {
-          options: {
-              outputStyle: 'expanded'
-          },
-          dist: {
-              files: {
-                'static/built/css/default.css': 'static/sass/default.scss'
-              }
-          }
-      },
-
       watch: {
           sass: {
             files: ['static/sass/*.scss'],
@@ -204,7 +193,6 @@ module.exports = function(grunt) {
         },
     });
   
-    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-available-tasks');
     grunt.loadNpmTasks('grunt-bower-installer');
     grunt.loadNpmTasks('grunt-mocha-test');
@@ -215,7 +203,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-istanbul');
   
     // Default task(s).
-    grunt.registerTask('dev-setup', ['clean:all', 'bower', 'sass:dist', 'jshint:browser']);
+    grunt.registerTask('dev-setup', ['clean:all', /*'bower', 'sass:dist',*/ 'jshint:browser']);
     grunt.registerTask('dev-test-cov', ['clean:coverage', 'copy:resourcesForInstrumented', 'instrument', 'mochaTest:server-side', 'storeCoverage', 'makeReport-lcov', 'makeReport']);
     
   
