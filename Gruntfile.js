@@ -80,11 +80,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-istanbul');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
   
     // Default task(s).
-    grunt.registerTask('dev-setup', ['clean:all', /*'bower', 'sass:dist',*/ 'jshint:browser']);
+    grunt.registerTask('dev-setup', ['clean:all', 'jshint:browser']);
     grunt.registerTask('dev-test-cov', ['clean:coverage']);
-    
   
   };

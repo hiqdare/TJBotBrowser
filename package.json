@@ -21,12 +21,8 @@
     "grunt-available-tasks": "^0.6.2",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-istanbul": "^0.7.0",
-    "rewire": "^2.3.4",
-    "saucelabs": "^1.0.1",
-    "selenium-webdriver": "3.6.0",
-    "sinon": "^1.17.7",
-    "supertest": "^3.1.0"
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0"
   }
 }
