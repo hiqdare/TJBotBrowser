@@ -172,12 +172,11 @@
             socket.emit('update', '{"socket_id":"' + bot.socket_id + '", "target": "npm"}');
           });
           clone.find(".tjbot").attr("src", "images/" + bot.image);
-          clone.find(".tjbot").click(function(){
-            console.log("toggle");
+          clone.find(".tjbot").click(function() {
             clone.find(".bot-table").toggle();
           });
           clone.find(".tjbot_name").text(bot.name);
-          clone.find(".source_version").text(" " + bot.source_version + " ");
+          clone.find(".source_version").text(" " + bot.npm_version.tjbotclient + " ");
           clone.find(".nodejs_version").text(" " + bot.nodejs_version + " ");
           clone.find(".npm_version").text(" " + bot.npm_version.npm + " ");
         }
