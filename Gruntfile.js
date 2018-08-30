@@ -110,23 +110,6 @@ module.exports = function(grunt) {
           }
       },
 
-      makeReport: {
-          src: 'tests/coverage/reports/*.json',
-          options: {
-            type: 'json-summary',
-            dir: 'tests/coverage/reports',
-            file: 'coverage-summary.json'
-          }
-      },
-
-      makeReport-lcov: {
-          src: 'tests/coverage/reports/*.json',
-          options: {
-            type: 'lcov',
-            dir: 'tests/coverage/reports'
-          }
-      },
-
       watch: {
           sass: {
             files: ['static/sass/*.scss'],
@@ -204,7 +187,7 @@ module.exports = function(grunt) {
   
     // Default task(s).
     grunt.registerTask('dev-setup', ['clean:all', /*'bower', 'sass:dist',*/ 'jshint:browser']);
-    grunt.registerTask('dev-test-cov', ['clean:coverage', 'copy:resourcesForInstrumented', 'instrument', 'mochaTest:server-side', 'storeCoverage', 'makeReport-lcov', 'makeReport']);
+    grunt.registerTask('dev-test-cov', ['clean:coverage', 'copy:resourcesForInstrumented', 'instrument', 'mochaTest:server-side', 'storeCoverage']);
     
   
   };
