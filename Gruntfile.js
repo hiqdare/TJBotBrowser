@@ -119,7 +119,7 @@ module.exports = function(grunt) {
           }
       },
 
-      'makeReport-lcov': {
+      makeReport-lcov: {
           src: 'tests/coverage/reports/*.json',
           options: {
             type: 'lcov',
