@@ -28,6 +28,12 @@
   background-color: #f7f7f7;
 }
 
+.tjbot {
+  height: 100px;
+  width: 100px;
+  border: 5px solid darkblue;
+}
+
 .card {
   float: left;
   width: 33.333%;
@@ -51,4 +57,70 @@ footer {
 
 footer p {
   margin-bottom: .25rem;
+}
+
+.logo_mini {
+  height: 16px;
+}
+
+.image_source {
+  font-size: 14px;
+  position: absolute;
+  top: 8px;
+  left: 84px;
+  background: antiquewhite;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.image_nodejs {
+  font-size: 14px;
+  position: absolute;
+  top: 36px;
+  left: 104px;
+  background: antiquewhite;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.image_npm {
+  font-size: 14px;
+  position: absolute;
+  top: 64px;
+  left: 104px;
+  background: antiquewhite;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.image_hardware {
+  font-size: 14px;
+  position: absolute;
+  top: 92px;
+  left: 84px;
+  background: antiquewhite;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.tjbot_name {
+  font-size: 14px;
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  background: antiquewhite;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.source_update {
+  cursor: pointer;
+}
+
+.nodejs_update {
+  cursor: pointer;
+}
+
+.npm_update {
+  cursor: pointer;
 }

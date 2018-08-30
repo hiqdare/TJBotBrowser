@@ -13,8 +13,9 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-var tjbotlist = {};
-var browserlist = {};
+var tjbotList = {};
+var browserList = {};
+var socketList = {};
 
 app.use(function (req, res, next) {
 	  res.io = io;
@@ -43,34 +44,36 @@ io.on('connection', function (socket) {
 	socket.emit('start', 'Socket started');
 	
 	socket.on('browser', function() {
-		browserlist[socket.id] = socket;
-		socket.emit('botlist', getJSONBotList(tjbotlist));
+		browserList[socket.id] = socket;
+		socket.emit('botlist', getJSONBotList(tjbotList));
 	});
 
 	// Whenever a new client connects send them the latest data
 	socket.on('checkin', function(data) {
-		tjbotlist[socket.id] = JSON.parse(data);
+		tjbotList[socket.id] = JSON.parse(data);
+		socketList[socket.id] = socket;
 		notifyBrowser();
-		console.log('added: ' + socket.id + " " + data);
 	});
 
 
 	socket.on('disconnect', function () {
 		console.log("Socket disconnected.");
-		if (socket.id in tjbotlist) {
-			delete tjbotlist[socket.id]
+		if (socket.id in tjbotList) {
+			delete tjbotList[socket.id]
 			notifyBrowser();
-		} else if (socket.id in browserlist) {
-			delete browserlist[socket.id];
+		} else if (socket.id in browserList) {
+			delete browserList[socket.id];
 		} else {
 			console.log(socket.id + " not found");
 		}
 	});
 
-});
+	socket.on('update', function (data) {
+		param = JSON.parse(data);
+		socketList[param.socket_id].emit('update', param.target);
+	});
 
-//function updateBrowser(browserlist, tjbotlist) {
-//}
+});
 
 function getJSONBotList(list) {
 	return JSON.stringify(Object.keys(list).map(function(key){
@@ -81,9 +84,9 @@ function getJSONBotList(list) {
 }
 
 function notifyBrowser() {
-	list = getJSONBotList(tjbotlist);
-	Object.keys(browserlist).forEach(function(key) {
-		browserlist[key].emit('botlist', list);
+	list = getJSONBotList(tjbotList);
+	Object.keys(browserList).forEach(function(key) {
+		browserList[key].emit('botlist', list);
 	});
 }
 

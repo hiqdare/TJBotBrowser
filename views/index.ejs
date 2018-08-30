@@ -15,6 +15,7 @@
     <!-- Custom styles for this template -->
     
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
@@ -57,7 +58,23 @@
 
           <div class="row" id="rowbot">
             <div class="template d-none" id="bot">
-            		<table class="table table-sm" id="bot-table">
+                <img src="images/generic.jpeg" class="rounded-circle tjbot" alt="TJBot Neon">
+                <div class="image_source">
+                    <i class="far fa-file-code" alt="update" data-toggle="tooltip" title="Source code"></i><code class="source_version"></code><i class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update Source code"></i>
+                  </div>
+                <div class="image_nodejs">
+                  <img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"><code class="nodejs_version"></code><i class="fas fa-recycle nodejs_update" alt="update" data-toggle="tooltip" title="Update node.js"></i>
+                </div>
+                <div class="image_npm">
+                  <img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"><code class="npm_version"></code><i class="fas fa-recycle npm_update" alt="update" data-toggle="tooltip" title="Update npm"></i>
+                </div>
+                <div class="image_hardware">
+                    <i class="far fa-lightbulb" alt="test light" data-toggle="tooltip" title="Light"></i> <i class="far fa-hand-paper" alt="wave arm" data-toggle="tooltip" title="wave arm"></i>
+                </div>
+                <div class="tjbot_name">
+                  Incognito    
+                </div>
+            		<table class="table table-sm bot-table">
             			<tbody />
             		</table>
               	<!--img data-src="holder.js/100px280?theme=thumb" alt="Card image cap"-->
@@ -113,7 +130,19 @@
               addBotToList(botlist[i]);
             }
           }
-        }); 
+        });
+
+        socket.on('refresh', function(data) {
+          botlist = JSON.parse(data);
+          $("#rowbot").children(".card").remove();
+          console.log("new bot list: " + botlist.length);
+          $("#botcount").text("TJBots online: " + botlist.length);
+          if (botlist.length > 0) {
+            for (var i = 0; i < botlist.length; i++) {
+              addBotToList(botlist[i]);
+            }
+          }
+        });
         
         function addBotToList(bot) {
           var node;
@@ -132,6 +161,25 @@
               textCell.innerHTML = bot[key];
             }
           }
+          clone.find(".source_update").click(function(){
+            socket.emit('update', '{"socket_id":"' + bot.socket_id + '", "target": "source"}');
+          });
+          clone.find(".nodejs_update").click(function(){
+            socket.emit('update', '{"socket_id":"' + bot.socket_id + '", "target": "nodejs"}');
+          });
+          clone.find(".npm_update").click(function(){
+            window.alert('updating npm');
+            socket.emit('update', '{"socket_id":"' + bot.socket_id + '", "target": "npm"}');
+          });
+          clone.find(".tjbot").attr("src", "images/" + bot.image);
+          clone.find(".tjbot").click(function(){
+            console.log("toggle");
+            clone.find(".bot-table").toggle();
+          });
+          clone.find(".tjbot_name").text(bot.name);
+          clone.find(".source_version").text(" " + bot.source_version + " ");
+          clone.find(".nodejs_version").text(" " + bot.nodejs_version + " ");
+          clone.find(".npm_version").text(" " + bot.npm_version.npm + " ");
         }
       }); 
     </script>
