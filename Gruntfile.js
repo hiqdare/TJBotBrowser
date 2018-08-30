@@ -20,59 +20,6 @@ module.exports = function(grunt) {
         },
       },*/
 
-      mochaTest: {
-          'server-side': {
-              options: {
-                reporter: 'json',
-                clearRequireCache: true,
-                colors: true,
-                quite: true,
-                captureFile: 'mochatest.json'
-              },
-              src: ['tests/server/*.js']
-          },
-          'server-side-spec': {
-              options: {
-                reporter: 'spec',
-                clearRequireCache: true,
-                colors: true,
-                quite: true
-              },
-              src: ['tests/server/*.js']
-          },
-          'client-side-spec': {
-              options: {
-                reporter: 'spec',
-                clearRequireCache: true,
-                colors: true,
-                quite: true,
-              },
-              src: ['tests/client/report.spec.js']
-          },
-          'saucelab-fvt': {
-              options: {
-                reporter: 'json',
-                clearRequireCache: true,
-                colors: true,
-                quite: false,
-                timeout: 60000,
-                captureFile: 'saucelabfvt.json'
-              },
-              src: ['tests/saucelab/*.js']
-          },
-          'fvt': {
-              options: {
-                reporter: 'json',
-                clearRequireCache: true,
-                colors: true,
-                quite: false,
-                timeout: 60000,
-                captureFile: 'mochafvt.json'
-              },
-              src: ['tests/fvt/*.js']
-          }
-      },
-
       clean: {
         options: {
               force: true,
@@ -81,33 +28,6 @@ module.exports = function(grunt) {
         coverage: ['tests/coverage'],
         all: ['bower_components'],
         apidocs: ['apidoc']
-      },
-
-      copy: {
-        resourcesForInstrumented: {
-          nonull: true,
-          files: [
-            {
-              expand: true,
-              dest: 'tests/coverage/instrumented',
-              src: ['routes/*.js', 'dataprovider/*.js']
-            }
-          ]
-        }
-      },
-
-      instrument: {
-          files: ['routes/*.js', 'dataprovider/*.js'],
-          options: {
-            lazy: false,
-            basePath: 'tests/coverage/instrumented/'
-          }
-      },
-
-      storeCoverage: {
-          options: {
-            dir: 'tests/coverage/reports'
-          }
       },
 
       watch: {
@@ -152,42 +72,19 @@ module.exports = function(grunt) {
                 src: ['routes/**/*.js', 'app.js']
               }
           }
-      },
-
-    simplemocha: {
-            sauce: {
-                options: {
-                    timeout: 60000,
-                    reporter: 'spec'
-                },
-                src: ['tests/sauce/**/*-specs.js']
-            }
-        },
-
-        karma: {
-            options: {
-                // point all tasks to karma config file
-                configFile: 'tests/client/config/karma.conf.js'
-            },
-            unit: {
-                // run tests once instead of continuously
-                singleRun: true
-            }
-        },
+      }
     });
   
     grunt.loadNpmTasks('grunt-available-tasks');
     grunt.loadNpmTasks('grunt-bower-installer');
-    grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-istanbul');
-    grunt.loadNpmTasks('grunt-istanbul');
   
     // Default task(s).
     grunt.registerTask('dev-setup', ['clean:all', /*'bower', 'sass:dist',*/ 'jshint:browser']);
-    grunt.registerTask('dev-test-cov', ['clean:coverage', 'copy:resourcesForInstrumented', 'instrument', 'mochaTest:server-side', 'storeCoverage']);
+    grunt.registerTask('dev-test-cov', ['clean:coverage']);
     
   
   };
