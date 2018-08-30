@@ -18,6 +18,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
   
     // Default task(s).
-    grunt.registerTask('default', ['uglify']);
+    grunt.registerTask('dev-setup', ['uglify']);
+    //grunt.registerTask('dev-setup', ['clean:all', 'bower'/*, 'sass:dist', 'jshint:browser'*/]);
   
   };
