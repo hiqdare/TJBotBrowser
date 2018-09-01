@@ -97,6 +97,16 @@ footer p {
   border-radius: 5px;
 }
 
+.image_os {
+  font-size: 14px;
+  position: absolute;
+  top: 92px;
+  left: 84px;
+  background: antiquewhite;
+  padding: 2px;
+  border-radius: 5px;
+}
+
 .image_lightbulb {
   font-size: 14px;
   width: 24px;
