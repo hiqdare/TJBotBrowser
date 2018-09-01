@@ -68,8 +68,14 @@
                 <div class="image_npm">
                   <img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"><code class="npm_version"></code><i class="fas fa-recycle npm_update" alt="update" data-toggle="tooltip" title="Update npm"></i>
                 </div>
-                <div class="image_hardware">
-                    <i class="far fa-lightbulb" alt="test light" data-toggle="tooltip" title="Light"></i> <i class="far fa-hand-paper" alt="wave arm" data-toggle="tooltip" title="wave arm"></i>
+                <div class="image_os">
+                  <img src="images/raspberry_logo.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="OS version"><code class="os_version"></code>
+                </div>
+                <div class="image_lightbulb">
+                    <i class="far fa-lightbulb" alt="test light" data-toggle="tooltip" title="Light"></i>
+                </div>
+                <div class="image_hand">
+                    <i class="far fa-hand-paper" alt="wave hand" data-toggle="tooltip" title="wave hand"></i>
                 </div>
                 <div class="tjbot_name">
                   Incognito    
@@ -179,6 +185,7 @@
           clone.find(".source_version").text(" " + bot.npm_version.tjbotclient + " ");
           clone.find(".nodejs_version").text(" " + bot.nodejs_version + " ");
           clone.find(".npm_version").text(" " + bot.npm_version.npm + " ");
+          clone.find(".os_version").text(" " + bot.os_type + " " + bot.os_release + " ");
         }
       }); 
     </script>
