@@ -32,11 +32,14 @@
   height: 100px;
   width: 100px;
   border: 5px solid darkblue;
+  cursor: pointer;
 }
 
-.bot-table {
-  display:none
-}
+.info_image {
+  height: 100px;
+  width: 100px;
+  border: 5px solid darkblue;
+} 
 
 .card {
   float: left;
@@ -123,9 +126,9 @@ footer p {
   width: 24px;
   text-align: center;
   position: absolute;
-  top: 8px;
+  top: 100px;
   left: 10px;
-  background: antiquewhite;
+  background: lightgreen;
   padding: 2px;
   border-radius: 50%;
 }
@@ -135,9 +138,9 @@ footer p {
   width: 24px;
   text-align: center;
   position: absolute;
-  top: 36px;
-  left: 10px;
-  background: antiquewhite;
+  top: 100px;
+  left: 40px;
+  background: lightgreen;
   padding: 2px;
   border-radius: 50%;
 }
@@ -145,7 +148,7 @@ footer p {
 .tjbot_name {
   font-size: 14px;
   position: absolute;
-  top: 60px;
+  top: 10px;
   left: 10px;
   background: antiquewhite;
   padding: 2px;
@@ -162,4 +165,32 @@ footer p {
 
 .npm_update {
   cursor: pointer;
+}
+
+.col_1 {
+  width: 60px;
+}
+
+.col_2 {
+  width: 106px;
+}
+
+.col_3 {
+  width: 30px;
+}
+
+.detailinfo {
+  position: fixed;
+  display: none;
+  width: 90%;
+  height: 90%;
+  top: 200;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: aliceblue;
+  z-index: 2;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 1px;
 }

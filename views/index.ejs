@@ -70,34 +70,25 @@
                       </tbody>
                     </table>
                 </div>
-                <!--div class="image_source">
-                    <i class="far fa-file-code" alt="update" data-toggle="tooltip" title="Source code"></i><code class="source_version"></code><i class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update Source code"></i>
-                </div>
-                <div class="image_nodejs">
-                  <img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"><code class="nodejs_version"></code><i class="fas fa-recycle nodejs_update" alt="update" data-toggle="tooltip" title="Update node.js"></i>
-                </div>
-                <div class="image_npm">
-                  <img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"><code class="npm_version"></code><i class="fas fa-recycle npm_update" alt="update" data-toggle="tooltip" title="Update npm"></i>
-                </div>
-                <div class="image_os">
-                  <img src="images/raspberry_logo.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="OS version"><code class="os_version"></code>
-                </div-->
                 <div class="image_lightbulb">
                     <i class="far fa-lightbulb" alt="test light" data-toggle="tooltip" title="Light"></i>
                 </div>
                 <div class="image_hand">
                     <i class="far fa-hand-paper" alt="wave hand" data-toggle="tooltip" title="wave hand"></i>
-                </div-->
+                </div>
                 <div class="tjbot_name">
                   Incognito    
-                </div-->
-            		<table class="table table-sm bot-table">
-            			<tbody />
-            		</table>
+                </div>
               	<!--img data-src="holder.js/100px280?theme=thumb" alt="Card image cap"-->
             </div>
           </div>
 
+        </div>
+        <div class="container detailinfo">
+          <img src="images/generic.jpeg" class="rounded-circle info_image" alt="TJBot Neon">
+          <table class="table table-sm bot-table">
+            <tbody />
+          </table>
         </div>
       </div>
 
@@ -131,6 +122,9 @@
         var i = 0;
         
         var socket = io('//' + document.location.hostname + ':' + document.location.port);
+        $(".detailinfo").click(function() {
+          $(".detailinfo").hide("scale");
+        });
           
         socket.on('start', function(data) {
           console.log('start: ' + data);
@@ -163,21 +157,12 @@
         
         function addBotToList(bot) {
           var node;
+          var infowindow;
           var clone = $('#bot').clone(true); // "deep" clone
           clone.removeAttr('id');
           clone.removeClass();
           clone.addClass("card col-lg-4 col-sm-6");
-          table = clone.children(".table")[0];
           $('#bot').parent().append(clone);
-          /*for (var key in bot) {
-            if (bot.hasOwnProperty(key)) { 
-              row = table.insertRow(0);
-              keyCell = row.insertCell(0);
-              textCell = row.insertCell(1);
-              keyCell.innerHTML = key;
-              textCell.innerHTML = bot[key];
-            }
-          }*/
           clone.find(".source_update").click(function(){
             socket.emit('update', '{"socket_id":"' + bot.socket_id + '", "target": "source"}');
           });
@@ -190,9 +175,22 @@
           });
           var tjImage = clone.find(".tjbot");
           tjImage.attr("src", "images/" + bot.image);
-          tjImage.attr("src", "images/" + bot.image);
+          tjImage.attr("alt", "images/" + bot.image);
           tjImage.click(function() {
-            clone.find(".bot-table").toggle();
+            $(".detailinfo").show("scale");
+            $(".info_image").attr("src", "images/" + bot.image);
+            $(".info_image").attr("alt", "images/" + bot.image);
+
+            table = $(".bot-table")[0];
+            for (var key in bot) {
+              if (bot.hasOwnProperty(key)) { 
+                row = table.insertRow(0);
+                keyCell = row.insertCell(0);
+                textCell = row.insertCell(1);
+                keyCell.innerHTML = key;
+                textCell.innerHTML = bot[key];
+              }
+            }
           });
           clone.find(".tjbot_name").text(bot.name);
           clone.find(".source_version").text(" " + bot.npm_version.tjbotclient + " ");
