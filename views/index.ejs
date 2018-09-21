@@ -63,8 +63,8 @@
                   <table class="table table-sm">
                       <tbody>
                         <tr><td class="col_1"><i class="far fa-file-code" alt="update" data-toggle="tooltip" title="Source code"></i></td><td class="col_2 source_version"></td><td class="col_3"><i class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update Source code"></i></td></tr>
-                        <tr><td><img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"></td><td class="nodejs_version"></td><td><i class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update node.js"></i></td></tr>
-                        <tr><td><img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"></td><td class="npm_version"></td><td><i class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update npm"></i></td></tr>
+                        <tr><td><img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"></td><td class="nodejs_version"></td><td><i class="fas fa-recycle nodejs_update" alt="update" data-toggle="tooltip" title="Update node.js"></i></td></tr>
+                        <tr><td><img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"></td><td class="npm_version"></td><td><i class="fas fa-recycle npm_update" alt="update" data-toggle="tooltip" title="Update npm"></i></td></tr>
                         <tr><td><img src="images/raspbian.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="os version"></td><td class="os_version"></td><td></td></tr>
                         <tr><td><img src="images/raspberry_logo.png" class="logo_mini" alt="firmware version" data-toggle="tooltip" title="firmware version"></td><td class="firmware"></td><td></td></tr>
                       </tbody>
@@ -87,8 +87,29 @@
         <div class="container detailinfo">
           <img src="images/generic.jpeg" class="rounded-circle info_image" alt="TJBot Neon">
           <table class="table table-sm bot-table">
-            <tbody />
+            <tbody>
+              <tr><td>Name:</td><td id="name"></td></tr>
+              <tr><td>Favourite Chocolate:</td><td id="chocolate"></td></tr>
+              <tr><td><img src="images/raspbian.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="os version"></td><td id="os_platform"></td></tr>
+              <tr><td><img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"></td><td id="nodejs_version"></td></tr>
+              <tr><td><img src="images/raspberry_logo.png" class="logo_mini" alt="firmware version" data-toggle="tooltip" title="firmware version"></td><td id="firmware"></td></tr>
+              <tr><td><img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"></td><td id="npm_version"></td></tr>
+              <tr><td>npm packages</td><td id="npm_package"></td></tr>
+              <tr><td>socket id:</td><td id="socket_id"></td></tr>
+              <tr><td>npm packages</td><td id="npm_package"></td></tr>
+              <tr><td>npm packages</td><td id="npm_package"></td></tr>
+            </tbody>
           </table>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button">Action</button>
+            <button class="dropdown-item" type="button">Another action</button>
+            <button class="dropdown-item" type="button">Something else here</button>
+          </div>
         </div>
       </div>
 
@@ -183,13 +204,22 @@
 
             table = $(".bot-table")[0];
             for (var key in bot) {
-              if (bot.hasOwnProperty(key)) { 
+              if ($("#" + key).length == 0) {
+                console.log(key + " field missing");
+              } else {
+                $("#" + key).text(bot[key]);
+              }
+              /*if (bot.hasOwnProperty(key)) { 
                 row = table.insertRow(0);
                 keyCell = row.insertCell(0);
                 textCell = row.insertCell(1);
                 keyCell.innerHTML = key;
-                textCell.innerHTML = bot[key];
-              }
+                if (bot[key] == ) {
+                  textCell.innerHTML = bot[key].length;
+                } else {
+                  textCell.innerHTML = bot[key];
+                }
+              }*/
             }
           });
           clone.find(".tjbot_name").text(bot.name);
