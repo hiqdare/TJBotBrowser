@@ -40,7 +40,7 @@ class TJBotDB {
 			}
 			if(this.cloudant) {
 			//database name
-			var dbName = 'mydb';
+			var dbName = 'tjbotdb';
 
 			// Create a new "mydb" database.
 			this.cloudant.db.create(dbName, function(err, data) {
@@ -67,8 +67,8 @@ class TJBotDB {
 				console.log('[mydb.insert] ', err.message);
 				return;
 			} else {
-				console.log('head ', header);
-				console.log('body ', body);
+				console.log('updated ' + tjbot.data.cpuinfo.Serial);
+				console.log('body: ' + body);
 			}
 		});
 	}
@@ -97,36 +97,33 @@ class BotManager {
 	}
 
 	addBotToList(data, socket_id) {
-		var today = Date.now();
-		var dd = today.getDate();
-		var mm = today.getMonth() + 1;
+		var today = new Date();
+		var dd = "0" + today.getDate();
+		dd = dd.substr(dd.length - 2, 2);
+		var mm = "0" + (today.getMonth() + 1);
+		mm = mm.substr(mm.length - 2, 2);
 		var yyyy = today.getFullYear();
+		var hour = "0" + today.getHours();
+		hour = hour.substr(hour.length - 2, 2);
+		var min = "0" + today.getMinutes();
+		min = min.substr(min.length - 2, 2);
 
-		if(dd<10) {
-			dd = '0'+dd
-		} 
-
-		if(mm<10) {
-			mm = '0'+mm
-		} 
-
-		document.write(today);
 		var tjData = JSON.parse(data);
 		this.serialList[socket_id] = tjData.cpuinfo.Serial;
 		if (!(tjData.cpuinfo.Serial in this.tjbotList)) {
 			this.tjbotList[tjData.cpuinfo.Serial] = {};
 			this.tjbotList[tjData.cpuinfo.Serial].basic = {};
-			this.tjbotList[tjData.cpuinfo.Serial].basic.name = 'undefinied';
+			this.tjbotList[tjData.cpuinfo.Serial].basic.name = 'undefined';
 			this.tjbotList[tjData.cpuinfo.Serial].basic.owner = 'none';
 			this.tjbotList[tjData.cpuinfo.Serial].basic.location = 'none';
 			this.tjbotList[tjData.cpuinfo.Serial].basic.chocolate = 'none';
-			this.tjbotList[tjData.cpuinfo.Serial].basic.image = 'none';
+			this.tjbotList[tjData.cpuinfo.Serial].basic.image = '';
 		} 
 		this.tjbotList[tjData.cpuinfo.Serial].data = tjData;
 		this.tjbotList[tjData.cpuinfo.Serial].web = {};
 		this.tjbotList[tjData.cpuinfo.Serial].web.socket_id = socket_id;
 		this.tjbotList[tjData.cpuinfo.Serial].web.status = 'online';
-		this.tjbotList[tjData.cpuinfo.Serial].web.lastlogin = yyyy + mm + dd;;
+		this.tjbotList[tjData.cpuinfo.Serial].web.lastlogin = yyyy + mm + dd + hour + min;
 		tjDB.addBotToDB(this.tjbotList[tjData.cpuinfo.Serial]);
 		this.notifyBrowser();
 	}
@@ -146,7 +143,7 @@ class BotManager {
 
 	disconnectSocket(socket_id) {
 		if (socket_id in this.tjbotList) {
-			this.tjbotList[this.serialList[socket_id]].status = 'offline';
+			this.tjbotList[this.serialList[socket_id]].web.status = 'offline';
 			this.notifyBrowser();
 		} else if (socket_id in this.browserList) {
 			delete this.browserList[socket_id];

@@ -199,12 +199,16 @@
             socket.emit('update', '{"socket_id":"' + bot.socket_id + '", "target": "npm"}');
           });
           var tjImage = clone.find(".tjbot");
-          tjImage.attr("src", "images/" + bot.basic.image);
-          tjImage.attr("alt", "images/" + bot.basic.image);
+          if (bot.basic.image != ''){ 
+            tjImage.attr("src", "images/" + bot.basic.image);
+            tjImage.attr("alt", "images/" + bot.basic.image);
+          }
           tjImage.click(function() {
             $(".detailinfo").show("scale");
-            $(".info_image").attr("src", "images/" + bot.basic.image);
-            $(".info_image").attr("alt", "images/" + bot.basic.image);
+            if (bot.basic.image != ''){ 
+              $(".info_image").attr("src", "images/" + bot.basic.image);
+              $(".info_image").attr("alt", "images/" + bot.basic.image);
+            }
 
             table = $(".bot-table")[0];
             for (var key in bot) {
