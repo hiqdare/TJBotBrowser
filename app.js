@@ -9,13 +9,160 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+var cfenv = require("cfenv");
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-var tjbotList = {};
-var browserList = {};
+//var cloudant, mydb;
+var tjDB;
 var socketList = {};
+
+class TJBotDB {
+	constructor(vcaplocal) {
+			const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
+			const appEnv = cfenv.getAppEnv(appEnvOpts);
+
+			// Load the Cloudant library.
+			var Cloudant = require('@cloudant/cloudant');
+			if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
+
+			// Initialize database with credentials
+			if (appEnv.services['cloudantNoSQLDB']) {
+					// CF service named 'cloudantNoSQLDB'
+					this.cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
+			} else {
+					// user-provided service with 'cloudant' in its name
+					this.cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
+			}
+			} else if (process.env.CLOUDANT_URL){
+					this.cloudant = Cloudant(process.env.CLOUDANT_URL);
+			}
+			if(this.cloudant) {
+			//database name
+			var dbName = 'mydb';
+
+			// Create a new "mydb" database.
+			this.cloudant.db.create(dbName, function(err, data) {
+					if(!err) //err if database doesn't already exists
+					console.log("Created database: " + dbName);
+			});
+
+			// Specify the database we are going to use (mydb)...
+			this.mydb = this.cloudant.db.use(dbName);
+
+			if(!this.mydb) {
+				console.log("No DB connection");
+			}
+		}
+	}
+
+	addBotToDB(tjbot) {
+		if(!this.mydb) {
+			console.log("No database.");
+		}
+		// insert the username as a document
+		this.mydb.insert(tjbot, function(err, body, header) {
+			if (err) {
+				console.log('[mydb.insert] ', err.message);
+				return;
+			} else {
+				console.log('head ', header);
+				console.log('body ', body);
+			}
+		});
+	}
+
+	getBotList() {
+		var list = {};
+		this.mydb.list({ include_docs: true }, function(err, body) {
+			if (!err) {
+				body.rows.forEach(function(row) {
+					if(row.doc)
+						row.doc.status = "offline";
+						list[row.doc.data.cpuinfo.Serial] = row.doc;
+				});
+			}
+		});
+		return list;
+	}
+}
+
+class BotManager {
+	constructor(vcaplocal) {
+		tjDB = new TJBotDB(vcapLocal);
+		this.tjbotList = tjDB.getBotList();
+		this.browserList = {};
+		this.serialList = {};
+	}
+
+	addBotToList(data, socket_id) {
+		var today = Date.now();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+			dd = '0'+dd
+		} 
+
+		if(mm<10) {
+			mm = '0'+mm
+		} 
+
+		document.write(today);
+		var tjData = JSON.parse(data);
+		this.serialList[socket_id] = tjData.cpuinfo.Serial;
+		if (!(tjData.cpuinfo.Serial in this.tjbotList)) {
+			this.tjbotList[tjData.cpuinfo.Serial] = {};
+			this.tjbotList[tjData.cpuinfo.Serial].basic = {};
+			this.tjbotList[tjData.cpuinfo.Serial].basic.name = 'undefinied';
+			this.tjbotList[tjData.cpuinfo.Serial].basic.owner = 'none';
+			this.tjbotList[tjData.cpuinfo.Serial].basic.location = 'none';
+			this.tjbotList[tjData.cpuinfo.Serial].basic.chocolate = 'none';
+			this.tjbotList[tjData.cpuinfo.Serial].basic.image = 'none';
+		} 
+		this.tjbotList[tjData.cpuinfo.Serial].data = tjData;
+		this.tjbotList[tjData.cpuinfo.Serial].web = {};
+		this.tjbotList[tjData.cpuinfo.Serial].web.socket_id = socket_id;
+		this.tjbotList[tjData.cpuinfo.Serial].web.status = 'online';
+		this.tjbotList[tjData.cpuinfo.Serial].web.lastlogin = yyyy + mm + dd;;
+		tjDB.addBotToDB(this.tjbotList[tjData.cpuinfo.Serial]);
+		this.notifyBrowser();
+	}
+
+	getJSONBotList() {
+		var localTJbotlist = this.tjbotList;
+		return JSON.stringify(Object.keys(localTJbotlist).map(function(key){
+			var blist = localTJbotlist[key]
+			blist.socket_id = key;
+			return blist;
+		}));
+	}
+
+	registerBrowser(socket) {
+		this.browserList[socket.id] = socket;
+	}
+
+	disconnectSocket(socket_id) {
+		if (socket_id in this.tjbotList) {
+			this.tjbotList[this.serialList[socket_id]].status = 'offline';
+			this.notifyBrowser();
+		} else if (socket_id in this.browserList) {
+			delete this.browserList[socket_id];
+		} else {
+			console.log(socket_id + " not found");
+		}
+	}
+
+	notifyBrowser() {
+		var list = this.getJSONBotList();
+		var localList = this.browserList;
+		Object.keys(localList).forEach(function(key) {
+			localList[key].emit('botlist', list);
+		});
+	}
+}
 
 app.use(function (req, res, next) {
 	  res.io = io;
@@ -37,6 +184,48 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
+// load local VCAP configuration  and service credentials
+var vcapLocal;
+try {
+  vcapLocal = require('./vcap-local.json');
+  console.log("Loaded local VCAP", vcapLocal);
+} catch (e) { }
+
+var botManager = new BotManager(vcapLocal);
+
+/*const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
+
+const appEnv = cfenv.getAppEnv(appEnvOpts);
+
+// Load the Cloudant library.
+var Cloudant = require('@cloudant/cloudant');
+if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
+
+  // Initialize database with credentials
+  if (appEnv.services['cloudantNoSQLDB']) {
+    // CF service named 'cloudantNoSQLDB'
+    cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
+  } else {
+     // user-provided service with 'cloudant' in its name
+     cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
+  }
+} else if (process.env.CLOUDANT_URL){
+  cloudant = Cloudant(process.env.CLOUDANT_URL);
+}
+if(cloudant) {
+  //database name
+  var dbName = 'mydb';
+
+  // Create a new "mydb" database.
+  cloudant.db.create(dbName, function(err, data) {
+    if(!err) //err if database doesn't already exists
+      console.log("Created database: " + dbName);
+  });
+
+  // Specify the database we are going to use (mydb)...
+  mydb = cloudant.db.use(dbName);
+}*/
+
 io.on('connection', function (socket) {
 
 	console.log("Sockets connected.with id " + socket.id);
@@ -44,28 +233,20 @@ io.on('connection', function (socket) {
 	socket.emit('start', 'Socket started');
 	
 	socket.on('browser', function() {
-		browserList[socket.id] = socket;
-		socket.emit('botlist', getJSONBotList(tjbotList));
+		botManager.registerBrowser(socket);
+		socket.emit('botlist', botManager.getJSONBotList());
 	});
 
-	// Whenever a new client connects send them the latest data
+	// Whenever a new client connects send the browser an updated list
 	socket.on('checkin', function(data) {
-		tjbotList[socket.id] = JSON.parse(data);
+		botManager.addBotToList(data, socket.id);
 		socketList[socket.id] = socket;
-		notifyBrowser();
 	});
 
 
 	socket.on('disconnect', function () {
 		console.log("Socket disconnected.");
-		if (socket.id in tjbotList) {
-			delete tjbotList[socket.id]
-			notifyBrowser();
-		} else if (socket.id in browserList) {
-			delete browserList[socket.id];
-		} else {
-			console.log(socket.id + " not found");
-		}
+		botManager.disconnectSocket(socket.id);
 	});
 
 	socket.on('update', function (data) {
@@ -74,21 +255,6 @@ io.on('connection', function (socket) {
 	});
 
 });
-
-function getJSONBotList(list) {
-	return JSON.stringify(Object.keys(list).map(function(key){
-		blist = list[key]
-		blist.socket_id = key;
-		return blist;
-	}));
-}
-
-function notifyBrowser() {
-	list = getJSONBotList(tjbotList);
-	Object.keys(browserList).forEach(function(key) {
-		browserList[key].emit('botlist', list);
-	});
-}
 
 
 // catch 404 and forward to error handler

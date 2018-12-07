@@ -70,6 +70,9 @@
                       </tbody>
                     </table>
                 </div>
+                <div class="status">
+                  <i class="fas fa-signal" alt="status" data-toggle="tooltip" title="Status"></i>
+                </div>
                 <div class="image_lightbulb">
                     <i class="far fa-lightbulb" alt="test light" data-toggle="tooltip" title="Light"></i>
                 </div>
@@ -82,7 +85,6 @@
               	<!--img data-src="holder.js/100px280?theme=thumb" alt="Card image cap"-->
             </div>
           </div>
-
         </div>
         <div class="container detailinfo">
           <img src="images/generic.jpeg" class="rounded-circle info_image" alt="TJBot Neon">
@@ -90,6 +92,8 @@
             <tbody>
               <tr><td>Name:</td><td id="name"></td></tr>
               <tr><td>Favourite Chocolate:</td><td id="chocolate"></td></tr>
+              <tr><td>Location</td><td id="location"></td></tr>
+              <tr><td>Owner:</td><td id="owner"></td></tr>
               <tr><td><img src="images/raspbian.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="os version"></td><td id="os_platform"></td></tr>
               <tr><td><img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"></td><td id="nodejs_version"></td></tr>
               <tr><td><img src="images/raspberry_logo.png" class="logo_mini" alt="firmware version" data-toggle="tooltip" title="firmware version"></td><td id="firmware"></td></tr>
@@ -101,7 +105,7 @@
             </tbody>
           </table>
         </div>
-        <div class="dropdown">
+        <!--div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Dropdown
           </button>
@@ -110,7 +114,7 @@
             <button class="dropdown-item" type="button">Another action</button>
             <button class="dropdown-item" type="button">Something else here</button>
           </div>
-        </div>
+        </div-->
       </div>
 
     </main> 
@@ -195,12 +199,12 @@
             socket.emit('update', '{"socket_id":"' + bot.socket_id + '", "target": "npm"}');
           });
           var tjImage = clone.find(".tjbot");
-          tjImage.attr("src", "images/" + bot.image);
-          tjImage.attr("alt", "images/" + bot.image);
+          tjImage.attr("src", "images/" + bot.basic.image);
+          tjImage.attr("alt", "images/" + bot.basic.image);
           tjImage.click(function() {
             $(".detailinfo").show("scale");
-            $(".info_image").attr("src", "images/" + bot.image);
-            $(".info_image").attr("alt", "images/" + bot.image);
+            $(".info_image").attr("src", "images/" + bot.basic.image);
+            $(".info_image").attr("alt", "images/" + bot.basic.image);
 
             table = $(".bot-table")[0];
             for (var key in bot) {
@@ -222,11 +226,14 @@
               }*/
             }
           });
-          clone.find(".tjbot_name").text(bot.name);
-          clone.find(".source_version").text(" " + bot.npm_version.tjbotclient + " ");
-          clone.find(".nodejs_version").text(" " + bot.nodejs_version + " ");
-          clone.find(".npm_version").text(" " + bot.npm_version.npm + " ");
-          clone.find(".firmware").text(" " + bot.firmware + " ");
+          var status = clone.find(".status");
+          status.removeClass();
+          status.addClass("status " + bot.web.status);
+          clone.find(".tjbot_name").text(bot.basic.name);
+          clone.find(".source_version").text(" " + bot.data.npm_version.tjbotclient + " ");
+          clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
+          clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
+          clone.find(".firmware").text(" " + bot.data.firmware + " ");
         }
       }); 
     </script>

@@ -6,7 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@cloudant/cloudant": "^2.3.0",
     "body-parser": "^1.18.3",
+    "cfenv": "^1.0.x",
+    "dotenv": "^4.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "^2.5.9",
@@ -24,5 +27,7 @@
     "grunt-contrib-jshint": "~1.1.0",
     "grunt-contrib-nodeunit": "~2.0.0",
     "grunt-contrib-uglify": "~3.4.0"
-  }
+  },
+  "author": "IBM Corp",
+  "license": "Apache-2.0"
 }
