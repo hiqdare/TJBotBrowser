@@ -79,7 +79,7 @@ class TJBotDB {
 			if (!err) {
 				body.rows.forEach(function(row) {
 					if(row.doc)
-						row.doc.status = "offline";
+						row.doc.web.status = "offline";
 						list[row.doc.data.cpuinfo.Serial] = row.doc;
 				});
 			}
@@ -109,30 +109,33 @@ class BotManager {
 		min = min.substr(min.length - 2, 2);
 
 		var tjData = JSON.parse(data);
-		this.serialList[socket_id] = tjData.cpuinfo.Serial;
-		if (!(tjData.cpuinfo.Serial in this.tjbotList)) {
-			this.tjbotList[tjData.cpuinfo.Serial] = {};
-			this.tjbotList[tjData.cpuinfo.Serial].basic = {};
-			this.tjbotList[tjData.cpuinfo.Serial].basic.name = 'undefined';
-			this.tjbotList[tjData.cpuinfo.Serial].basic.owner = 'none';
-			this.tjbotList[tjData.cpuinfo.Serial].basic.location = 'none';
-			this.tjbotList[tjData.cpuinfo.Serial].basic.chocolate = 'none';
-			this.tjbotList[tjData.cpuinfo.Serial].basic.image = '';
+		var serial = tjData.cpuinfo.Serial;
+		this.serialList[socket_id] = serial;
+		if (!(serial in this.tjbotList)) {
+			this.tjbotList[serial] = {};
+			this.tjbotList[serial].basic = {};
+			this.tjbotList[serial].basic.name = 'undefined';
+			this.tjbotList[serial].basic.owner = 'none';
+			this.tjbotList[serial].basic.location = 'none';
+			this.tjbotList[serial].basic.chocolate = 'none';
+			this.tjbotList[serial].basic.image = 'generic.jpeg';
 		} 
-		this.tjbotList[tjData.cpuinfo.Serial].data = tjData;
-		this.tjbotList[tjData.cpuinfo.Serial].web = {};
-		this.tjbotList[tjData.cpuinfo.Serial].web.socket_id = socket_id;
-		this.tjbotList[tjData.cpuinfo.Serial].web.status = 'online';
-		this.tjbotList[tjData.cpuinfo.Serial].web.lastlogin = yyyy + mm + dd + hour + min;
-		tjDB.addBotToDB(this.tjbotList[tjData.cpuinfo.Serial]);
+		this.tjbotList[serial].data = tjData;
+		this.tjbotList[serial].web = {};
+		this.tjbotList[serial].web.socket_id = socket_id;
+		this.tjbotList[serial].web.status = 'online';
+		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
+		tjDB.addBotToDB(this.tjbotList[serial]);
 		this.notifyBrowser();
 	}
 
 	getJSONBotList() {
 		var localTJbotlist = this.tjbotList;
-		return JSON.stringify(Object.keys(localTJbotlist).map(function(key){
-			var blist = localTJbotlist[key]
-			blist.socket_id = key;
+		return JSON.stringify(Object.keys(localTJbotlist).map(function(key) {
+			var blist = {};
+			blist.data = localTJbotlist[key].data;
+			blist.web = localTJbotlist[key].web;
+			blist.basic = localTJbotlist[key].basic;
 			return blist;
 		}));
 	}
@@ -142,8 +145,9 @@ class BotManager {
 	}
 
 	disconnectSocket(socket_id) {
-		if (socket_id in this.tjbotList) {
+		if (socket_id in this.serialList) {
 			this.tjbotList[this.serialList[socket_id]].web.status = 'offline';
+			delete this.serialList[socket_id];
 			this.notifyBrowser();
 		} else if (socket_id in this.browserList) {
 			delete this.browserList[socket_id];
@@ -248,6 +252,7 @@ io.on('connection', function (socket) {
 
 	socket.on('update', function (data) {
 		param = JSON.parse(data);
+		console.log(param.socket_id);
 		socketList[param.socket_id].emit('update', param.target);
 	});
 
