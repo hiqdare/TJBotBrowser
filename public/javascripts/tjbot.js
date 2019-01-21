@@ -48,26 +48,30 @@ $(function(){
 
       $('#bot').parent().append(clone);
       clone.find(".source_update").click(function(){
-        socket.emit('update', '{"socket_id":"' + bot.web.socket_id + '", "target": "source"}');
+        socket.emit('update', '{"serial":"' + bot.data.cpuinfo.Serial + '", "target": "source"}');
       });
       clone.find(".nodejs_update").click(function(){
-        socket.emit('update', '{"socket_id":"' + bot.web.socket_id + '", "target": "nodejs"}');
+        socket.emit('update', '{"serial":"' + bot.data.cpuinfo.Serial + '", "target": "nodejs"}');
       });
       clone.find(".npm_update").click(function(){
         window.alert('updating npm');
-        socket.emit('update', '{"socket_id":"' + bot.web.socket_id + '", "target": "npm"}');
+        socket.emit('update', '{"serial":"' + bot.data.cpuinfo.Serial + '", "target": "npm"}');
       });
       var tjImage = clone.find(".tjbot");
-      tjImage.attr("src", "images/" + bot.basic.image);
-      tjImage.attr("alt", "images/" + bot.basic.image);
+      tjImage.attr("src", "images/bots/" + bot.basic.image);
+      tjImage.attr("alt", "images/bots/" + bot.basic.image);
 
       tjImage.click(function() {
-        populateBotDetail(bot);
+        //populateBotDetail(bot);
       });
       var status = clone.find(".status");
       status.removeClass();
       status.addClass("status " + bot.web.status);
-      clone.find(".tjbot_name").text(bot.basic.name);
+      setEditableField(clone.find(".input-name"), bot.basic.name, bot.data.cpuinfo.Serial);
+      setEditableField(clone.find(".input-chocolate"), bot.basic.chocolate, bot.data.cpuinfo.Serial);
+      setEditableField(clone.find(".input-mentor"), bot.basic.mentor, bot.data.cpuinfo.Serial);
+      setEditableField(clone.find(".input-location"), bot.basic.location, bot.data.cpuinfo.Serial);
+
       clone.find(".source_version").text(" " + bot.data.npm_version.tjbotclient + " ");
       clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
       clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
@@ -76,6 +80,15 @@ $(function(){
       // initialize Accordions
       accordionObj = clone.find(".ds-accordion-container");
       accordion = w3ds.accordion(accordionObj[0]);
+    }
+
+    function setEditableField (field, value, serial) {
+      field.val(value);
+      field.keypress(function (e) {
+        if (e.which == 13) {
+          socket.emit('save', '{"serial":"' + serial + '", "field": "' + field.attr("name") + '", "value": "' + field.val() + '"}');
+        }
+      });
     }
 
     function populateBotDetail(bot) {

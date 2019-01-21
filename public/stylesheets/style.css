@@ -21,6 +21,21 @@
   max-width: 40rem;
 }
 
+.ds-input:not(textarea) {
+  border-width: 0 0 1px 0;
+  height: 20px;
+  font-size: 16px;
+  min-width: 50px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.thumbnail_div {
+  width: 160px;
+}
+
 .album {
   min-height: 50rem; /* Can be removed; just added for demo purposes */
   padding-top: 3rem;
@@ -29,8 +44,8 @@
 }
 
 .tjbot {
-  height: 180px;
-  width: 180px;
+  height: 150px;
+  width: 150px;
   border: 1px solid darkblue;
   cursor: pointer;
 }
