@@ -36,7 +36,7 @@ $(function(){
       }
     });
 
-	socket.on('tts', function(voicesObj) {
+	socket.on('listOfTTSVoices', function(voicesObj) {
 	  let dropdownElements = document.getElementsByClassName('ds-dropdown'); // Full dropdown element
 	  let dropdownOptions = document.getElementsByClassName('ds-options'); // Full dropdown options
 

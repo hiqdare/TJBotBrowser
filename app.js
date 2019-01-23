@@ -238,7 +238,10 @@ io.on('connection', function (socket) {
 
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
-		tts(socket);
+
+		getVcapServices(function(vcapServices) {
+			socket.emit('vcapServices', vcapServices);
+		});
 		socket.emit('botlist', botManager.getJSONBotList());
 	});
 
@@ -259,20 +262,12 @@ io.on('connection', function (socket) {
 		socketList[param.socket_id].emit('update', param.target);
 	});
 
-	socket.on('ttsVoiceSelected', function (voice) {
-		console.log('Selected voice: ', voice);
-	});
-
 });
 
 //------------------------------------------------------------------------------------------------------
 
-function tts(socket) {
-	// Load the Cloudant library
-	let TextToSpeech = require('watson-developer-cloud/text-to-speech/v1');
-
+function getVcapServices(callback) {
 	let vcapServices;
-	let textToSpeech;
 
 	// try getting Bluemix VCAP_SERVICES object
 	try {
@@ -281,35 +276,7 @@ function tts(socket) {
 		// ...
 		console.log('Failed to get VCAP_SERVICES object');
 	}
-
-	// if server is running on Bluemix get the credentials from there, otherwise hardcode it
-	if(vcapServices) {
-		textToSpeech = new TextToSpeech(
-			{
-				iam_apikey: (vcapServices.text_to_speech[0].credentials.iam_apikey),
-				url: (vcapServices.text_to_speech[0].credentials.url),
-			}
-		);
-		textToSpeech = vcapServices.textToSpeech[0].credentials;
-	} else {
-		textToSpeech = new TextToSpeech(
-			{
-				iam_apikey: 'SyA_Qu37knBNLfrgGSpsiPD93QXTeHzYSgYaDu1RfwXl',
-				url: 'https://gateway-lon.watsonplatform.net/text-to-speech/api',
-			}
-		);
-	}
-
-	textToSpeech.listVoices(null,
-		function(error, voices) {
-	  		if (error) {
-	    		console.log(error);
-	  		}
-			else {
-				socket.emit('tts', voices);
-	  		}
-		}
-	);
+	callback(vcapServices);
 }
 
 
