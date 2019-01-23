@@ -40,49 +40,100 @@
         </div>
       </div>
     </div>
-      <div class="ds-grid">
-      <div class="ds-row ds-padding-bottom-3">
-          <div class="ds-col-sm-12 ds-col-md-6 ds-col-lg-4 ds-col-xl-3 ds-padding-bottom-xs-1 ds-hide template" id="bot">
-              <!--div class="ds-panel ds-panel-raised"-->
-              <div class="ds-row">
-                <div class="ds-col-5">
-                  <img src="images/generic.jpeg" class="ds-img-force-grow ds-border-blue-6 tjbot" alt="TJBot Neon">
+    <div class="ds-grid">
+      <div class="ds-row ds-padding-bottom-3" id="rowbot">
+        <div class="ds-col-sm-12 ds-col-md-6 ds-col-lg-4 ds-padding-bottom-xs-1 ds-hide" id="bot">
+          <!--div class="ds-panel ds-panel-raised"-->
+          <div class="ds-row">
+            <div class="ds-col-6 thumbnail_div">
+              <img src="images/bots/generic.jpeg" class="ds-img-force-grow ds-border-blue-6 tjbot" alt="TJBot Neon">
+            </div>
+            <div class="ds-col-6">
+              <div class="ds-flex ds-flex-align_items-center">
+                <p class="ds-margin-right-1 ds-margin-bottom-0">name:</p>
+                <div class="ds-input-container ds-margin-right-1 ds-padding-bottom-0 ds-margin-bottom-0">
+                  <input type="text" class="ds-input input-name" name="name">
                 </div>
-                <div class="ds-col-6">
-                  <div class="ds-table-container">
-                    <table class="ds-table ds-table-compact">
-                        <tbody>
-                          <tr><td class="col_1"><i class="far fa-file-code" alt="update" data-toggle="tooltip" title="Source code"></i></td><td class="col_2 source_version"></td><td class="col_3"><i class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update Source code"></i></td></tr>
-                          <tr><td><img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"></td><td class="nodejs_version"></td><td><i class="fas fa-recycle nodejs_update" alt="update" data-toggle="tooltip" title="Update node.js"></i></td></tr>
-                          <tr><td><img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"></td><td class="npm_version"></td><td><i class="fas fa-recycle npm_update" alt="update" data-toggle="tooltip" title="Update npm"></i></td></tr>
-                          <tr><td><img src="images/raspbian.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="os version"></td><td class="os_version"></td><td></td></tr>
-                          <tr><td><img src="images/raspberry_logo.png" class="logo_mini" alt="firmware version" data-toggle="tooltip" title="firmware version"></td><td class="firmware"></td><td></td></tr>
-                        </tbody>
-                      </table>
-                  </div>
               </div>
+              <div class="ds-flex ds-flex-align_items-center">
+                <p class="ds-margin-right-1 ds-margin-bottom-0">location:</p>
+                <div class="ds-input-container ds-margin-right-1 ds-padding-bottom-0 ds-margin-bottom-0">
+                  <input type="text" class="ds-input input-location" name="location">
+                </div>
+              </div>
+              <div class="ds-flex ds-flex-align_items-center">
+                <p class="ds-margin-right-1 ds-margin-bottom-0">chocolate:</p>
+                <div class="ds-input-container ds-margin-right-1 ds-padding-bottom-0 ds-margin-bottom-0">
+                  <input type="text" class="ds-input input-chocolate" name="chocolate">
+                </div>
+              </div>
+              <div class="ds-flex ds-flex-align_items-center">
+                <p class="ds-margin-right-1 ds-margin-bottom-0">mentor:</p>
+                <div class="ds-input-container ds-margin-right-1 ds-padding-bottom-0 ds-margin-bottom-0">
+                  <input type="text" class="ds-input input-mentor" name="mentor">
+                </div>
+              </div>
+              <div class="ds-flex ds-flex-align_items-center">
+                <div class="ds-row">
+                  <div class="ds-col-xs-12">
+                    <div class="ds-dropdown ds-flat ds-margin-bottom-0" tabindex="0" role="menu" aria-label="w3DS Flat Dropdown">
+                        <div class="ds-title ds-margin-bottom-0">image</div>
+                        <div class="ds-options botImageList" role="group">
+                          <div class="ds-option" role="menuitem">
+                              option 1
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-		  <div class="ds-row">
-			  <div class="ds-col-11">
-				  <div class="ds-accordion-container ds-margin-top-0 ds-margin-bottom-0">
-					  <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
-						  <div class="ds-accordion-title">Services</div>
-						  <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
-							  <p class="ds-margin-bottom-0">
-								  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quas quisquam numquam, provident nobis ipsam fugiat est vel nam, cupiditate laboriosam minima cumque voluptate vero illo assumenda iste, architecto? Cupiditate.
-							  </p>
-						  </div>
-					  </div>
-					  <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
-						  <div class="ds-accordion-title">Data</div>
-						  <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
-							  <p class="ds-margin-bottom-0">
-								  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quas quisquam numquam, provident nobis ipsam fugiat est vel nam, cupiditate laboriosam minima cumque voluptate vero illo assumenda iste, architecto? Cupiditate.
-							  </p>
-						  </div>
-					  </div>
-				  </div>
-			  </div>
+		      <div class="ds-row">
+			      <div class="ds-col-11">
+				      <div class="ds-accordion-container ds-margin-top-0 ds-margin-bottom-0">
+                <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
+                  <div class="ds-accordion-title">Services</div>
+                  <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
+                    <p class="ds-margin-bottom-0">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur quas quisquam numquam, provident nobis ipsam fugiat est vel nam, cupiditate laboriosam minima cumque voluptate vero illo assumenda iste, architecto? Cupiditate.
+                    </p>
+                  </div>
+					      </div>
+					      <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
+						      <div class="ds-accordion-title">Data</div>
+                  <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
+                    <div class="ds-col-8">
+                      <div class="ds-flex ds-flex-align_items-center">
+                        <span class="ds-margin-right-1 far fa-file-code" alt="update" data-toggle="tooltip" title="Source code"></span>
+                        <p class="ds-margin-right-1 source_version">-</p>
+                        <span class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update Source code" style="margin-left: auto;"></p>
+                      </div>
+                      <div class="ds-flex ds-flex-align_items-center">
+                        <img src="images/nodejs.png" class="ds-margin-right-1 logo_mini" alt="node.js" data-toggle="tooltip" title="node.js">
+                        <p class="ds-margin-right-1 nodejs_version">-</p>
+                        <span class="fas fa-recycle nodejs_update" alt="update" data-toggle="tooltip" title="Update node.js" style="margin-left: auto;"></p>
+                      </div>
+                      <div class="ds-flex ds-flex-align_items-center">
+                        <img src="images/npm.png" class="ds-margin-right-1 logo_mini" alt="npm" data-toggle="tooltip" title="npm">
+                        <p class="ds-margin-right-1 npm_version">-</p>
+                        <span class="fas fa-recycle npm_update" alt="update" data-toggle="tooltip" title="Update npm" style="margin-left: auto;"></p>
+                      </div>
+                      <div class="ds-flex ds-flex-align_items-center">
+                        <img src="images/raspbian.png" class="ds-margin-right-1 logo_mini" alt="os version" data-toggle="tooltip" title="os version">
+                        <p class="ds-margin-right-1 os_version">-</p>
+                      </div>
+                      <div class="ds-flex ds-flex-align_items-center">
+                        <img src="images/raspberry_logo.png" class="ds-margin-right-1 logo_mini" alt="firmware version" data-toggle="tooltip" title="firmware version">
+                        <p class="ds-margin-right-1 firmware">-</p>
+                      </div>
+                    </div>
+						      </div>
+					      </div>
+				      </div>
+            </div>
+          </div>
+        </div>
 		  </div>
 	  </div>
 	</div>
@@ -95,103 +146,6 @@
         </h5>
       </div>
     </footer>
-  	<!--header>
-      <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-muted">The cockpit shows the list of TJBots running the client.</p>
-            </div>
-            <div class="col-sm-4 py-4">
-              <h4 class="text-white">Contact</h4>
-              <ul class="list-unstyled">
-                <li><a href="https://twitter.com/Hiqdare" class="text-white">Follow on Twitter</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark">
-        <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand">TJBot Cockpit</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
-    </header-->
-
-    <!--main role="main"-->
-      <!--section class="jumbotron text-left"-->
-        <!--div class="container">
-          <p class="lead text-muted" id="botcount">-</p>
-        </div>
-      <!--/section-->
-
-      <!--div class="album text-muted">
-        <div class="container">
-
-          <div class="row" id="rowbot">
-            <div class="template d-none" id="bot">
-                <img src="images/generic.jpeg" class="rounded-circle tjbot" alt="TJBot Neon">
-                <div class="table_div">
-                  <table class="table table-sm">
-                      <tbody>
-                        <tr><td class="col_1"><i class="far fa-file-code" alt="update" data-toggle="tooltip" title="Source code"></i></td><td class="col_2 source_version"></td><td class="col_3"><i class="fas fa-recycle source_update" alt="update" data-toggle="tooltip" title="Update Source code"></i></td></tr>
-                        <tr><td><img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"></td><td class="nodejs_version"></td><td><i class="fas fa-recycle nodejs_update" alt="update" data-toggle="tooltip" title="Update node.js"></i></td></tr>
-                        <tr><td><img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"></td><td class="npm_version"></td><td><i class="fas fa-recycle npm_update" alt="update" data-toggle="tooltip" title="Update npm"></i></td></tr>
-                        <tr><td><img src="images/raspbian.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="os version"></td><td class="os_version"></td><td></td></tr>
-                        <tr><td><img src="images/raspberry_logo.png" class="logo_mini" alt="firmware version" data-toggle="tooltip" title="firmware version"></td><td class="firmware"></td><td></td></tr>
-                      </tbody>
-                    </table>
-                </div>
-                <div class="status">
-                  <i class="fas fa-signal" alt="status" data-toggle="tooltip" title="Status"></i>
-                </div>
-                <div class="image_lightbulb">
-                    <i class="far fa-lightbulb" alt="test light" data-toggle="tooltip" title="Light"></i>
-                </div>
-                <div class="image_hand">
-                    <i class="far fa-hand-paper" alt="wave hand" data-toggle="tooltip" title="wave hand"></i>
-                </div>
-                <div class="tjbot_name">
-                  Incognito
-                </div>
-            </div>
-          </div>
-        </div>
-        <div class="container detailinfo">
-          <img src="images/generic.jpeg" class="rounded-circle info_image" alt="TJBot Neon">
-          <span id="close_detail" class="ds-icon-size-medium ds-icon-close-circle-m-l"></span>
-          <table class="table table-sm bot-table">
-            <tbody>
-              <tr><td>Name:</td><td id="name"></td></tr>
-              <tr><td>Favourite Chocolate:</td><td id="chocolate"></td></tr>
-              <tr><td>Location</td><td id="location"></td></tr>
-              <tr><td>Owner:</td><td id="owner"></td></tr>
-              <tr><td><img src="images/raspbian.png" class="logo_mini" alt="os version" data-toggle="tooltip" title="os version"></td><td id="os_platform"></td></tr>
-              <tr><td><img src="images/nodejs.png" class="logo_mini" alt="node.js" data-toggle="tooltip" title="node.js"></td><td id="nodejs_version"></td></tr>
-              <tr><td><img src="images/raspberry_logo.png" class="logo_mini" alt="firmware version" data-toggle="tooltip" title="firmware version"></td><td id="firmware"></td></tr>
-              <tr><td><img src="images/npm.png" class="logo_mini" alt="npm" data-toggle="tooltip" title="npm"></td><td id="npm_version"></td></tr>
-              <tr><td>Details</td><td id="detail_tree"></td></tr>
-              <tr><td>socket id:</td><td id="socket_id"></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <!--div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button class="dropdown-item" type="button">Action</button>
-            <button class="dropdown-item" type="button">Another action</button>
-            <button class="dropdown-item" type="button">Something else here</button>
-          </div>
-        </div-->
-      <!--/div>
-
-    </main>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
