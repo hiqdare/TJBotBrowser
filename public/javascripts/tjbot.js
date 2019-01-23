@@ -13,6 +13,7 @@ $(function(){
 
     socket.on('botlist', function(data) {
       botlist = JSON.parse(data);
+	  console.log(botlist)
       $("#rowbot").children(".card").remove();
       console.log("new bot list: " + botlist.length);
       $("#botcount").text("TJBots online: " + botlist.length);
@@ -35,12 +36,53 @@ $(function(){
       }
     });
 
+	socket.on('tts', function(voicesObj) {
+	  let dropdownElements = document.getElementsByClassName('ds-dropdown'); // Full dropdown element
+	  let dropdownOptions = document.getElementsByClassName('ds-options'); // Full dropdown options
+
+		  for(let i = 0; i < dropdownOptions.length; i++) {
+			  for(let a = 0; a < voicesObj.voices.length; a++) {
+				let dropdownOption = document.createElement('div');
+				dropdownOption.classList.add('ds-option');
+				dropdownOption.setAttribute('role', 'menuitem');
+				dropdownOption.innerHTML = voicesObj.voices[a].name;
+
+				dropdownOptions[i].appendChild(dropdownOption);
+				isDropdownOptionDisabled = dropdownOption.classList.contains('ds-disabled');
+
+					dropdownOption.addEventListener('click',
+						function() {
+							isDropdownOptionDisabled = dropdownOption.classList.contains('ds-disabled'); // check if the dropdownOption is disabled.
+
+							if (!isDropdownOptionDisabled) {
+								let dropdownText = dropdownElements[i].getElementsByClassName('ds-title');
+								dropdownText[0].innerHTML = dropdownOption.textContent;
+								let disabledDropdownOptions = dropdownOptions[i].getElementsByClassName('ds-disabled');
+
+								if (disabledDropdownOptions.length > 0) {
+									for (let b = 0; b < disabledDropdownOptions.length; b++) {
+										disabledDropdownOptions[b].classList.remove('ds-disabled'); // enables all options
+									}
+								}
+
+								dropdownOption.classList.add('ds-disabled'); // disables the selected option
+								socket.emit('ttsVoiceSelected', dropdownOption.textContent) // sends the selected voice to the back-end
+							}
+						}
+					);
+			  }
+		  }
+  });
+
     function addBotToList(bot) {
       var node;
       var infowindow;
 
       let accordionObj;
       let accordion;
+
+	  let dropdownObj;
+	  let dropdown;
 
       var clone = $('#bot').clone(true); // "deep" clone
       clone.removeAttr('id');
@@ -76,6 +118,10 @@ $(function(){
       // initialize Accordions
       accordionObj = clone.find(".ds-accordion-container");
       accordion = w3ds.accordion(accordionObj[0]);
+
+	  // initialize Dropdowns
+	  dropdownObj = clone.find('.ds-dropdown');
+	  dropdown = w3ds.dropdown(dropdownObj[0]);
     }
 
     function populateBotDetail(bot) {

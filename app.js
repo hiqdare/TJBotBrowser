@@ -18,6 +18,9 @@ var io = require('socket.io')(server);
 var tjDB;
 var socketList = {};
 
+
+
+
 class TJBotDB {
 	constructor(vcaplocal) {
 			const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
@@ -119,7 +122,7 @@ class BotManager {
 			this.tjbotList[serial].basic.location = 'none';
 			this.tjbotList[serial].basic.chocolate = 'none';
 			this.tjbotList[serial].basic.image = 'generic.jpeg';
-		} 
+		}
 		this.tjbotList[serial].data = tjData;
 		this.tjbotList[serial].web = {};
 		this.tjbotList[serial].web.socket_id = socket_id;
@@ -168,7 +171,7 @@ class BotManager {
 app.use(function (req, res, next) {
 	  res.io = io;
 	  next();
-}); 
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -232,9 +235,10 @@ io.on('connection', function (socket) {
 	console.log("Sockets connected.with id " + socket.id);
 
 	socket.emit('start', 'Socket started');
-	
+
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
+		tts(socket);
 		socket.emit('botlist', botManager.getJSONBotList());
 	});
 
@@ -243,7 +247,6 @@ io.on('connection', function (socket) {
 		botManager.addBotToList(data, socket.id);
 		socketList[socket.id] = socket;
 	});
-
 
 	socket.on('disconnect', function () {
 		console.log("Socket disconnected.");
@@ -256,8 +259,61 @@ io.on('connection', function (socket) {
 		socketList[param.socket_id].emit('update', param.target);
 	});
 
+	socket.on('ttsVoiceSelected', function (voice) {
+		console.log('Selected voice: ', voice);
+	});
+
 });
 
+//------------------------------------------------------------------------------------------------------
+
+function tts(socket) {
+	// Load the Cloudant library
+	let TextToSpeech = require('watson-developer-cloud/text-to-speech/v1');
+
+	let vcapServices;
+	let textToSpeech;
+
+	// try getting Bluemix VCAP_SERVICES object
+	try {
+		vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+	} catch(err) {
+		// ...
+		console.log('Failed to get VCAP_SERVICES object');
+	}
+
+	// if server is running on Bluemix get the credentials from there, otherwise hardcode it
+	if(vcapServices) {
+		textToSpeech = new TextToSpeech(
+			{
+				iam_apikey: (vcapServices.text_to_speech[0].credentials.iam_apikey),
+				url: (vcapServices.text_to_speech[0].credentials.url),
+			}
+		);
+		textToSpeech = vcapServices.textToSpeech[0].credentials;
+	} else {
+		textToSpeech = new TextToSpeech(
+			{
+				iam_apikey: 'SyA_Qu37knBNLfrgGSpsiPD93QXTeHzYSgYaDu1RfwXl',
+				url: 'https://gateway-lon.watsonplatform.net/text-to-speech/api',
+			}
+		);
+	}
+
+	textToSpeech.listVoices(null,
+		function(error, voices) {
+	  		if (error) {
+	    		console.log(error);
+	  		}
+			else {
+				socket.emit('tts', voices);
+	  		}
+		}
+	);
+}
+
+
+//------------------------------------------------------------------------------------------------------
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -278,4 +334,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = {app: app, server: server};
-
