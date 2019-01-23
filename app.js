@@ -115,7 +115,7 @@ class BotManager {
 		var tjData = JSON.parse(data);
 		var serial = tjData.cpuinfo.Serial;
 		this.serialList[socket.id] = serial;
-		this.socketList[socket.id] = socket;
+		this.socketList[serial] = socket;
 		if (!(serial in this.tjbotList)) {
 			this.tjbotList[serial] = {};
 			this.tjbotList[serial].basic = {};
@@ -245,7 +245,7 @@ io.on('connection', function (socket) {
 	socket.on('update', function (data) {
 		param = JSON.parse(data);
 		console.log("update: " + param.serial);
-		botManager.getSocket(param.serial).emit('update', param.target);
+		browserSocket = botManager.getSocket(param.serial).emit('update', param.target);
 	});
 
 	socket.on('save', function(data) {
