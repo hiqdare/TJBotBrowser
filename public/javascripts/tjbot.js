@@ -61,11 +61,11 @@ $(function(){
         //populateBotDetail(bot);
       });
       var status = clone.find(".status");
-      status.removeClass("ds-text-contextual-green-5 ds-text-contextual-red-4");
+      status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
       if (bot.web.status == "online") {
-        status.addClass("ds-text-contextual-green-5");
+        status.addClass("ds-text-neutral-8");
       } else {
-        status.addClass("ds-text-contextual-red-4");
+        status.addClass("ds-text-neutral-4");
       }
 
       setEditableField(clone.find(".input-name"), bot.basic.name, serial);
