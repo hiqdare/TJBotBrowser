@@ -41,8 +41,8 @@
       </div>
     </div>
     <div class="ds-grid">
-      <div class="ds-row ds-padding-bottom-3">
-        <div class="ds-col-sm-12 ds-col-md-6 ds-col-lg-4 ds-padding-bottom-xs-1 ds-hide template" id="bot">
+      <div class="ds-row ds-padding-bottom-3" id="rowbot">
+        <div class="ds-col-sm-12 ds-col-md-6 ds-col-lg-4 ds-padding-bottom-xs-1 ds-hide" id="bot">
           <!--div class="ds-panel ds-panel-raised"-->
           <div class="ds-row">
             <div class="ds-col-6 thumbnail_div">
@@ -74,8 +74,18 @@
                 </div>
               </div>
               <div class="ds-flex ds-flex-align_items-center">
-                  <p class="ds-margin-right-1">image:</p>
-                  <p class="ds-margin-right-1 bot-image">-</p>
+                <div class="ds-row">
+                  <div class="ds-col-xs-12">
+                    <div class="ds-dropdown ds-flat ds-margin-bottom-0" tabindex="0" role="menu" aria-label="w3DS Flat Dropdown">
+                        <div class="ds-title ds-margin-bottom-0">image</div>
+                        <div class="ds-options botImageList" role="group">
+                          <div class="ds-option" role="menuitem">
+                              option 1
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

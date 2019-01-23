@@ -1,3 +1,6 @@
+const fs = require('fs');
+const botImageFolder = './public/images/bots/';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -63,8 +66,12 @@ class TJBotDB {
 				console.log('[mydb.insert] ', err.message);
 				return;
 			} else {
-				console.log('updated ' + tjbot.data.cpuinfo.Serial);
-				console.log('body: ' + body);
+				var result = JSON.stringify(body);
+				if (body.ok) {
+					tjbot._id = body.id;
+					tjbot._rev = body.rev;
+				}
+				console.log('body: ' + result);
 			}
 		});
 	}
@@ -90,6 +97,7 @@ class BotManager {
 		this.tjbotList = this.tjDB.getBotList();
 		this.browserList = {};
 		this.serialList = {};
+		this.socketList = {};
 	}
 
 	addBotToList(data, socket) {
@@ -133,6 +141,7 @@ class BotManager {
 	updateField(param) {
 		this.tjbotList[param.serial].basic[param.field] = param.value;
 		this.tjDB.addBotToDB(this.tjbotList[param.serial]);
+		this.notifyBrowser();
 	}
 
 	getJSONBotList() {
@@ -168,6 +177,15 @@ class BotManager {
 		Object.keys(localList).forEach(function(key) {
 			localList[key].emit('botlist', list);
 		});
+	}
+
+	getBotImageList() {
+		var botImageList = [];
+
+		fs.readdirSync(botImageFolder).forEach(file => {
+			botImageList.push(file);
+		});
+		return JSON.stringify(botImageList);
 	}
 }
 
@@ -235,6 +253,8 @@ io.on('connection', function (socket) {
 	})
  
 });
+
+app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 
 
 // catch 404 and forward to error handler
