@@ -61,8 +61,13 @@ $(function(){
         //populateBotDetail(bot);
       });
       var status = clone.find(".status");
-      status.removeClass();
-      status.addClass("status " + bot.web.status);
+      status.removeClass("ds-text-contextual-green-5 ds-text-contextual-red-4");
+      if (bot.web.status == "online") {
+        status.addClass("ds-text-contextual-green-5");
+      } else {
+        status.addClass("ds-text-contextual-red-4");
+      }
+
       setEditableField(clone.find(".input-name"), bot.basic.name, serial);
       setEditableField(clone.find(".input-chocolate"), bot.basic.chocolate, serial);
       setEditableField(clone.find(".input-mentor"), bot.basic.mentor, serial);
