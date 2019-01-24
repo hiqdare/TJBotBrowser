@@ -1,5 +1,7 @@
 $(function(){
     var i = 0;
+    var ENTERKEY = 13;
+    var TABKEY = 9;
 
     var socket = io('//' + document.location.hostname + ':' + document.location.port);
     $(".close_detail").click(function() {
@@ -12,31 +14,14 @@ $(function(){
     });
 
     socket.on('botlist', function(data) {
-      botlist = JSON.parse(data);
-	  console.log(botlist)
-      $("#rowbot").children(".card").remove();
-      console.log("new bot list: " + botlist.length);
-      $("#botcount").text("TJBots online: " + botlist.length);
-      if (botlist.length > 0) {
-        for (var i = 0; i < botlist.length; i++) {
-          addBotToList(botlist[i]);
-        }
-      }
+      updateBotList(JSON.parse(data));
     });
 
     socket.on('refresh', function(data) {
-      botlist = JSON.parse(data);
-      $("#rowbot").children(".card").remove();
-      console.log("new bot list: " + botlist.length);
-      $("#botcount").text("TJBots online: " + botlist.length);
-      if (botlist.length > 0) {
-        for (var i = 0; i < botlist.length; i++) {
-          addBotToList(botlist[i]);
-        }
-      }
+      updateBotList(JSON.parse(data));
     });
-
-	socket.on('listOfTTSVoices', function(voicesObj) {
+  
+    socket.on('listOfTTSVoices', function(voicesObj) {
 	  let dropdownElements = document.getElementsByClassName('ds-dropdown'); // Full dropdown element
 	  let dropdownOptions = document.getElementsByClassName('ds-options'); // Full dropdown options
 
@@ -74,42 +59,63 @@ $(function(){
 		  }
   });
 
-    function addBotToList(bot) {
-      var node;
-      var infowindow;
+    function updateBotList(botlist) {
+      $("#rowbot").children(".card").remove();
+      console.log("new bot list: " + botlist.length);
+      $("#botcount").text("TJBots online: " + botlist.length);
+      if (botlist.length > 0) {
+        $.getJSON('/botImageList', function(result){
+          for (var i = 0; i < botlist.length; i++) {
+            addBotToList(botlist[i], JSON.parse(result));
+          }
+        });
+      }
+    }
 
-      let accordionObj;
-      let accordion;
+
+    function addBotToList(bot, botImageList) {
 
 	  let dropdownObj;
 	  let dropdown;
 
       var clone = $('#bot').clone(true); // "deep" clone
+      var serial = bot.data.cpuinfo.Serial;
       clone.removeAttr('id');
-      clone.removeClass('ds-hide template');
+      clone.removeClass('ds-hide');
+      clone.addClass("card");
 
       $('#bot').parent().append(clone);
       clone.find(".source_update").click(function(){
-        socket.emit('update', '{"socket_id":"' + bot.web.socket_id + '", "target": "source"}');
+        socket.emit('update', '{"serial":"' + serial + '", "target": "source"}');
       });
       clone.find(".nodejs_update").click(function(){
-        socket.emit('update', '{"socket_id":"' + bot.web.socket_id + '", "target": "nodejs"}');
+        socket.emit('update', '{"serial":"' + serial + '", "target": "nodejs"}');
       });
       clone.find(".npm_update").click(function(){
         window.alert('updating npm');
-        socket.emit('update', '{"socket_id":"' + bot.web.socket_id + '", "target": "npm"}');
+        socket.emit('update', '{"serial":"' + serial + '", "target": "npm"}');
       });
       var tjImage = clone.find(".tjbot");
-      tjImage.attr("src", "images/" + bot.basic.image);
-      tjImage.attr("alt", "images/" + bot.basic.image);
+      tjImage.attr("src", "images/bots/" + bot.basic.image);
+      tjImage.attr("alt", "images/bots/" + bot.basic.image);
 
       tjImage.click(function() {
-        populateBotDetail(bot);
+        //populateBotDetail(bot);
       });
       var status = clone.find(".status");
-      status.removeClass();
-      status.addClass("status " + bot.web.status);
-      clone.find(".tjbot_name").text(bot.basic.name);
+      status.removeClass("ds-text-contextual-green-5 ds-text-contextual-red-4");
+      if (bot.web.status == "online") {
+        status.addClass("ds-text-contextual-green-5");
+      } else {
+        status.addClass("ds-text-contextual-red-4");
+      }
+
+      setEditableField(clone.find(".input-name"), bot.basic.name, serial);
+      setEditableField(clone.find(".input-chocolate"), bot.basic.chocolate, serial);
+      setEditableField(clone.find(".input-mentor"), bot.basic.mentor, serial);
+      setEditableField(clone.find(".input-location"), bot.basic.location, serial);
+      setBotImagelist(clone, serial, botImageList);
+
       clone.find(".source_version").text(" " + bot.data.npm_version.tjbotclient + " ");
       clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
       clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
@@ -122,6 +128,33 @@ $(function(){
 	  // initialize Dropdowns
 	  dropdownObj = clone.find('.ds-dropdown');
 	  dropdown = w3ds.dropdown(dropdownObj[0]);
+      
+      var element = clone.find(".ds-accordion-container");
+      accordion = w3ds.accordion(element[0]);
+
+      var element = clone.find(".ds-dropdown");
+      dropMenu = w3ds.dropdown(element[0]);
+    }
+
+    function setEditableField (field, value, serial) {
+      field.val(value);
+      field.keypress(function (e) {
+        if (e.which == ENTERKEY || e.keyCode == TABKEY) {
+          socket.emit('save', '{"serial":"' + serial + '", "field": "' + field.attr("name") + '", "value": "' + field.val() + '"}');
+        }
+      });
+    }
+
+    function setBotImagelist(clone, serial, botImageList) {
+      botImageDrop = clone.find(".botImageList");
+      botImageDrop.children().remove();
+      for(var i=0; i< botImageList.length; i++) {
+        option = jQuery('<div class="ds-option" role="menuitem">' + botImageList[i] + '</div>');
+        option.click(botImageList[i], function(event){
+          socket.emit('save', '{"serial":"' + serial + '", "field": "image", "value": "' + event.data + '"}');
+        })
+        botImageDrop.append(option);
+      }
     }
 
     function populateBotDetail(bot) {

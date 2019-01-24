@@ -1,5 +1,6 @@
 {
   "name": "tjbotbrowser",
+  "description": "Browser Application to monitor and maintain TJBots",
   "version": "0.0.2",
   "private": true,
   "scripts": {
@@ -29,6 +30,10 @@
     "grunt-contrib-nodeunit": "~2.0.0",
     "grunt-contrib-uglify": "~3.4.0"
   },
-  "author": "IBM Corp",
-  "license": "Apache-2.0"
+  "author": "Henrique Säuberli sae@zurich.ibm.com",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hiqdare/tjbotbrowser.git"
+  }
 }

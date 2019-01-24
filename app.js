@@ -1,3 +1,6 @@
+const fs = require('fs');
+const botImageFolder = './public/images/bots/';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -13,13 +16,6 @@ var cfenv = require("cfenv");
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
-//var cloudant, mydb;
-var tjDB;
-var socketList = {};
-
-
-
 
 class TJBotDB {
 	constructor(vcaplocal) {
@@ -70,8 +66,12 @@ class TJBotDB {
 				console.log('[mydb.insert] ', err.message);
 				return;
 			} else {
-				console.log('updated ' + tjbot.data.cpuinfo.Serial);
-				console.log('body: ' + body);
+				var result = JSON.stringify(body);
+				if (body.ok) {
+					tjbot._id = body.id;
+					tjbot._rev = body.rev;
+				}
+				console.log('body: ' + result);
 			}
 		});
 	}
@@ -93,13 +93,14 @@ class TJBotDB {
 
 class BotManager {
 	constructor(vcaplocal) {
-		tjDB = new TJBotDB(vcapLocal);
-		this.tjbotList = tjDB.getBotList();
+		this.tjDB = new TJBotDB(vcapLocal);
+		this.tjbotList = this.tjDB.getBotList();
 		this.browserList = {};
 		this.serialList = {};
+		this.socketList = {};
 	}
 
-	addBotToList(data, socket_id) {
+	addBotToList(data, socket) {
 		var today = new Date();
 		var dd = "0" + today.getDate();
 		dd = dd.substr(dd.length - 2, 2);
@@ -113,22 +114,33 @@ class BotManager {
 
 		var tjData = JSON.parse(data);
 		var serial = tjData.cpuinfo.Serial;
-		this.serialList[socket_id] = serial;
+		this.serialList[socket.id] = serial;
+		this.socketList[serial] = socket;
 		if (!(serial in this.tjbotList)) {
 			this.tjbotList[serial] = {};
 			this.tjbotList[serial].basic = {};
 			this.tjbotList[serial].basic.name = 'undefined';
-			this.tjbotList[serial].basic.owner = 'none';
+			this.tjbotList[serial].basic.mentor = 'none';
 			this.tjbotList[serial].basic.location = 'none';
 			this.tjbotList[serial].basic.chocolate = 'none';
 			this.tjbotList[serial].basic.image = 'generic.jpeg';
 		}
 		this.tjbotList[serial].data = tjData;
 		this.tjbotList[serial].web = {};
-		this.tjbotList[serial].web.socket_id = socket_id;
+		//this.tjbotList[serial].web.socket_id = socket_id;
 		this.tjbotList[serial].web.status = 'online';
 		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
-		tjDB.addBotToDB(this.tjbotList[serial]);
+		this.tjDB.addBotToDB(this.tjbotList[serial]);
+		this.notifyBrowser();
+	}
+
+	getSocket(serial) {
+		return this.socketList[serial];
+	}
+
+	updateField(param) {
+		this.tjbotList[param.serial].basic[param.field] = param.value;
+		this.tjDB.addBotToDB(this.tjbotList[param.serial]);
 		this.notifyBrowser();
 	}
 
@@ -149,7 +161,9 @@ class BotManager {
 
 	disconnectSocket(socket_id) {
 		if (socket_id in this.serialList) {
-			this.tjbotList[this.serialList[socket_id]].web.status = 'offline';
+			serial = this.serialList[socket_id];
+			this.tjbotList[serial].web.status = 'offline';
+			this.tjDB.addBotToDB(this.tjbotList[serial]);
 			delete this.serialList[socket_id];
 			this.notifyBrowser();
 		} else if (socket_id in this.browserList) {
@@ -165,6 +179,15 @@ class BotManager {
 		Object.keys(localList).forEach(function(key) {
 			localList[key].emit('botlist', list);
 		});
+	}
+
+	getBotImageList() {
+		var botImageList = [];
+
+		fs.readdirSync(botImageFolder).forEach(file => {
+			botImageList.push(file);
+		});
+		return JSON.stringify(botImageList);
 	}
 }
 
@@ -197,39 +220,6 @@ try {
 
 var botManager = new BotManager(vcapLocal);
 
-/*const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
-
-const appEnv = cfenv.getAppEnv(appEnvOpts);
-
-// Load the Cloudant library.
-var Cloudant = require('@cloudant/cloudant');
-if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
-
-  // Initialize database with credentials
-  if (appEnv.services['cloudantNoSQLDB']) {
-    // CF service named 'cloudantNoSQLDB'
-    cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
-  } else {
-     // user-provided service with 'cloudant' in its name
-     cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
-  }
-} else if (process.env.CLOUDANT_URL){
-  cloudant = Cloudant(process.env.CLOUDANT_URL);
-}
-if(cloudant) {
-  //database name
-  var dbName = 'mydb';
-
-  // Create a new "mydb" database.
-  cloudant.db.create(dbName, function(err, data) {
-    if(!err) //err if database doesn't already exists
-      console.log("Created database: " + dbName);
-  });
-
-  // Specify the database we are going to use (mydb)...
-  mydb = cloudant.db.use(dbName);
-}*/
-
 io.on('connection', function (socket) {
 
 	console.log("Sockets connected.with id " + socket.id);
@@ -247,8 +237,7 @@ io.on('connection', function (socket) {
 
 	// Whenever a new client connects send the browser an updated list
 	socket.on('checkin', function(data) {
-		botManager.addBotToList(data, socket.id);
-		socketList[socket.id] = socket;
+		botManager.addBotToList(data, socket);
 	});
 
 	socket.on('disconnect', function () {
@@ -258,10 +247,16 @@ io.on('connection', function (socket) {
 
 	socket.on('update', function (data) {
 		param = JSON.parse(data);
-		console.log(param.socket_id);
-		socketList[param.socket_id].emit('update', param.target);
+		console.log("update: " + param.serial);
+		browserSocket = botManager.getSocket(param.serial).emit('update', param.target);
 	});
 
+	socket.on('save', function(data) {
+		param = JSON.parse(data);
+		console.log("Save " + param.serial);
+		botManager.updateField(param);
+	})
+ 
 });
 
 //------------------------------------------------------------------------------------------------------
@@ -281,6 +276,8 @@ function getVcapServices(callback) {
 
 
 //------------------------------------------------------------------------------------------------------
+
+app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
