@@ -75,9 +75,6 @@ $(function(){
 
     function addBotToList(bot, botImageList) {
 
-	  let dropdownObj;
-	  let dropdown;
-
       var clone = $('#bot').clone(true); // "deep" clone
       var serial = bot.data.cpuinfo.Serial;
       clone.removeAttr('id');
@@ -126,20 +123,9 @@ $(function(){
       clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
       clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
       clone.find(".firmware").text(" " + bot.data.firmware + " ");
-
-      // initialize Accordions
-      accordionObj = clone.find(".ds-accordion-container");
-      accordion = w3ds.accordion(accordionObj[0]);
-
-	  // initialize Dropdowns
-	  dropdownObj = clone.find('.ds-dropdown');
-	  dropdown = w3ds.dropdown(dropdownObj[0]);
       
-      var element = clone.find(".ds-accordion-container");
-      accordion = w3ds.accordion(element[0]);
-
-      var element = clone.find(".ds-dropdown");
-      dropMenu = w3ds.dropdown(element[0]);
+      accordion = w3ds.accordion(clone.find(".ds-accordion-container")[0]);
+      dropMenu = w3ds.dropdown(clone.find(".ds-dropdown")[0]);
     }
 
     function setEditableField (field, value, serial) {
