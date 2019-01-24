@@ -124,7 +124,7 @@ class BotManager {
 			this.tjbotList[serial].basic.location = 'none';
 			this.tjbotList[serial].basic.chocolate = 'none';
 			this.tjbotList[serial].basic.image = 'generic.jpeg';
-		} 
+		}
 		this.tjbotList[serial].data = tjData;
 		this.tjbotList[serial].web = {};
 		//this.tjbotList[serial].web.socket_id = socket_id;
@@ -194,7 +194,7 @@ class BotManager {
 app.use(function (req, res, next) {
 	  res.io = io;
 	  next();
-}); 
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -225,9 +225,13 @@ io.on('connection', function (socket) {
 	console.log("Sockets connected.with id " + socket.id);
 
 	socket.emit('start', 'Socket started');
-	
+
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
+
+		getVcapServices(function(vcapServices) {
+			socket.emit('vcapServices', vcapServices);
+		});
 		socket.emit('botlist', botManager.getJSONBotList());
 	});
 
@@ -235,7 +239,6 @@ io.on('connection', function (socket) {
 	socket.on('checkin', function(data) {
 		botManager.addBotToList(data, socket);
 	});
-
 
 	socket.on('disconnect', function () {
 		console.log("Socket disconnected.");
@@ -256,8 +259,25 @@ io.on('connection', function (socket) {
  
 });
 
-app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
+//------------------------------------------------------------------------------------------------------
 
+function getVcapServices(callback) {
+	let vcapServices;
+
+	// try getting Bluemix VCAP_SERVICES object
+	try {
+		vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+	} catch(err) {
+		// ...
+		console.log('Failed to get VCAP_SERVICES object');
+	}
+	callback(vcapServices);
+}
+
+
+//------------------------------------------------------------------------------------------------------
+
+app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -278,4 +298,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = {app: app, server: server};
-
