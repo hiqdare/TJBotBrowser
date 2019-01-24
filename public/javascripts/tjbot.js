@@ -44,14 +44,20 @@ $(function(){
 
       $('#bot').parent().append(clone);
       clone.find(".source_update").click(function(){
-        socket.emit('update', '{"serial":"' + serial + '", "target": "source"}');
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "source"}}');
       });
       clone.find(".nodejs_update").click(function(){
-        socket.emit('update', '{"serial":"' + serial + '", "target": "nodejs"}');
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "nodejs"}}');
       });
       clone.find(".npm_update").click(function(){
         window.alert('updating npm');
-        socket.emit('update', '{"serial":"' + serial + '", "target": "npm"}');
+        socket.emit('event', '{"serial":"' + serial + '", ""event": {target": "npm"}}');
+      });
+      clone.find(".bot-led").click(function(){
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "led", "event":"on"}}');
+      });
+      clone.find(".bot-arm").click(function(){
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "arm", "event":"wave"}}');
       });
       var tjImage = clone.find(".tjbot");
       tjImage.attr("src", "images/bots/" + bot.basic.image);
