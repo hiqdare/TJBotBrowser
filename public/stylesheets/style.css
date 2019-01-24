@@ -184,6 +184,14 @@ footer p {
   border-radius: 5px;
 }
 
+.bot-arm {
+  cursor: pointer;
+}
+
+.bot-led {
+  cursor: pointer;
+}
+
 .source_update {
   cursor: pointer;
 }

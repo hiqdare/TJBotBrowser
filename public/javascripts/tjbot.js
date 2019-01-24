@@ -86,14 +86,20 @@ $(function(){
 
       $('#bot').parent().append(clone);
       clone.find(".source_update").click(function(){
-        socket.emit('update', '{"serial":"' + serial + '", "target": "source"}');
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "source"}}');
       });
       clone.find(".nodejs_update").click(function(){
-        socket.emit('update', '{"serial":"' + serial + '", "target": "nodejs"}');
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "nodejs"}}');
       });
       clone.find(".npm_update").click(function(){
         window.alert('updating npm');
-        socket.emit('update', '{"serial":"' + serial + '", "target": "npm"}');
+        socket.emit('event', '{"serial":"' + serial + '", ""event": {target": "npm"}}');
+      });
+      clone.find(".bot-led").click(function(){
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "led", "event":"on"}}');
+      });
+      clone.find(".bot-arm").click(function(){
+        socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "arm", "event":"wave"}}');
       });
       var tjImage = clone.find(".tjbot");
       tjImage.attr("src", "images/bots/" + bot.basic.image);
@@ -103,11 +109,11 @@ $(function(){
         //populateBotDetail(bot);
       });
       var status = clone.find(".status");
-      status.removeClass("ds-text-contextual-green-5 ds-text-contextual-red-4");
+      status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
       if (bot.web.status == "online") {
-        status.addClass("ds-text-contextual-green-5");
+        status.addClass("ds-text-neutral-8");
       } else {
-        status.addClass("ds-text-contextual-red-4");
+        status.addClass("ds-text-neutral-4");
       }
 
       setEditableField(clone.find(".input-name"), bot.basic.name, serial);
