@@ -37,6 +37,10 @@
   text-align: left;
 }
 
+.voicesList {
+	position: unset!important;
+}
+
 p {
   font-size: 16px;
 }

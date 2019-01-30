@@ -20,9 +20,16 @@ $(function(){
     socket.on('refresh', function(data) {
       updateBotList(JSON.parse(data));
     });
-  
-    socket.on('listOfTTSVoices', function(voicesObj) {
-	  let dropdownElements = document.getElementsByClassName('ds-dropdown'); // Full dropdown element
+
+
+
+
+    /*socket.on('listOfTTSVoices', function(voicesObj) {
+}
+
+
+
+	  let dropdownElements = clone.find('.ds-dropdown'); // Full dropdown element
 	  let dropdownOptions = document.getElementsByClassName('ds-options'); // Full dropdown options
 
 		  for(let i = 0; i < dropdownOptions.length; i++) {
@@ -32,8 +39,47 @@ $(function(){
 				dropdownOption.setAttribute('role', 'menuitem');
 				dropdownOption.innerHTML = voicesObj.voices[a].name;
 
-				dropdownOptions[i].appendChild(dropdownOption);
-				isDropdownOptionDisabled = dropdownOption.classList.contains('ds-disabled');
+
+
+				setServiceOption(clone, serviceOptionList) {
+				  serviceDrop = clone.find(".botImageList");
+				  serviceDrop.children().remove();
+				  for(var i=0; i< serviceOptionList.length; i++) {
+					option = jQuery('<div class="ds-option" role="menuitem">' + serviceOptionList[i] + '</div>');
+
+					isDropOptionDisabled = option.classList.contains('ds-disabled');
+
+					option.click(botImageList[i], function(event){
+					  isDropOptionDisabled = option.classList.contains('ds-disabled');
+
+					  if (!isDropdownOptionDisabled) {
+						  let dropdownText = dropdownElements[i].getElementsByClassName('ds-title');
+						  dropdownText[0].innerHTML = dropdownOption.textContent;
+						  let disabledDropdownOptions = dropdownOptions[i].getElementsByClassName('ds-disabled');
+
+						  if (disabledDropdownOptions.length > 0) {
+							  for (let b = 0; b < disabledDropdownOptions.length; b++) {
+								  disabledDropdownOptions[b].classList.remove('ds-disabled'); // enables all options
+							  }
+						  }
+
+						  dropdownOption.classList.add('ds-disabled'); // disables the selected option
+						  socket.emit('ttsVoiceSelected', dropdownOption.textContent) // sends the selected voice to the back-end
+					  }
+
+
+					  socket.emit('save', '{"serial":"' + serial + '", "field": "image", "value": "' + event.data + '"}');
+
+					})
+					botImageDrop.append(option);
+				  }
+				}
+
+
+
+
+				//dropdownOptions[i].appendChild(dropdownOption);
+				//isDropdownOptionDisabled = dropdownOption.classList.contains('ds-disabled');
 
 					dropdownOption.addEventListener('click',
 						function() {
@@ -57,7 +103,7 @@ $(function(){
 					);
 			  }
 		  }
-  });
+  }); */
 
     function updateBotList(botlist) {
       $("#rowbot").children(".card").remove();
@@ -123,9 +169,21 @@ $(function(){
       clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
       clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
       clone.find(".firmware").text(" " + bot.data.firmware + " ");
-      
-      accordion = w3ds.accordion(clone.find(".ds-accordion-container")[0]);
-      dropMenu = w3ds.dropdown(clone.find(".ds-dropdown")[0]);
+
+	  let voiceList = ['de', 'en', 'es', 'fr', 'test1', 'test2', 'test3'] // only for testing
+	  setServiceOptions(clone, ".voicesList", voiceList);
+
+	  let accordionList = clone.find(".ds-accordion-container"); // gets List of all accodion elements
+	  let dropdownList = clone.find(".ds-dropdown"); // gets List of all dropdown elements
+
+	  for (let i = 0; i < accordionList.length; i++) {
+	  	accordion = w3ds.accordion(accordionList[i]);
+	  }
+
+	  for (let i = 0; i < dropdownList.length; i++) {
+		dropMenu = w3ds.dropdown(dropdownList[i]);
+	  }
+
     }
 
     function setEditableField (field, value, serial) {
@@ -148,6 +206,37 @@ $(function(){
         botImageDrop.append(option);
       }
     }
+
+	function setServiceOptions(clone, dropClass, serviceOptionsList) {
+		let drop = clone.find(dropClass);
+		drop.children().remove();
+
+		for(var i=0; i< serviceOptionsList.length; i++) {
+		  option = jQuery('<div class="ds-option" role="menuitem">' + serviceOptionsList[i] + '</div>'); // create option with
+		  drop.append(option);
+
+		  option.click(serviceOptionsList[i], function(event) {
+			option = $(event.target); // get the clicked option
+			isDropdownOptionDisabled = option.hasClass('ds-disabled');
+
+			if (!isDropdownOptionDisabled) {
+				dropdownElement = drop.parent();
+				dropTitle = dropdownElement.find('.ds-title');
+				dropTitle.text(option.text());
+
+				disabledDropdownOptionsList = drop.find('.ds-disabled') // list all disabled options
+
+				if (drop.find('.ds-disabled').length > 0) {
+					for (let b = 0; b < disabledDropdownOptionsList.length; b++) {
+						$(disabledDropdownOptionsList[b]).removeClass('ds-disabled'); // remove class for disabled options
+					}
+				}
+				option.addClass('ds-disabled'); // disables the selected option
+				//socket.emit('save', '{"serial":"' + serial + '", "field": "image", "value": "' + event.data + '"}'); // sends the selected voice to the back-end
+			}
+		  });
+		}
+	}
 
     function populateBotDetail(bot) {
 
