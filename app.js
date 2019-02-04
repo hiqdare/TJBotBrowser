@@ -17,13 +17,50 @@ var cfenv = require("cfenv");
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+
+class TJBotTTS {
+	constructor(vcapServices) {
+		// Load the speech to text module
+		let TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
+		let voiceList = [];
+
+
+		this.textToSpeech = new TextToSpeechV1({
+			iam_apikey: (vcapServices.services.text_to_speech[0].credentials.apikey),
+			url: (vcapServices.services.text_to_speech[0].credentials.url),
+	  	});
+	}
+	getVoices() {
+		let voiceList = [];
+
+		this.textToSpeech.listVoices(null,
+			function(error, voicesObj) {
+					if (error) {
+						console.log(error);
+					}
+					else {
+						voicesObj.voices.forEach(function(voice) {
+							voiceList.push(voice.name);
+						});
+					}
+			}
+		);
+		return voiceList;
+	}
+}
+
 class TJBotDB {
-	constructor(vcaplocal) {
-			const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
+	constructor(vcapServices) {
+		console.log(vcapServices);
+		// Load the Cloudant library.
+		let Cloudant = require('@cloudant/cloudant');
+
+		this.cloudant = Cloudant(vcapServices.services.cloudantNoSQLDB[0].credentials);
+
+			/*const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
 			const appEnv = cfenv.getAppEnv(appEnvOpts);
 
-			// Load the Cloudant library.
-			var Cloudant = require('@cloudant/cloudant');
+
 			if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
 
 			// Initialize database with credentials
@@ -36,7 +73,7 @@ class TJBotDB {
 			}
 			} else if (process.env.CLOUDANT_URL){
 					this.cloudant = Cloudant(process.env.CLOUDANT_URL);
-			}
+			}*/
 			if(this.cloudant) {
 			//database name
 			var dbName = 'tjbotdb';
@@ -92,8 +129,10 @@ class TJBotDB {
 }
 
 class BotManager {
-	constructor(vcaplocal) {
-		this.tjDB = new TJBotDB(vcapLocal);
+	constructor(vcapServices) {
+		this.tjDB = new TJBotDB(vcapServices);
+		this.tjTTS = new TJBotTTS(vcapServices);
+		this.voiceList = this.tjTTS.getVoices();
 		this.tjbotList = this.tjDB.getBotList();
 		this.browserList = {};
 		this.serialList = {};
@@ -124,6 +163,8 @@ class BotManager {
 			this.tjbotList[serial].basic.location = 'none';
 			this.tjbotList[serial].basic.chocolate = 'none';
 			this.tjbotList[serial].basic.image = 'generic.jpeg';
+			this.tjbotList[serial].config = {};
+			this.tjbotList[serial].config.tts = 'none';
 		}
 		this.tjbotList[serial].data = tjData;
 		this.tjbotList[serial].web = {};
@@ -144,6 +185,12 @@ class BotManager {
 		this.notifyBrowser();
 	}
 
+	updateConfig(param) {
+		this.tjbotList[param.serial].config[param.event.config.field] = param.event.config.value;
+		this.tjDB.addBotToDB(this.tjbotList[param.serial]);
+		this.notifyBrowser();
+	}
+
 	getJSONBotList() {
 		var localTJbotlist = this.tjbotList;
 		return JSON.stringify(Object.keys(localTJbotlist).map(function(key) {
@@ -151,6 +198,7 @@ class BotManager {
 			blist.data = localTJbotlist[key].data;
 			blist.web = localTJbotlist[key].web;
 			blist.basic = localTJbotlist[key].basic;
+			blist.config = localTJbotlist[key].config;
 			return blist;
 		}));
 	}
@@ -161,7 +209,7 @@ class BotManager {
 
 	disconnectSocket(socket_id) {
 		if (socket_id in this.serialList) {
-			var serial = this.serialList[socket_id];
+			serial = this.serialList[socket_id];
 			this.tjbotList[serial].web.status = 'offline';
 			this.tjDB.addBotToDB(this.tjbotList[serial]);
 			delete this.serialList[socket_id];
@@ -189,6 +237,14 @@ class BotManager {
 		});
 		return JSON.stringify(botImageList);
 	}
+
+	getOptionList() {
+		let optionList = {};
+		optionList.tts = {};
+		optionList.tts.voiceList = this.voiceList;
+
+		return JSON.stringify(optionList);
+	}
 }
 
 app.use(function (req, res, next) {
@@ -212,13 +268,24 @@ app.use('/', index);
 app.use('/users', users);
 
 // load local VCAP configuration  and service credentials
-var vcapLocal;
+/*var vcapLocal;
 try {
   vcapLocal = require('./vcap-local.json');
   console.log("Loaded local VCAP", vcapLocal);
-} catch (e) { }
+} catch (e) { } */
 
-var botManager = new BotManager(vcapLocal);
+let vcapServices;
+let vcapLocal;
+
+// try getting Bluemix VCAP_SERVICES object or load local VCAP configuration
+try {
+	vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+} catch(err) {
+	vcapServices = require('./vcap-local.json');
+	console.log("Loaded local VCAP", vcapServices);
+}
+
+let botManager = new BotManager(vcapServices);
 
 io.on('connection', function (socket) {
 
@@ -229,15 +296,13 @@ io.on('connection', function (socket) {
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
 
-		getVcapServices(function(vcapServices) {
-			socket.emit('vcapServices', vcapServices);
-		});
 		socket.emit('botlist', botManager.getJSONBotList());
 	});
 
 	// Whenever a new client connects send the browser an updated list
 	socket.on('checkin', function(data) {
 		botManager.addBotToList(data, socket);
+		socket.emit('vcapServices', vcapServices);
 	});
 
 	socket.on('disconnect', function () {
@@ -255,35 +320,53 @@ io.on('connection', function (socket) {
 		param = JSON.parse(data);
 		console.log("Save " + param.serial);
 		botManager.updateField(param);
-	})
+	});
 
 	socket.on('event', function(data) {
 		param = JSON.parse(data);
 		console.log("update: " + param.serial);
 		botManager.getSocket(param.serial).emit('event', JSON.stringify(param.event));
-	})
- 
+	});
+
+	socket.on('config', function(data) {
+		param = JSON.parse(data);
+		console.log("update: " + param.serial);
+		console.log(param);
+		botManager.updateConfig(param)
+		//botManager.updateConfig(param.event.target.config)
+		botManager.getSocket(param.serial).emit('event', JSON.stringify(param.event));
+	});
+
 });
 
 //------------------------------------------------------------------------------------------------------
 
-function getVcapServices(callback) {
+/*function getVcapServices(callback) {
+	console.log('i');
 	let vcapServices;
+	let vcapLocal;
 
-	// try getting Bluemix VCAP_SERVICES object
+	// try getting Bluemix VCAP_SERVICES object or load local VCAP configuration
 	try {
 		vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 	} catch(err) {
-		// ...
-		console.log('Failed to get VCAP_SERVICES object');
+		vcapLocal = require('./vcap-local.json');
+		console.log("Loaded local VCAP", vcapLocal);
 	}
-	callback(vcapServices);
+
+	if (!vcapServices) {
+		vcapServices = vcapLocal;
+	}
 }
 
 
+getVcapServices(function(vcapServices) {
+	console.log(vcapServices.services.text_to_speech[0].name);
+}) */
 //------------------------------------------------------------------------------------------------------
 
 app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
+app.get('/serviceOptionList', (req, res) => res.json(botManager.getOptionList()));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
