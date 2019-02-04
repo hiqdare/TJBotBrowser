@@ -10,29 +10,11 @@
 	  ],
 	  "text_to_speech": [
 	   {
-		"name": "burk_tts_tjbot",
-		"instance_name": "burk_tts_tjbot",
-		"binding_name": null,
+		"name": <name>,
 		"credentials": {
-			"apikey": "0M5xFZVOkE0bFK7gTax7AENZZHgscDph7R9hqRpJFa-l",
-			"iam_apikey_description": "Auto generated apikey during resource-bind operation for Instance - crn:v1:bluemix:public:text-to-speech:eu-gb:a/c9c06af16e8ee26544e201eac7dfaa61:39fb50fe-3f1b-4597-bf55-bb4985c54060::",
-			"iam_apikey_name": "auto-generated-apikey-f2106f78-aeeb-45f1-bed7-233e57fe11fe",
-			"iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-			"iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/c9c06af16e8ee26544e201eac7dfaa61::serviceid:ServiceId-ecc444db-e024-4a45-b73b-c800ebee90c1",
+			"apikey": <apikey>,
 			"url": "https://gateway-lon.watsonplatform.net/text-to-speech/api"
-		},
-		"syslog_drain_url": null,
-		"volume_mounts": [],
-		"label": "text_to_speech",
-		"provider": null,
-		"plan": "lite",
-		"tags": [
-			"watson",
-			"ibm_created",
-			"ibm_dedicated_public",
-			"lite",
-			"ibmcloud-alias"
-		 ]
+		}
 	    }
 	]
     }
