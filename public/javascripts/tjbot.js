@@ -134,6 +134,7 @@ $(function(){
       }
     }
 
+	// 1. Abklären
 	function setServiceOptions(clone, serial, service, dropClass, savedOption, serviceOptionList) {
 
 		if (!clone || !serial || !dropClass || !serviceOptionList) {
@@ -171,7 +172,7 @@ $(function(){
 					}
 				}
 				option.addClass('option-disabled'); // disables the selected
-				socket.emit('config', '{"serial":"' + serial + '", "event": {"target": "service", "config": {"field":"' + service + '" ,"service":"' + service + '" ,"value":"' + option.text() + '"}}}') // sends the selected option to the back-end
+				socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"' + service + '", "config": {"field":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
 			}
 		  });
 		}
