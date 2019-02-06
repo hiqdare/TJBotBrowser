@@ -37,36 +37,15 @@
   text-align: left;
 }
 
-.voicesList {
+.voiceList {
 	position: unset!important;
 }
 
 .option-disabled {
-	background-color: #004065;
+	background-color: #004065!important;
 	color: #ababab;
 	cursor: not-allowed!important;
 }
-
-.option-disabled {
-	background-color: #004065!important;
-}
-
-.accordion-disabled {
-	color: grey;
-	margin-left: -9px;
-	border-bottom-width: 2px;
-	border-bottom-style: solid;
-	border-bottom: 2px solid #f3f3f3;
-	display: block;
-	margin-bottom: 0;
-	outline: 0;
-	padding: 0;
-	position: relative;
-	margin-left: 0;
-	margin-right: 0;
-	cursor: not-allowed;
-}
-
 
 p {
   font-size: 16px;

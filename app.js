@@ -164,7 +164,7 @@ class BotManager {
 			this.tjbotList[serial].basic.chocolate = 'none';
 			this.tjbotList[serial].basic.image = 'generic.jpeg';
 			this.tjbotList[serial].config = {};
-			this.tjbotList[serial].config.tts = 'none';
+			this.tjbotList[serial].config.text_to_speech = 'none';
 		}
 		this.tjbotList[serial].data = tjData;
 		this.tjbotList[serial].web = {};
@@ -240,8 +240,8 @@ class BotManager {
 
 	getOptionList() {
 		let optionList = {};
-		optionList.tts = {};
-		optionList.tts.voiceList = this.voiceList;
+		optionList.text_to_speech = {};
+		optionList.text_to_speech.voiceList = this.voiceList;
 
 		return JSON.stringify(optionList);
 	}

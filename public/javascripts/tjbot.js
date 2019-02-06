@@ -94,13 +94,13 @@ $(function(){
 
 	  for (let service in serviceList) {
 		  switch (service) {
-		  	case 'tts':
-		  		setServiceOptions(clone, serial, ".voicesList", bot.config.tts, serviceList.tts.voiceList);
+		  	case 'text_to_speech':
+		  		setServiceOptions(clone, serial, service, ".voiceList", bot.config.text_to_speech, serviceList.text_to_speech.voiceList);
 		  		break;
 		  }
 	  }
 
-	  let accordionList = clone.find(".ds-accordion-container"); // gets list of all accodion elements
+	  let accordionList = clone.find(".ds-accordion-container"); // gets list of all accordion elements
 	  let dropdownList = clone.find(".ds-dropdown"); // gets list of all dropdown elements
 
 	  for (let i = 0; i < accordionList.length; i++) {
@@ -134,7 +134,7 @@ $(function(){
       }
     }
 
-	function setServiceOptions(clone, serial, dropClass, savedOption, serviceOptionList) {
+	function setServiceOptions(clone, serial, service, dropClass, savedOption, serviceOptionList) {
 
 		if (!clone || !serial || !dropClass || !serviceOptionList) {
 			console.log('tmp');
@@ -171,7 +171,7 @@ $(function(){
 					}
 				}
 				option.addClass('option-disabled'); // disables the selected
-				socket.emit('config', '{"serial":"' + serial + '", "event": {"target": "tts", "config": {"field": "tts", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
+				socket.emit('config', '{"serial":"' + serial + '", "event": {"target": "service", "config": {"field":"' + service + '" ,"service":"' + service + '" ,"value":"' + option.text() + '"}}}') // sends the selected option to the back-end
 			}
 		  });
 		}
