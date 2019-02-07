@@ -7,7 +7,15 @@
           },
           "label": "cloudantNoSQLDB"
         }
-      ]
+	  ],
+	  "text_to_speech": [
+	   {
+		"name": "tts_burk",
+		"credentials": {
+			"apikey": <apikey>,
+			"url": <url>"
+		}
+	    }
+	]
     }
-   }
-   
+}
