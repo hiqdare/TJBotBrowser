@@ -24,7 +24,7 @@ class TJBotDB {
 		console.log(vcapServices);
 		// Load the Cloudant library.
 
-		this.cloudant = Cloudant(vcapServices.services.cloudantNoSQLDB[0].credentials);
+		this.cloudant = Cloudant(vcapServices.cloudantNoSQLDB[0].credentials);
 
 			/*const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
 			const appEnv = cfenv.getAppEnv(appEnvOpts);
