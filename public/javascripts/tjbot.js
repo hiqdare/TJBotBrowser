@@ -38,7 +38,7 @@ $(function(){
 			});
 		}
   };
-  
+
   function emitEvent(serial, event) {
     socket.emit('event', '{"serial":"' + serial + '", "event": ' + event + '}');
   }
@@ -74,19 +74,21 @@ $(function(){
 		});
 
 		let status = clone.find(".status");
+		let dropdownElement = clone.find(".voiceList").parent();
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
 			status.addClass("ds-text-neutral-8");
-      bot_led.addClass("ds-text-neutral-8");
-      bot_arm.addClass("ds-text-neutral-8");
-      bot_led.click(emitEvent(serial, '{"target": "led", "event":"on"}'));
-		  bot_arm.click(emitEvent(serial,'{"target": "arm", "event":"wave"}'));
+			bot_led.addClass("ds-text-neutral-8");
+			bot_arm.addClass("ds-text-neutral-8");
+			bot_led.click(emitEvent(serial, '{"target": "led", "event":"on"}'));
+			bot_arm.click(emitEvent(serial,'{"target": "arm", "event":"wave"}'));
 		} else {
-      status.addClass("ds-text-neutral-4");
-      bot_led.addClass("ds-text-neutral-4");
-      bot_arm.addClass("ds-text-neutral-4");
-      bot_led.click(false);
-		  bot_arm.click(false);
+			status.addClass("ds-text-neutral-4");
+			bot_led.addClass("ds-text-neutral-4");
+			bot_arm.addClass("ds-text-neutral-4");
+			dropdownElement.addClass("ds-disabled");
+			bot_led.click(false);
+			bot_arm.click(false);
 		}
 
 		setEditableField(clone.find(".input-name"), bot.basic.name, serial);
