@@ -2,6 +2,6 @@
 .DS_Store
 public/.DS_Store
 public/.DS_Store
-node_modules
+node_modules/
 public/.DS_Store
 vcap-local.json

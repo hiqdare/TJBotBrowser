@@ -37,7 +37,11 @@ $(function(){
 				});
 			});
 		}
-	};
+  };
+  
+  function emitEvent(serial, event) {
+    socket.emit('event', '{"serial":"' + serial + '", "event": ' + event + '}');
+  }
 
 
 	function addBotToList(bot, botImageList, serviceList) {
@@ -58,13 +62,10 @@ $(function(){
 			window.alert('updating npm');
 			socket.emit('event', '{"serial":"' + serial + '", ""event": {target": "npm"}}');
 		});
-		clone.find(".bot-led").click(function(){
-			socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "led", "event":"on"}}');
-		});
-		clone.find(".bot-arm").click(function(){
-			socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "arm", "event":"wave"}}');
-		});
-		var tjImage = clone.find(".tjbot");
+
+    let tjImage = clone.find(".tjbot");
+    let bot_led = clone.find(".bot-led");
+    let bot_arm = clone.find(".bot-arm");
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
 
@@ -72,12 +73,20 @@ $(function(){
 			//populateBotDetail(bot);
 		});
 
-		var status = clone.find(".status");
+		let status = clone.find(".status");
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
 			status.addClass("ds-text-neutral-8");
+      bot_led.addClass("ds-text-neutral-8");
+      bot_arm.addClass("ds-text-neutral-8");
+      bot_led.click(emitEvent(serial, '{"target": "led", "event":"on"}'));
+		  bot_arm.click(emitEvent(serial,'{"target": "arm", "event":"wave"}'));
 		} else {
-			status.addClass("ds-text-neutral-4");
+      status.addClass("ds-text-neutral-4");
+      bot_led.addClass("ds-text-neutral-4");
+      bot_arm.addClass("ds-text-neutral-4");
+      bot_led.click(false);
+		  bot_arm.click(false);
 		}
 
 		setEditableField(clone.find(".input-name"), bot.basic.name, serial);
@@ -165,11 +174,11 @@ $(function(){
 
 					disabledDropdownOptionsList = drop.find('.option-disabled') // get a list from all disabled options
 
-				if (disabledDropdownOptionsList.length > 0) {
-					for (let a = 0; a < disabledDropdownOptionsList.length; a++) {
-						$(disabledDropdownOptionsList[a]).removeClass('option-disabled'); // remove class for all disabled options
-					}
-				}
+          if (disabledDropdownOptionsList.length > 0) {
+            for (let a = 0; a < disabledDropdownOptionsList.length; a++) {
+              $(disabledDropdownOptionsList[a]).removeClass('option-disabled'); // remove class for all disabled options
+            }
+          }
 					option.addClass('option-disabled'); // disables the selected
 					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"' + service + '", "config": {"field":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
 				}

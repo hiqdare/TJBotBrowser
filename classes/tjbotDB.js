@@ -24,26 +24,26 @@ class TJBotDB {
 		console.log(vcapServices);
 		// Load the Cloudant library.
 
-		this.cloudant = Cloudant(vcapServices.cloudantNoSQLDB[0].credentials);
+		this.cloudant = Cloudant(vcapServices.services.cloudantNoSQLDB[0].credentials);
 
-			/*const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
-			const appEnv = cfenv.getAppEnv(appEnvOpts);
+		/*const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
+		const appEnv = cfenv.getAppEnv(appEnvOpts);
 
 
-			if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
+		if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
 
-			// Initialize database with credentials
-			if (appEnv.services['cloudantNoSQLDB']) {
-					// CF service named 'cloudantNoSQLDB'
-					this.cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
-			} else {
-					// user-provided service with 'cloudant' in its name
-					this.cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
-			}
-			} else if (process.env.CLOUDANT_URL){
-					this.cloudant = Cloudant(process.env.CLOUDANT_URL);
-			}*/
-			if(this.cloudant) {
+		// Initialize database with credentials
+		if (appEnv.services['cloudantNoSQLDB']) {
+				// CF service named 'cloudantNoSQLDB'
+				this.cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
+		} else {
+				// user-provided service with 'cloudant' in its name
+				this.cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
+		}
+		} else if (process.env.CLOUDANT_URL){
+				this.cloudant = Cloudant(process.env.CLOUDANT_URL);
+		}*/
+		if(this.cloudant) {
 			//database name
 			var dbName = 'tjbotdb';
 
