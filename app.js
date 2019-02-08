@@ -83,9 +83,15 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('event', function(data) {
-		param = JSON.parse(data);
+		let param = JSON.parse(data);
 		console.log("update: " + param.serial);
-		botManager.getSocket(param.serial).emit('event', JSON.stringify(param.event));
+
+		let socket = botManager.getSocket(param.serial);
+		if (socket != null) {
+			socket.emit('event', JSON.stringify(param.event));
+		} else {
+			// error handling serial not found
+		}
 	});
 
 	socket.on('config', function(data) {
