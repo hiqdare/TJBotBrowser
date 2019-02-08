@@ -28,14 +28,13 @@ let BotManager = require('./classes/botManager.js');
 /*----------------------------------------------------------------------------*/
 
 let vcapServices;
-let vcapLocal;
 
 // try getting Bluemix VCAP_SERVICES object or load local VCAP configuration
 try {
 	vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } catch(err) {
-	vcapServices = require('./vcap-local.json');
-	console.log("Loaded local VCAP", vcapServices);
+	vcapServices = require('./vcap-local.json').services;
+	console.log("Loaded local VCAP", vcapServices.services);
 }
 
 /*----------------------------------------------------------------------------*/
