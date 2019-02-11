@@ -142,6 +142,12 @@ class BotManager {
 
 		return JSON.stringify(optionList);
 	}
+
+	getConfigList(socket_id) {
+		let serial = this.serialList[socket_id];
+		let configList = {};
+		configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
+	}
 }
 
 

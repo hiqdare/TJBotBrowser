@@ -62,6 +62,7 @@ io.on('connection', function (socket) {
 	socket.on('checkin', function(data) {
 		botManager.addBotToList(data, socket);
 		socket.emit('vcapServices', vcapServices);
+		socket.emit('config', botManager.getConfigList(socket.id));
 	});
 
 	socket.on('disconnect', function () {

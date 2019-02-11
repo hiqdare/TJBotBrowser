@@ -38,7 +38,7 @@ $(function(){
 			});
 		}
   };
-  
+
   function emitEvent(param) {
     socket.emit('event', param.data);
   }
@@ -183,7 +183,7 @@ $(function(){
             }
           }
 					option.addClass('option-disabled'); // disables the selected
-					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"' + service + '", "config": {"field":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
+					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"field":"' + service + '", "service":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
 				}
 			});
 		}
