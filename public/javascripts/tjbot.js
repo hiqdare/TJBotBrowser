@@ -74,6 +74,7 @@ $(function(){
 		});
 
 		let status = clone.find(".status");
+		let dropdownElement = clone.find(".voiceList").parent();
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
 			status.addClass("ds-text-neutral-8");
@@ -81,12 +82,14 @@ $(function(){
       bot_arm.addClass("ds-text-neutral-8");
       bot_led.click('{"serial": ' + serial + '"event" + {"target": "led", "event":"on"}', emitEvent);
 		  bot_arm.click('{"serial": ' + serial + '"event" + {"target": "arm", "event":"wave"}', emitEvent);
+
 		} else {
-      status.addClass("ds-text-neutral-4");
-      bot_led.addClass("ds-text-neutral-4");
-      bot_arm.addClass("ds-text-neutral-4");
-      bot_led.click(false);
-		  bot_arm.click(false);
+			status.addClass("ds-text-neutral-4");
+			bot_led.addClass("ds-text-neutral-4");
+			bot_arm.addClass("ds-text-neutral-4");
+			dropdownElement.addClass("ds-disabled");
+			bot_led.click(false);
+			bot_arm.click(false);
 		}
 
 		setEditableField(clone.find(".input-name"), bot.basic.name, serial);
