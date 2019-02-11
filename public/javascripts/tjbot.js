@@ -38,9 +38,9 @@ $(function(){
 			});
 		}
   };
-
-  function emitEvent(serial, event) {
-    socket.emit('event', '{"serial":"' + serial + '", "event": ' + event + '}');
+  
+  function emitEvent(param) {
+    socket.emit('event', param.data);
   }
 
 
@@ -78,10 +78,11 @@ $(function(){
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
 			status.addClass("ds-text-neutral-8");
-			bot_led.addClass("ds-text-neutral-8");
-			bot_arm.addClass("ds-text-neutral-8");
-			bot_led.click(emitEvent(serial, '{"target": "led", "event":"on"}'));
-			bot_arm.click(emitEvent(serial,'{"target": "arm", "event":"wave"}'));
+      bot_led.addClass("ds-text-neutral-8");
+      bot_arm.addClass("ds-text-neutral-8");
+      bot_led.click('{"serial": ' + serial + '"event" + {"target": "led", "event":"on"}', emitEvent);
+		  bot_arm.click('{"serial": ' + serial + '"event" + {"target": "arm", "event":"wave"}', emitEvent);
+
 		} else {
 			status.addClass("ds-text-neutral-4");
 			bot_led.addClass("ds-text-neutral-4");
@@ -138,8 +139,8 @@ $(function(){
 		botImageDrop.children().remove();
 		for(var i=0; i< botImageList.length; i++) {
 			option = jQuery('<div class="ds-option" role="menuitem">' + botImageList[i] + '</div>');
-			option.click(botImageList[i], function(event){
-				socket.emit('save', '{"serial":"' + serial + '", "field": "image", "value": "' + event.data + '"}');
+			option.click(botImageList[i], function(param){
+				socket.emit('save', '{"serial":"' + serial + '", "field": "image", "value": "' + param.data + '"}');
 			})
 			botImageDrop.append(option);
 		}

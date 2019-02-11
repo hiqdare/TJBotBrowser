@@ -12,8 +12,9 @@
 	   		{
 					"name": "tts_burk",
 					"credentials": {
-						"apikey": <apikey>,
-						"url": <url>
+
+						"apikey": "<api-key>",
+						"url": "<url>"
 					}
 	    	}
 			]
