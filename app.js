@@ -16,7 +16,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var cfenv = require("cfenv");
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -37,15 +36,11 @@ try {
 	console.log("Loaded local VCAP", vcapServices.services);
 }
 
-/*----------------------------------------------------------------------------*/
-/* PRIVATE FUNCTIONS			                                              */
-/*----------------------------------------------------------------------------*/
+let botManager = new BotManager(vcapServices);
 
 /*----------------------------------------------------------------------------*/
 /* MAIN                                                                       */
 /*----------------------------------------------------------------------------*/
-
-let botManager = new BotManager(vcapServices);
 
 io.on('connection', function (socket) {
 	console.log("Sockets connected.with id " + socket.id);
@@ -54,20 +49,14 @@ io.on('connection', function (socket) {
 
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
-
 		socket.emit('botlist', botManager.getJSONBotList());
 	});
 
 	// Whenever a new client connects send the browser an updated list
 	socket.on('checkin', function(data) {
 		botManager.addBotToList(data, socket);
-		socket.emit('vcapServices', vcapServices);
-		socket.emit('config', botManager.getConfigList(socket.id));
-	});
-
-	socket.on('disconnect', function () {
-		console.log("Socket disconnected.");
-		botManager.disconnectSocket(socket.id);
+		socket.emit('vcapServices', vcapServices); // sends the VCAP_SERVICES to the client
+		socket.emit('config', botManager.getConfigList(socket.id)); // sends a list of all available configs to the client
 	});
 
 	/*socket.on('update', function (data) {
@@ -92,6 +81,12 @@ io.on('connection', function (socket) {
 		} else {
 			// error handling serial not found
 		}
+
+		socket.on('disconnect', function () {
+			console.log("Socket disconnected.");
+			botManager.disconnectSocket(socket.id);
+		});
+
 	});
 
 	socket.on('config', function(data) {
@@ -105,6 +100,7 @@ io.on('connection', function (socket) {
 
 });
 
+// Prov
 app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 app.get('/serviceOptionList', (req, res) => res.json(botManager.getOptionList()));
 

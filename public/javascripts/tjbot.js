@@ -7,13 +7,13 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
-	var i = 0;
-	var ENTERKEY = 13;
-	var TABKEY = 9;
+	let i = 0;
+	let ENTERKEY = 13;
+	let TABKEY = 9;
 
-	var socket = io('//' + document.location.hostname + ':' + document.location.port);
+	let socket = io('//' + document.location.hostname + ':' + document.location.port);
 
-	var options = {
+	let options = {
 		singleToggle: false,  // true if `ds-single-toggle` class is used
 		expandAll: false,     // true if `ds-expand-all` class is used
 	}
@@ -22,6 +22,10 @@ $(function(){
 /* PRIVATE FUNCTIONS			                                              */
 /*----------------------------------------------------------------------------*/
 
+/**
+ * Updates bot enteries
+ * @param {object} botlist array with bot objects
+ */
 	function updateBotList(botlist) {
 		$("#rowbot").children(".card").remove();
 		console.log("new bot list: " + botlist.length);
@@ -31,22 +35,26 @@ $(function(){
 				$.getJSON('/serviceOptionList', function(serviceResult){
 					imageResult = JSON.parse(imageResult);
 					serviceResult = JSON.parse(serviceResult);
-					for (var i = 0; i < botlist.length; i++) {
+					for (let i = 0; i < botlist.length; i++) {
 						addBotToList(botlist[i], imageResult, serviceResult);
 					}
 				});
 			});
 		}
-  };
-
-  function emitEvent(param) {
-    socket.emit('event', param.data);
+	};
+	function emitEvent(param) {
+	socket.emit('event', param.data);
   }
 
-
+  /**
+   * creates for every bot entery a clone with his own information and configuration
+   * @param {object} bot object with information and configuration about the bot
+   * @param {object} botImageList array with images
+   * @param {object} serviceList object with service information and options
+   */
 	function addBotToList(bot, botImageList, serviceList) {
-		var clone = $('#bot').clone(true); // "deep" clone
-		var serial = bot.data.cpuinfo.Serial;
+		let clone = $('#bot').clone(true); // "deep" clone
+		let serial = bot.data.cpuinfo.Serial;
 		clone.removeAttr('id');
 		clone.removeClass('ds-hide');
 		clone.addClass("card");
@@ -63,12 +71,13 @@ $(function(){
 			socket.emit('event', '{"serial":"' + serial + '", ""event": {target": "npm"}}');
 		});
 
-    let tjImage = clone.find(".tjbot");
-    let bot_led = clone.find(".bot-led");
-    let bot_arm = clone.find(".bot-arm");
+		let tjImage = clone.find(".tjbot");
+		let bot_led = clone.find(".bot-led");
+		let bot_arm = clone.find(".bot-arm");
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
 
+		// Wird das noch gebraucht?
 		tjImage.click(function() {
 			//populateBotDetail(bot);
 		});
@@ -78,9 +87,9 @@ $(function(){
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
 			status.addClass("ds-text-neutral-8");
-      bot_led.addClass("ds-text-neutral-8");
-      bot_arm.addClass("ds-text-neutral-8");
-      bot_led.click('{"serial": ' + serial + '"event" + {"target": "led", "event":"on"}', emitEvent);
+			bot_led.addClass("ds-text-neutral-8");
+			bot_arm.addClass("ds-text-neutral-8");
+			bot_led.click('{"serial": ' + serial + '"event" + {"target": "led", "event":"on"}', emitEvent);
 		  bot_arm.click('{"serial": ' + serial + '"event" + {"target": "arm", "event":"wave"}', emitEvent);
 
 		} else {
@@ -111,8 +120,8 @@ $(function(){
 			}
 		}
 
-		let accordionList = clone.find(".ds-accordion-container"); // gets list of all accordion elements
-		let dropdownList = clone.find(".ds-dropdown"); // gets list of all dropdown elements
+		let accordionList = clone.find(".ds-accordion-container");
+		let dropdownList = clone.find(".ds-dropdown");
 
 		for (let i = 0; i < accordionList.length; i++) {
 			accordion = w3ds.accordion(accordionList[i]);
@@ -123,7 +132,13 @@ $(function(){
 		}
 	}
 
-
+	/**
+     * sets the value for the field
+	 * sends the new value to the backend
+     * @param {object} field field element
+     * @param {string} value field value
+     * @param {serial} serial
+     */
 	function setEditableField (field, value, serial) {
 		field.val(value);
 		field.keypress(function (e) {
@@ -133,11 +148,18 @@ $(function(){
 		});
 	}
 
-
+	/**
+     * creates image options for dropdown
+	 * add an evenlistener for every option
+	 * sends the selected option to the backend
+     * @param {object} clone bot entry element
+     * @param {...} serial
+     * @param {...} botImageList array with images
+     */
 	function setBotImagelist(clone, serial, botImageList) {
 		botImageDrop = clone.find(".botImageList");
 		botImageDrop.children().remove();
-		for(var i=0; i< botImageList.length; i++) {
+		for(let i=0; i< botImageList.length; i++) {
 			option = jQuery('<div class="ds-option" role="menuitem">' + botImageList[i] + '</div>');
 			option.click(botImageList[i], function(param){
 				socket.emit('save', '{"serial":"' + serial + '", "field": "image", "value": "' + param.data + '"}');
@@ -146,16 +168,26 @@ $(function(){
 		}
 	}
 
-
+	/**
+	 * creates service options for dropdown
+     * add an evenlistener for every option
+     * sends the selected option to the backend
+     * @param {object} clone bot entry element
+     * @param {string} serial
+     * @param {string} serivce
+	 * @param {string} dropClass dropdown CSS class
+	 * @param {string} savedOption last configured option
+	 * @param {object} serviceOptionList list with services and options
+     */
 	function setServiceOptions(clone, serial, service, dropClass, savedOption, serviceOptionList) {
 		if (!clone || !serial || !dropClass || !serviceOptionList) {
 			console.log('tmp');
 		}
 
-		let drop = clone.find(dropClass); // find the specific dropdown
+		let drop = clone.find(dropClass);
 		drop.children().remove();
 
-		for(var i=0; i< serviceOptionList.length; i++) {
+		for(let i=0; i< serviceOptionList.length; i++) {
 
 			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOptionList[i] + '</div>'); // create an option
 
@@ -177,12 +209,12 @@ $(function(){
 
 					disabledDropdownOptionsList = drop.find('.option-disabled') // get a list from all disabled options
 
-          if (disabledDropdownOptionsList.length > 0) {
-            for (let a = 0; a < disabledDropdownOptionsList.length; a++) {
-              $(disabledDropdownOptionsList[a]).removeClass('option-disabled'); // remove class for all disabled options
-            }
-          }
-					option.addClass('option-disabled'); // disables the selected
+					if (disabledDropdownOptionsList.length > 0) {
+						for (let a = 0; a < disabledDropdownOptionsList.length; a++) {
+							$(disabledDropdownOptionsList[a]).removeClass('option-disabled'); // remove class for all disabled options
+						}
+					}
+					option.addClass('option-disabled'); // disables the selected option
 					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"field":"' + service + '", "service":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
 				}
 			});
@@ -190,6 +222,11 @@ $(function(){
 	}
 
 
+// Wird das noch gebraucht?
+	/**
+     * ...
+     * @param {...} bot ...
+     */
 	function populateBotDetail(bot) {
 
 		$(".detailinfo").show("scale");
@@ -197,7 +234,7 @@ $(function(){
 		$(".info_image").attr("alt", "images/" + bot.basic.image);
 
 		table = $(".bot-table")[0];
-		var tree = {
+		let tree = {
 			'core' : {
 				'themes':{
 					'icons':false
@@ -222,11 +259,15 @@ $(function(){
 	$('#detail_tree').jstree(tree);
 }
 
-
+// Wird das noch gebraucht?
+/**
+ * ...
+ * @param {...} part ...
+ */
 	function getTree(part) {
-		var result = [];
+		let result = [];
 		if (Array.isArray(part)) {
-			var elemTree;
+			let elemTree;
 			console.log("is array");
 			part.forEach(function(elem){
 				elemTree = getTree(elem);
@@ -241,7 +282,7 @@ $(function(){
 		} else if (typeof part === 'object' && part !== null) {
 			console.log("is object");
 			Object.keys(part).forEach(function(key) {
-				var node = {};
+				let node = {};
 				node.text = key;
 				node.state = {};
 				node.state.opened = false;

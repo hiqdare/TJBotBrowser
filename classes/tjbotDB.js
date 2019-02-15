@@ -8,44 +8,27 @@
 let Cloudant = require('@cloudant/cloudant');
 
 /*----------------------------------------------------------------------------*/
-/* DECLARATIONS & INITIALIZATION                                              */
+/* TJBotDB						                                              */
 /*----------------------------------------------------------------------------*/
 
-/*----------------------------------------------------------------------------*/
-/* PRIVATE FUNCTIONS			                                              */
-/*----------------------------------------------------------------------------*/
-
-/*----------------------------------------------------------------------------*/
-/* tjbotDB						                                              */
-/*----------------------------------------------------------------------------*/
-
+/**
+ * TJBotDB
+ *
+ * @constructor
+ * @param {object} vcapServices object with service information
+ */
 class TJBotDB {
 	constructor(vcapServices) {
-		console.log(vcapServices);
-		// Load the Cloudant library.
+
+		if (typeof(vcapServices) !== "object") {
+			throw new Error("missing vcapServices");
+		}
 
 		this.cloudant = Cloudant(vcapServices.cloudantNoSQLDB[0].credentials);
 
-		/*const appEnvOpts = vcapLocal ? { vcap: vcapLocal} : {}
-		const appEnv = cfenv.getAppEnv(appEnvOpts);
-
-
-		if (appEnv.services['cloudantNoSQLDB'] || appEnv.getService(/cloudant/)) {
-
-		// Initialize database with credentials
-		if (appEnv.services['cloudantNoSQLDB']) {
-				// CF service named 'cloudantNoSQLDB'
-				this.cloudant = Cloudant(appEnv.services['cloudantNoSQLDB'][0].credentials);
-		} else {
-				// user-provided service with 'cloudant' in its name
-				this.cloudant = Cloudant(appEnv.getService(/cloudant/).credentials);
-		}
-		} else if (process.env.CLOUDANT_URL){
-				this.cloudant = Cloudant(process.env.CLOUDANT_URL);
-		}*/
 		if(this.cloudant) {
 			//database name
-			var dbName = 'tjbotdb';
+			let dbName = 'tjbotdb';
 
 			// Create a new "mydb" database.
 			this.cloudant.db.create(dbName, function(err, data) {
@@ -62,6 +45,10 @@ class TJBotDB {
 		}
 	}
 
+	/**
+	 * add the bot to the DB
+	 * @param {object} tjbot object with information and configuration
+	 */
 	addBotToDB(tjbot) {
 		if(!this.mydb) {
 			console.log("No database.");
@@ -72,7 +59,7 @@ class TJBotDB {
 				console.log('[mydb.insert] ', err.message);
 				return;
 			} else {
-				var result = JSON.stringify(body);
+				let result = JSON.stringify(body);
 				if (body.ok) {
 					tjbot._id = body.id;
 					tjbot._rev = body.rev;
@@ -82,8 +69,11 @@ class TJBotDB {
 		});
 	}
 
+	/**
+	 * returns a list with bot objects
+	 */
 	getBotList() {
-		var list = {};
+		let list = {};
 		this.mydb.list({ include_docs: true }, function(err, body) {
 			if (!err) {
 				body.rows.forEach(function(row) {
