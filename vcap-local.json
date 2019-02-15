@@ -13,8 +13,8 @@
 					"name": "tts_burk",
 					"credentials": {
 
-						"apikey": "P9awe6a1zxcKF-JR1LAThZQHMrqmiWc3DGWUDCq-oM0f",
-						"url": "https://gateway-lon.watsonplatform.net/text-to-speech/api"
+						"apikey": "<apikey>",
+						"url": "<url>"
 					}
 	    	}
 			]
