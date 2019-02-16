@@ -37,11 +37,11 @@ $(function(){
 				});
 			});
 		}
-  };
-  
-  function emitEvent(param) {
-    socket.emit('event', param.data);
-  }
+	};
+	
+	function emitEvent(param) {
+		socket.emit('event', param.data);
+	}
 
 
 	function addBotToList(bot, botImageList, serviceList) {
@@ -52,20 +52,13 @@ $(function(){
 		clone.addClass("card");
 
 		$('#bot').parent().append(clone);
-		clone.find(".source_update").click(function(){
-			socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "source"}}');
-		});
-		clone.find(".nodejs_update").click(function(){
-			socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "nodejs"}}');
-		});
-		clone.find(".npm_update").click(function(){
-			window.alert('updating npm');
-			socket.emit('event', '{"serial":"' + serial + '", ""event": {target": "npm"}}');
-		});
+		clone.find(".source_update").click('{"serial":"' + serial + '", "event": {"target": "source"}}', emitEvent);
+		clone.find(".nodejs_update").click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
+		clone.find(".npm_update").click('{"serial":"' + serial + '", ""event": {target": "npm"}}', emitEvent);
 
-    let tjImage = clone.find(".tjbot");
-    let bot_led = clone.find(".bot-led");
-    let bot_arm = clone.find(".bot-arm");
+		let tjImage = clone.find(".tjbot");
+		let bot_led = clone.find(".bot-led");
+		let bot_arm = clone.find(".bot-arm");
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
 
@@ -78,11 +71,10 @@ $(function(){
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
 			status.addClass("ds-text-neutral-8");
-      bot_led.addClass("ds-text-neutral-8");
-      bot_arm.addClass("ds-text-neutral-8");
-      bot_led.click('{"serial": ' + serial + '"event" + {"target": "led", "event":"on"}', emitEvent);
-		  bot_arm.click('{"serial": ' + serial + '"event" + {"target": "arm", "event":"wave"}', emitEvent);
-
+      		bot_led.addClass("ds-text-neutral-8");
+      		bot_arm.addClass("ds-text-neutral-8");
+      		bot_led.click('{"serial": ' + serial + '"event" + {"target": "led", "event":"on"}}', emitEvent);
+		  	bot_arm.click('{"serial": ' + serial + '"event" + {"target": "arm", "event":"wave"}}', emitEvent);
 		} else {
 			status.addClass("ds-text-neutral-4");
 			bot_led.addClass("ds-text-neutral-4");

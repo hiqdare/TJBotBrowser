@@ -89,9 +89,9 @@ class BotManager {
 	}
 
 	getJSONBotList() {
-		var localTJbotlist = this.tjbotList;
+		let localTJbotlist = this.tjbotList;
 		return JSON.stringify(Object.keys(localTJbotlist).map(function(key) {
-			var blist = {};
+			let blist = {};
 			blist.data = localTJbotlist[key].data;
 			blist.web = localTJbotlist[key].web;
 			blist.basic = localTJbotlist[key].basic;
@@ -106,7 +106,7 @@ class BotManager {
 
 	disconnectSocket(socket_id) {
 		if (socket_id in this.serialList) {
-			serial = this.serialList[socket_id];
+			let serial = this.serialList[socket_id];
 			this.tjbotList[serial].web.status = 'offline';
 			this.tjDB.addBotToDB(this.tjbotList[serial]);
 			delete this.serialList[socket_id];
