@@ -16,7 +16,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var cfenv = require("cfenv");
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -54,7 +53,6 @@ io.on('connection', function (socket) {
 
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
-
 		socket.emit('botlist', botManager.getJSONBotList());
 	});
 
@@ -84,6 +82,7 @@ io.on('connection', function (socket) {
 	socket.on('event', function(data) {
 		let param = JSON.parse(data);
 		console.log("update: " + param.serial);
+		console.log("param: " + param.event);
 
 		let socket = botManager.getSocket(param.serial);
 		if (socket != null) {

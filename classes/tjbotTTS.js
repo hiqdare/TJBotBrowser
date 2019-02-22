@@ -23,13 +23,12 @@ class TJBotTTS {
 	constructor(vcapServices) {
 		// Load the speech to text module
 
-		let voiceList = [];
-
 		this.textToSpeech = new TextToSpeechV1({
 			iam_apikey: (vcapServices.text_to_speech[0].credentials.apikey),
 			url: (vcapServices.text_to_speech[0].credentials.url),
 	  	});
 	}
+	
 	getVoices() {
 		let voiceList = [];
 

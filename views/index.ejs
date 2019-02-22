@@ -30,20 +30,16 @@
   </head>
   <body class="ds-has-sticky-footer">
     <div class="ds-grid">
-      <div class="ds-row">
-        <div class="ds-col-12">
-          <div class="ds-row ds-pad-b-5">
-		  	<div class="ds-grid ds-hide ds-display-lg-block ds-tray-container ds-affix ds-full-width ds-bg-neutral-1 ds-border-b-neutral-3">
-		      <div class="ds-row ds-pad-l-1 ds-pad-r-01 ds-pad-t-0_5 ds-pad-b-0_5">
-		        <div class="ds-col-3">
-					<div class="ds-row ds-pad-t-2">
-		          		<div class="ds-flex ds-flex-align-items-center">
-		            		<h4 class="ds-pad-l-2 ds-heading-3 ds-mar-b-0 ds-pad-t-0_5">TJBot Cockpit</h4>
-		            		<span class="ds-badge ds-neutral ds-mar-l-0_5 ds-mar-b-0_5" style="text-transform:none;">beta</span>
-		        		</div>
-		        	</div>
-				</div>
-		    </div>
+      <div class="ds-row ds-pad-b-5">
+        <div class="ds-hide ds-display-lg-block ds-display-xs-block ds-tray-container ds-affix ds-full-width ds-bg-neutral-1 ds-border-b-neutral-3">
+          <div class="ds-row ds-pad-l-1 ds-pad-r-01 ds-pad-t-0_5 ds-pad-b-0_5">
+            <div class="ds-col-12 ds-pad-t-2">
+              <div class="ds-flex ds-flex-align-items-center">
+                <h4 class="ds-pad-l-1 ds-heading-lg-3 ds-heading-sm-3 ds-heading-xs-4 ds-mar-b-0 ds-pad-t-0_5">TJBot Cockpit</h4>
+                <h4 class="ds-heading-5 ds-mar-l-0_5 ds-mar-b-0_5" >v<%= appversion%></h4>
+                <span class="ds-badge ds-neutral ds-mar-l-0_5 ds-mar-b-0_5" style="text-transform:none;">beta</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -51,7 +47,6 @@
     <div class="ds-grid">
       <div class="ds-row ds-pad-b-3" id="rowbot">
         <div class="ds-col-sm-12 ds-col-md-6 ds-col-lg-4 ds-pad-b-xs-1 ds-hide" id="bot">
-          <!--div class="ds-panel ds-panel-raised"-->
           <div class="ds-row">
             <div class="ds-col-6 thumbnail_div">
               <img src="images/bots/generic.jpeg" class="ds-img-force-grow ds-border-blue-6 tjbot" alt="TJBot Neon">
@@ -95,17 +90,25 @@
                   </div>
                 </div>
               </div>
-              <div class="ds-flex ds-flex-align_items-center">
-                <span class="ds-mar-r-1 ds-icon-wireless status"></span>
-                <i class="ds-mar-r-1 far fa-lightbulb bot-led" alt="LED" data-toggle="tooltip" title="LED"></i>
-                <i class="ds-mar-r-1 far fa-hand-paper bot-arm" alt="arm" data-toggle="tooltip" title="arm"></i>
-                <!--input type="color" id="html5colorpicker" class="far fa-lightbulb" onchange="clickColor(0, -1, -1, 5)" value="#ff0000" style="width:30px;"-->
-              </div>
             </div>
           </div>
           <div class="ds-row">
             <div class="ds-col-11">
               <div class="ds-accordion-container ds-mar-t-0 ds-mar-b-0">
+                <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
+                  <div class="ds-accordion-title">
+                    <span class="ds-mar-r-1 ds-icon-wireless status"></span>
+                    <i class="ds-mar-r-1 far fa-lightbulb bot-led" alt="LED" data-toggle="tooltip" title="LED"></i>
+                    <i class="ds-mar-r-1 far fa-hand-paper bot-arm" alt="arm" data-toggle="tooltip" title="arm"></i>
+                  </div>
+                  <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
+                    <div class="ds-row ds-pad-b-1 ds-pad-t-1">
+                      <div class="ds-col-xs-11 colorpicker">
+                        <canvas class="picker" width="200" height="200"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
                   <div class="ds-accordion-title">Services</div>
                   <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
@@ -113,18 +116,17 @@
                       <div class="ds-col-xs-11">
                         <h4 class="ds-heading-4">Text-to-Speech</h4>
                       </div>
-                        <div class="ds-col-xs-11">
-                            <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
-                                <div class="ds-title" role="menu-title">Choose your voice</div>
-                                <div class="ds-options voiceList" role="group">
-                                </div>
-                            </div>
+                      <div class="ds-col-xs-11">
+                        <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
+                          <div class="ds-title" role="menu-title">Choose your voice</div>
+                          <div class="ds-options voiceList" role="group"></div>
                         </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-					      <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
-						      <div class="ds-accordion-title">Data</div>
+                <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
+                  <div class="ds-accordion-title">Data</div>
                   <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
                     <div class="ds-col-8">
                       <div class="ds-flex ds-flex-align_items-center">
@@ -151,20 +153,20 @@
                         <p class="ds-mar-r-1 firmware">-</p>
                       </div>
                     </div>
-						      </div>
-					      </div>
-				      </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-		  </div>
-	  </div>
-	</div>
+        </div>
+      </div>
+    </div>
 
     <footer class="ds-sticky-footer ds-grid ds-bg-neutral-warm-2" style="width: 100%; height: 110px;" >
       <div class="ds-row">
         <h5 class="ds-offset-xs-1 ds-col-xs-10 ds-pad-t-2_5 ds-heading-5">
           <span class="ds-icon-github-l" style="vertical-align: middle;"></span>
-          <a href="https://github.ibm.com/w3/w3DS" target="_blank" class="ds-text-neutral-6 ds-font-weight-light">w3DS on GitHub</a>
+          <a href="https://github.com/hiqdare/TJBotBrowser/" target="_blank" class="ds-text-neutral-6 ds-font-weight-light">TJBotBrowser on GitHub</a>
         </h5>
       </div>
     </footer>
