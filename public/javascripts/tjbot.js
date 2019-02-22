@@ -108,7 +108,7 @@ $(function(){
 			status.addClass("ds-text-neutral-8");
       bot_led.addClass("ds-text-neutral-8");
 			bot_arm.addClass("ds-text-neutral-8");
-			canvas.css("display", "none");
+			canvas.css("display", "block");
 
 			// set action
 			source_update.click('{"serial":"' + serial + '", "event": {"target": "source"}}', emitEvent);
@@ -124,7 +124,7 @@ $(function(){
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
 			dropdownElement.addClass("ds-disabled");
-			canvas.css("display", "block");
+			canvas.css("display", "none");
 
 			// set action
 			source_update.click(false);
