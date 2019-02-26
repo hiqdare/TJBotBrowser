@@ -194,23 +194,11 @@ footer p {
   border-radius: 5px;
 }
 
-.bot-arm {
-  cursor: pointer;
+.ds-text-neutral-4 {
+  cursor: default;
 }
 
-.bot-led {
-  cursor: pointer;
-}
-
-.source_update {
-  cursor: pointer;
-}
-
-.nodejs_update {
-  cursor: pointer;
-}
-
-.npm_update {
+.ds-text-neutral-8 {
   cursor: pointer;
 }
 
@@ -240,4 +228,12 @@ footer p {
   cursor: pointer;
   border: 1px solid black;
   border-radius: 1px;
+}
+
+/* colorpicker styles */
+.picker {
+  cursor: crosshair;
+  float: left;
+  margin: 10px;
+  border: 0;
 }

@@ -31,9 +31,11 @@ class TJBotTTS {
 	  	});
 	}
 
+
 /**
  * returns a list of all available voices.
  */
+
 	getVoices() {
 		let voiceList = [];
 

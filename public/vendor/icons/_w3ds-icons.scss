@@ -11,15 +11,14 @@
 		-moz-osx-font-smoothing: grayscale;
 	font-style: normal;
 	font-variant: normal;
-	font-weight: normal !important;
-	letter-spacing: 0;
+	font-weight: normal;
 	line-height: .9;
 	// speak: none; // only necessary if not using the private unicode range (firstGlyph option)
 	text-decoration: none;
 	text-transform: none;
 	display: inline-block;
-   	vertical-align: middle;
-   	padding-bottom: 3px;
+	vertical-align: middle;
+	padding-bottom: 3px;
 }
 
 %ds-icon {
@@ -32,2426 +31,2834 @@
 	@if $filename == area-chart-l {
 		$char: unquote('"\\E001"');
 	}
-	@if $filename == area-chart-m-l {
+	@if $filename == area-chart-lg {
 		$char: unquote('"\\E002"');
 	}
-	@if $filename == area-chart-m {
+	@if $filename == area-chart-m-l {
 		$char: unquote('"\\E003"');
 	}
-	@if $filename == area-chart {
+	@if $filename == area-chart-m {
 		$char: unquote('"\\E004"');
 	}
-	@if $filename == bar-chart-l {
+	@if $filename == area-chart-sm {
 		$char: unquote('"\\E005"');
 	}
-	@if $filename == bar-chart-m-l {
+	@if $filename == area-chart {
 		$char: unquote('"\\E006"');
 	}
-	@if $filename == bar-chart-m {
+	@if $filename == bar-chart-l {
 		$char: unquote('"\\E007"');
 	}
-	@if $filename == bar-chart {
+	@if $filename == bar-chart-lg {
 		$char: unquote('"\\E008"');
 	}
-	@if $filename == line-chart-l {
+	@if $filename == bar-chart-m-l {
 		$char: unquote('"\\E009"');
 	}
-	@if $filename == line-chart-m-l {
+	@if $filename == bar-chart-m {
 		$char: unquote('"\\E00A"');
 	}
-	@if $filename == line-chart-m {
+	@if $filename == bar-chart-sm {
 		$char: unquote('"\\E00B"');
 	}
-	@if $filename == line-chart {
+	@if $filename == bar-chart {
 		$char: unquote('"\\E00C"');
 	}
-	@if $filename == pie-chart-l {
+	@if $filename == line-chart-l {
 		$char: unquote('"\\E00D"');
 	}
-	@if $filename == pie-chart-m-l {
+	@if $filename == line-chart-lg {
 		$char: unquote('"\\E00E"');
 	}
-	@if $filename == pie-chart-m {
+	@if $filename == line-chart-m-l {
 		$char: unquote('"\\E00F"');
 	}
-	@if $filename == pie-chart {
+	@if $filename == line-chart-m {
 		$char: unquote('"\\E010"');
 	}
-	@if $filename == tree-map-l {
+	@if $filename == line-chart-sm {
 		$char: unquote('"\\E011"');
 	}
-	@if $filename == tree-map-m-l {
+	@if $filename == line-chart {
 		$char: unquote('"\\E012"');
 	}
-	@if $filename == tree-map-m {
+	@if $filename == pie-chart-l {
 		$char: unquote('"\\E013"');
 	}
-	@if $filename == tree-map {
+	@if $filename == pie-chart-lg {
 		$char: unquote('"\\E014"');
 	}
-	@if $filename == add-folder-l {
+	@if $filename == pie-chart-m-l {
 		$char: unquote('"\\E015"');
 	}
-	@if $filename == add-folder-m-l {
+	@if $filename == pie-chart-m {
 		$char: unquote('"\\E016"');
 	}
-	@if $filename == add-folder-m {
+	@if $filename == pie-chart-sm {
 		$char: unquote('"\\E017"');
 	}
-	@if $filename == add-folder {
+	@if $filename == pie-chart {
 		$char: unquote('"\\E018"');
 	}
-	@if $filename == add-page-l {
+	@if $filename == tree-map-l {
 		$char: unquote('"\\E019"');
 	}
-	@if $filename == add-page-m-l {
+	@if $filename == tree-map-lg {
 		$char: unquote('"\\E01A"');
 	}
-	@if $filename == add-page-m {
+	@if $filename == tree-map-m-l {
 		$char: unquote('"\\E01B"');
 	}
-	@if $filename == add-page {
+	@if $filename == tree-map-m {
 		$char: unquote('"\\E01C"');
 	}
-	@if $filename == file-audio-l {
+	@if $filename == tree-map-sm {
 		$char: unquote('"\\E01D"');
 	}
-	@if $filename == file-audio-m-l {
+	@if $filename == tree-map {
 		$char: unquote('"\\E01E"');
 	}
-	@if $filename == file-audio-m {
+	@if $filename == add-folder-l {
 		$char: unquote('"\\E01F"');
 	}
-	@if $filename == file-audio {
+	@if $filename == add-folder-lg {
 		$char: unquote('"\\E020"');
 	}
-	@if $filename == file-check-l {
+	@if $filename == add-folder-m-l {
 		$char: unquote('"\\E021"');
 	}
-	@if $filename == file-check-m-l {
+	@if $filename == add-folder-m {
 		$char: unquote('"\\E022"');
 	}
-	@if $filename == file-check-m {
+	@if $filename == add-folder-sm {
 		$char: unquote('"\\E023"');
 	}
-	@if $filename == file-check {
+	@if $filename == add-folder {
 		$char: unquote('"\\E024"');
 	}
-	@if $filename == file-code-l {
+	@if $filename == add-page-l {
 		$char: unquote('"\\E025"');
 	}
-	@if $filename == file-code-m-l {
+	@if $filename == add-page-lg {
 		$char: unquote('"\\E026"');
 	}
-	@if $filename == file-code-m {
+	@if $filename == add-page-m-l {
 		$char: unquote('"\\E027"');
 	}
-	@if $filename == file-code {
+	@if $filename == add-page-m {
 		$char: unquote('"\\E028"');
 	}
-	@if $filename == file-doc-l {
+	@if $filename == add-page-sm {
 		$char: unquote('"\\E029"');
 	}
-	@if $filename == file-doc-m-l {
+	@if $filename == add-page {
 		$char: unquote('"\\E02A"');
 	}
-	@if $filename == file-doc-m {
+	@if $filename == file-audio-l {
 		$char: unquote('"\\E02B"');
 	}
-	@if $filename == file-doc {
+	@if $filename == file-audio-lg {
 		$char: unquote('"\\E02C"');
 	}
-	@if $filename == file-image-l {
+	@if $filename == file-audio-m-l {
 		$char: unquote('"\\E02D"');
 	}
-	@if $filename == file-image-m-l {
+	@if $filename == file-audio-m {
 		$char: unquote('"\\E02E"');
 	}
-	@if $filename == file-image-m {
+	@if $filename == file-audio-sm {
 		$char: unquote('"\\E02F"');
 	}
-	@if $filename == file-image {
+	@if $filename == file-audio {
 		$char: unquote('"\\E030"');
 	}
-	@if $filename == file-jpg-l {
+	@if $filename == file-check-l {
 		$char: unquote('"\\E031"');
 	}
-	@if $filename == file-jpg-m-l {
+	@if $filename == file-check-lg {
 		$char: unquote('"\\E032"');
 	}
-	@if $filename == file-jpg-m {
+	@if $filename == file-check-m-l {
 		$char: unquote('"\\E033"');
 	}
-	@if $filename == file-jpg {
+	@if $filename == file-check-m {
 		$char: unquote('"\\E034"');
 	}
-	@if $filename == file-l {
+	@if $filename == file-check-sm {
 		$char: unquote('"\\E035"');
 	}
-	@if $filename == file-m-l {
+	@if $filename == file-check {
 		$char: unquote('"\\E036"');
 	}
-	@if $filename == file-m {
+	@if $filename == file-code-l {
 		$char: unquote('"\\E037"');
 	}
-	@if $filename == file-pdf-l {
+	@if $filename == file-code-lg {
 		$char: unquote('"\\E038"');
 	}
-	@if $filename == file-pdf-m-l {
+	@if $filename == file-code-m-l {
 		$char: unquote('"\\E039"');
 	}
-	@if $filename == file-pdf-m {
+	@if $filename == file-code-m {
 		$char: unquote('"\\E03A"');
 	}
-	@if $filename == file-pdf {
+	@if $filename == file-code-sm {
 		$char: unquote('"\\E03B"');
 	}
-	@if $filename == file-ppt-l {
+	@if $filename == file-code {
 		$char: unquote('"\\E03C"');
 	}
-	@if $filename == file-ppt-m-l {
+	@if $filename == file-doc-l {
 		$char: unquote('"\\E03D"');
 	}
-	@if $filename == file-ppt-m {
+	@if $filename == file-doc-lg {
 		$char: unquote('"\\E03E"');
 	}
-	@if $filename == file-ppt {
+	@if $filename == file-doc-m-l {
 		$char: unquote('"\\E03F"');
 	}
-	@if $filename == file-sketch-l {
+	@if $filename == file-doc-m {
 		$char: unquote('"\\E040"');
 	}
-	@if $filename == file-sketch-m-l {
+	@if $filename == file-doc-sm {
 		$char: unquote('"\\E041"');
 	}
-	@if $filename == file-sketch-m {
+	@if $filename == file-doc {
 		$char: unquote('"\\E042"');
 	}
-	@if $filename == file-sketch {
+	@if $filename == file-image-l {
 		$char: unquote('"\\E043"');
 	}
-	@if $filename == file-text-l {
+	@if $filename == file-image-lg {
 		$char: unquote('"\\E044"');
 	}
-	@if $filename == file-text-m-l {
+	@if $filename == file-image-m-l {
 		$char: unquote('"\\E045"');
 	}
-	@if $filename == file-text-m {
+	@if $filename == file-image-m {
 		$char: unquote('"\\E046"');
 	}
-	@if $filename == file-text {
+	@if $filename == file-image-sm {
 		$char: unquote('"\\E047"');
 	}
-	@if $filename == file-video-l {
+	@if $filename == file-image {
 		$char: unquote('"\\E048"');
 	}
-	@if $filename == file-video-m-l {
+	@if $filename == file-jpg-l {
 		$char: unquote('"\\E049"');
 	}
-	@if $filename == file-video-m {
+	@if $filename == file-jpg-lg {
 		$char: unquote('"\\E04A"');
 	}
-	@if $filename == file-video {
+	@if $filename == file-jpg-m-l {
 		$char: unquote('"\\E04B"');
 	}
-	@if $filename == file-xls-l {
+	@if $filename == file-jpg-m {
 		$char: unquote('"\\E04C"');
 	}
-	@if $filename == file-xls-m-l {
+	@if $filename == file-jpg-sm {
 		$char: unquote('"\\E04D"');
 	}
-	@if $filename == file-xls-m {
+	@if $filename == file-jpg {
 		$char: unquote('"\\E04E"');
 	}
-	@if $filename == file-xls {
+	@if $filename == file-l {
 		$char: unquote('"\\E04F"');
 	}
-	@if $filename == file-zip-l {
+	@if $filename == file-lg {
 		$char: unquote('"\\E050"');
 	}
-	@if $filename == file-zip-m-l {
+	@if $filename == file-m-l {
 		$char: unquote('"\\E051"');
 	}
-	@if $filename == file-zip-m {
+	@if $filename == file-m {
 		$char: unquote('"\\E052"');
 	}
-	@if $filename == file-zip {
+	@if $filename == file-pdf-l {
 		$char: unquote('"\\E053"');
 	}
-	@if $filename == file {
+	@if $filename == file-pdf-lg {
 		$char: unquote('"\\E054"');
 	}
-	@if $filename == folder-l {
+	@if $filename == file-pdf-m-l {
 		$char: unquote('"\\E055"');
 	}
-	@if $filename == folder-m-l {
+	@if $filename == file-pdf-m {
 		$char: unquote('"\\E056"');
 	}
-	@if $filename == folder-m {
+	@if $filename == file-pdf-sm {
 		$char: unquote('"\\E057"');
 	}
-	@if $filename == folder {
+	@if $filename == file-pdf {
 		$char: unquote('"\\E058"');
 	}
-	@if $filename == announcement-l {
+	@if $filename == file-ppt-l {
 		$char: unquote('"\\E059"');
 	}
-	@if $filename == announcement-m-l {
+	@if $filename == file-ppt-lg {
 		$char: unquote('"\\E05A"');
 	}
-	@if $filename == announcement-m {
+	@if $filename == file-ppt-m-l {
 		$char: unquote('"\\E05B"');
 	}
-	@if $filename == announcement {
+	@if $filename == file-ppt-m {
 		$char: unquote('"\\E05C"');
 	}
-	@if $filename == chat-l {
+	@if $filename == file-ppt-sm {
 		$char: unquote('"\\E05D"');
 	}
-	@if $filename == chat-m-l {
+	@if $filename == file-ppt {
 		$char: unquote('"\\E05E"');
 	}
-	@if $filename == chat-m {
+	@if $filename == file-sketch-l {
 		$char: unquote('"\\E05F"');
 	}
-	@if $filename == chat {
+	@if $filename == file-sketch-lg {
 		$char: unquote('"\\E060"');
 	}
-	@if $filename == comment-l {
+	@if $filename == file-sketch-m-l {
 		$char: unquote('"\\E061"');
 	}
-	@if $filename == comment-m-l {
+	@if $filename == file-sketch-m {
 		$char: unquote('"\\E062"');
 	}
-	@if $filename == comment-m {
+	@if $filename == file-sketch-sm {
 		$char: unquote('"\\E063"');
 	}
-	@if $filename == comment {
+	@if $filename == file-sketch {
 		$char: unquote('"\\E064"');
 	}
-	@if $filename == forum-l {
+	@if $filename == file-sm {
 		$char: unquote('"\\E065"');
 	}
-	@if $filename == forum-m-l {
+	@if $filename == file-text-l {
 		$char: unquote('"\\E066"');
 	}
-	@if $filename == forum-m {
+	@if $filename == file-text-lg {
 		$char: unquote('"\\E067"');
 	}
-	@if $filename == forum {
+	@if $filename == file-text-m-l {
 		$char: unquote('"\\E068"');
 	}
-	@if $filename == heart-fill-l {
+	@if $filename == file-text-m {
 		$char: unquote('"\\E069"');
 	}
-	@if $filename == heart-fill-m-l {
+	@if $filename == file-text-sm {
 		$char: unquote('"\\E06A"');
 	}
-	@if $filename == heart-fill-m {
+	@if $filename == file-text {
 		$char: unquote('"\\E06B"');
 	}
-	@if $filename == heart-fill {
+	@if $filename == file-video-l {
 		$char: unquote('"\\E06C"');
 	}
-	@if $filename == heart-l {
+	@if $filename == file-video-lg {
 		$char: unquote('"\\E06D"');
 	}
-	@if $filename == heart-m-l {
+	@if $filename == file-video-m-l {
 		$char: unquote('"\\E06E"');
 	}
-	@if $filename == heart-m {
+	@if $filename == file-video-m {
 		$char: unquote('"\\E06F"');
 	}
-	@if $filename == heart {
+	@if $filename == file-video-sm {
 		$char: unquote('"\\E070"');
 	}
-	@if $filename == mail-l {
+	@if $filename == file-video {
 		$char: unquote('"\\E071"');
 	}
-	@if $filename == mail-m-l {
+	@if $filename == file-xls-l {
 		$char: unquote('"\\E072"');
 	}
-	@if $filename == mail-m {
+	@if $filename == file-xls-lg {
 		$char: unquote('"\\E073"');
 	}
-	@if $filename == mail {
+	@if $filename == file-xls-m-l {
 		$char: unquote('"\\E074"');
 	}
-	@if $filename == notification-l {
+	@if $filename == file-xls-m {
 		$char: unquote('"\\E075"');
 	}
-	@if $filename == notification-m-l {
+	@if $filename == file-xls-sm {
 		$char: unquote('"\\E076"');
 	}
-	@if $filename == notification-m {
+	@if $filename == file-xls {
 		$char: unquote('"\\E077"');
 	}
-	@if $filename == notification {
+	@if $filename == file-zip-l {
 		$char: unquote('"\\E078"');
 	}
-	@if $filename == phone-l {
+	@if $filename == file-zip-lg {
 		$char: unquote('"\\E079"');
 	}
-	@if $filename == phone-m-l {
+	@if $filename == file-zip-m-l {
 		$char: unquote('"\\E07A"');
 	}
-	@if $filename == phone-m {
+	@if $filename == file-zip-m {
 		$char: unquote('"\\E07B"');
 	}
-	@if $filename == phone {
+	@if $filename == file-zip-sm {
 		$char: unquote('"\\E07C"');
 	}
-	@if $filename == role-l {
+	@if $filename == file-zip {
 		$char: unquote('"\\E07D"');
 	}
-	@if $filename == role-m-l {
+	@if $filename == file {
 		$char: unquote('"\\E07E"');
 	}
-	@if $filename == role-m {
+	@if $filename == folder-l {
 		$char: unquote('"\\E07F"');
 	}
-	@if $filename == role {
+	@if $filename == folder-lg {
 		$char: unquote('"\\E080"');
 	}
-	@if $filename == rss-l {
+	@if $filename == folder-m-l {
 		$char: unquote('"\\E081"');
 	}
-	@if $filename == rss-m-l {
+	@if $filename == folder-m {
 		$char: unquote('"\\E082"');
 	}
-	@if $filename == rss-m {
+	@if $filename == folder-sm {
 		$char: unquote('"\\E083"');
 	}
-	@if $filename == rss {
+	@if $filename == folder {
 		$char: unquote('"\\E084"');
 	}
-	@if $filename == sentiment-dead-l {
+	@if $filename == align-center-l {
 		$char: unquote('"\\E085"');
 	}
-	@if $filename == sentiment-dead-m-l {
+	@if $filename == align-center-lg {
 		$char: unquote('"\\E086"');
 	}
-	@if $filename == sentiment-dead-m {
+	@if $filename == align-center-m-l {
 		$char: unquote('"\\E087"');
 	}
-	@if $filename == sentiment-dead {
+	@if $filename == align-center-m {
 		$char: unquote('"\\E088"');
 	}
-	@if $filename == sentiment-great-l {
+	@if $filename == align-center-sm {
 		$char: unquote('"\\E089"');
 	}
-	@if $filename == sentiment-great-m-l {
+	@if $filename == align-center {
 		$char: unquote('"\\E08A"');
 	}
-	@if $filename == sentiment-great-m {
+	@if $filename == align-justify-l {
 		$char: unquote('"\\E08B"');
 	}
-	@if $filename == sentiment-great {
+	@if $filename == align-justify-lg {
 		$char: unquote('"\\E08C"');
 	}
-	@if $filename == sentiment-meh-l {
+	@if $filename == align-justify-m-l {
 		$char: unquote('"\\E08D"');
 	}
-	@if $filename == sentiment-meh-m-l {
+	@if $filename == align-justify-m {
 		$char: unquote('"\\E08E"');
 	}
-	@if $filename == sentiment-meh-m {
+	@if $filename == align-justify-sm {
 		$char: unquote('"\\E08F"');
 	}
-	@if $filename == sentiment-meh {
+	@if $filename == align-justify {
 		$char: unquote('"\\E090"');
 	}
-	@if $filename == sentiment-mute-l {
+	@if $filename == align-left-l {
 		$char: unquote('"\\E091"');
 	}
-	@if $filename == sentiment-mute-m-l {
+	@if $filename == align-left-lg {
 		$char: unquote('"\\E092"');
 	}
-	@if $filename == sentiment-mute-m {
+	@if $filename == align-left-m-l {
 		$char: unquote('"\\E093"');
 	}
-	@if $filename == sentiment-mute {
+	@if $filename == align-left-m {
 		$char: unquote('"\\E094"');
 	}
-	@if $filename == sentiment-sad-l {
+	@if $filename == align-left-sm {
 		$char: unquote('"\\E095"');
 	}
-	@if $filename == sentiment-sad-m-l {
+	@if $filename == align-left {
 		$char: unquote('"\\E096"');
 	}
-	@if $filename == sentiment-sad-m {
+	@if $filename == align-right-l {
 		$char: unquote('"\\E097"');
 	}
-	@if $filename == sentiment-sad {
+	@if $filename == align-right-lg {
 		$char: unquote('"\\E098"');
 	}
-	@if $filename == sentiment-smile-l {
+	@if $filename == align-right-m-l {
 		$char: unquote('"\\E099"');
 	}
-	@if $filename == sentiment-smile-m-l {
+	@if $filename == align-right-m {
 		$char: unquote('"\\E09A"');
 	}
-	@if $filename == sentiment-smile-m {
+	@if $filename == align-right-sm {
 		$char: unquote('"\\E09B"');
 	}
-	@if $filename == sentiment-smile {
+	@if $filename == align-right {
 		$char: unquote('"\\E09C"');
 	}
-	@if $filename == sentiment-wink-l {
+	@if $filename == clear-formatting-l {
 		$char: unquote('"\\E09D"');
 	}
-	@if $filename == sentiment-wink-m-l {
+	@if $filename == clear-formatting-lg {
 		$char: unquote('"\\E09E"');
 	}
-	@if $filename == sentiment-wink-m {
+	@if $filename == clear-formatting-m-l {
 		$char: unquote('"\\E09F"');
 	}
-	@if $filename == sentiment-wink {
+	@if $filename == clear-formatting-m {
 		$char: unquote('"\\E0A0"');
 	}
-	@if $filename == sentiment-wow-l {
+	@if $filename == clear-formatting-sm {
 		$char: unquote('"\\E0A1"');
 	}
-	@if $filename == sentiment-wow-m-l {
+	@if $filename == clear-formatting {
 		$char: unquote('"\\E0A2"');
 	}
-	@if $filename == sentiment-wow-m {
+	@if $filename == copy-l {
 		$char: unquote('"\\E0A3"');
 	}
-	@if $filename == sentiment-wow {
+	@if $filename == copy-lg {
 		$char: unquote('"\\E0A4"');
 	}
-	@if $filename == share-l {
+	@if $filename == copy-m-l {
 		$char: unquote('"\\E0A5"');
 	}
-	@if $filename == share-m-l {
+	@if $filename == copy-m {
 		$char: unquote('"\\E0A6"');
 	}
-	@if $filename == share-m {
+	@if $filename == copy-sm {
 		$char: unquote('"\\E0A7"');
 	}
-	@if $filename == share {
+	@if $filename == copy {
 		$char: unquote('"\\E0A8"');
 	}
-	@if $filename == star-fill-l {
+	@if $filename == cut-l {
 		$char: unquote('"\\E0A9"');
 	}
-	@if $filename == star-fill-m-l {
+	@if $filename == cut-lg {
 		$char: unquote('"\\E0AA"');
 	}
-	@if $filename == star-fill-m {
+	@if $filename == cut-m-l {
 		$char: unquote('"\\E0AB"');
 	}
-	@if $filename == star-fill {
+	@if $filename == cut-m {
 		$char: unquote('"\\E0AC"');
 	}
-	@if $filename == star-half-l {
+	@if $filename == cut-sm {
 		$char: unquote('"\\E0AD"');
 	}
-	@if $filename == star-half-m-l {
+	@if $filename == cut {
 		$char: unquote('"\\E0AE"');
 	}
-	@if $filename == star-half-m {
+	@if $filename == fill-color-l {
 		$char: unquote('"\\E0AF"');
 	}
-	@if $filename == star-half {
+	@if $filename == fill-color-lg {
 		$char: unquote('"\\E0B0"');
 	}
-	@if $filename == star-l {
+	@if $filename == fill-color-m-l {
 		$char: unquote('"\\E0B1"');
 	}
-	@if $filename == star-m-l {
+	@if $filename == fill-color-m {
 		$char: unquote('"\\E0B2"');
 	}
-	@if $filename == star-m {
+	@if $filename == fill-color-sm {
 		$char: unquote('"\\E0B3"');
 	}
-	@if $filename == star {
+	@if $filename == fill-color {
 		$char: unquote('"\\E0B4"');
 	}
-	@if $filename == team-l {
+	@if $filename == indent-left-l {
 		$char: unquote('"\\E0B5"');
 	}
-	@if $filename == team-m-l {
+	@if $filename == indent-left-lg {
 		$char: unquote('"\\E0B6"');
 	}
-	@if $filename == team-m {
+	@if $filename == indent-left-m-l {
 		$char: unquote('"\\E0B7"');
 	}
-	@if $filename == team {
+	@if $filename == indent-left-m {
 		$char: unquote('"\\E0B8"');
 	}
-	@if $filename == thumbs-down-l {
+	@if $filename == indent-left-sm {
 		$char: unquote('"\\E0B9"');
 	}
-	@if $filename == thumbs-down-m-l {
+	@if $filename == indent-left {
 		$char: unquote('"\\E0BA"');
 	}
-	@if $filename == thumbs-down-m {
+	@if $filename == indent-right-l {
 		$char: unquote('"\\E0BB"');
 	}
-	@if $filename == thumbs-down {
+	@if $filename == indent-right-lg {
 		$char: unquote('"\\E0BC"');
 	}
-	@if $filename == thumbs-up-l {
+	@if $filename == indent-right-m-l {
 		$char: unquote('"\\E0BD"');
 	}
-	@if $filename == thumbs-up-m-l {
+	@if $filename == indent-right-m {
 		$char: unquote('"\\E0BE"');
 	}
-	@if $filename == thumbs-up-m {
+	@if $filename == indent-right-sm {
 		$char: unquote('"\\E0BF"');
 	}
-	@if $filename == thumbs-up {
+	@if $filename == indent-right {
 		$char: unquote('"\\E0C0"');
 	}
-	@if $filename == video-chat-l {
+	@if $filename == insert-l {
 		$char: unquote('"\\E0C1"');
 	}
-	@if $filename == video-chat-m-l {
+	@if $filename == insert-lg {
 		$char: unquote('"\\E0C2"');
 	}
-	@if $filename == video-chat-m {
+	@if $filename == insert-m-l {
 		$char: unquote('"\\E0C3"');
 	}
-	@if $filename == video-chat {
+	@if $filename == insert-m {
 		$char: unquote('"\\E0C4"');
 	}
-	@if $filename == align-center-l {
+	@if $filename == insert-sm {
 		$char: unquote('"\\E0C5"');
 	}
-	@if $filename == align-center-m-l {
+	@if $filename == insert {
 		$char: unquote('"\\E0C6"');
 	}
-	@if $filename == align-center-m {
+	@if $filename == list-ordered-l {
 		$char: unquote('"\\E0C7"');
 	}
-	@if $filename == align-center {
+	@if $filename == list-ordered-lg {
 		$char: unquote('"\\E0C8"');
 	}
-	@if $filename == align-justify-l {
+	@if $filename == list-ordered-m-l {
 		$char: unquote('"\\E0C9"');
 	}
-	@if $filename == align-justify-m-l {
+	@if $filename == list-ordered-m {
 		$char: unquote('"\\E0CA"');
 	}
-	@if $filename == align-justify-m {
+	@if $filename == list-ordered-sm {
 		$char: unquote('"\\E0CB"');
 	}
-	@if $filename == align-justify {
+	@if $filename == list-ordered {
 		$char: unquote('"\\E0CC"');
 	}
-	@if $filename == align-left-l {
+	@if $filename == list-unordered-l {
 		$char: unquote('"\\E0CD"');
 	}
-	@if $filename == align-left-m-l {
+	@if $filename == list-unordered-lg {
 		$char: unquote('"\\E0CE"');
 	}
-	@if $filename == align-left-m {
+	@if $filename == list-unordered-m-l {
 		$char: unquote('"\\E0CF"');
 	}
-	@if $filename == align-left {
+	@if $filename == list-unordered-m {
 		$char: unquote('"\\E0D0"');
 	}
-	@if $filename == align-right-l {
+	@if $filename == list-unordered-sm {
 		$char: unquote('"\\E0D1"');
 	}
-	@if $filename == align-right-m-l {
+	@if $filename == list-unordered {
 		$char: unquote('"\\E0D2"');
 	}
-	@if $filename == align-right-m {
+	@if $filename == paste-l {
 		$char: unquote('"\\E0D3"');
 	}
-	@if $filename == align-right {
+	@if $filename == paste-lg {
 		$char: unquote('"\\E0D4"');
 	}
-	@if $filename == clear-formatting-l {
+	@if $filename == paste-m-l {
 		$char: unquote('"\\E0D5"');
 	}
-	@if $filename == clear-formatting-m-l {
+	@if $filename == paste-m {
 		$char: unquote('"\\E0D6"');
 	}
-	@if $filename == clear-formatting-m {
+	@if $filename == paste-sm {
 		$char: unquote('"\\E0D7"');
 	}
-	@if $filename == clear-formatting {
+	@if $filename == paste {
 		$char: unquote('"\\E0D8"');
 	}
-	@if $filename == copy-l {
+	@if $filename == type-bold-l {
 		$char: unquote('"\\E0D9"');
 	}
-	@if $filename == copy-m-l {
+	@if $filename == type-bold-lg {
 		$char: unquote('"\\E0DA"');
 	}
-	@if $filename == copy-m {
+	@if $filename == type-bold-m-l {
 		$char: unquote('"\\E0DB"');
 	}
-	@if $filename == copy {
+	@if $filename == type-bold-m {
 		$char: unquote('"\\E0DC"');
 	}
-	@if $filename == cut-l {
+	@if $filename == type-bold-sm {
 		$char: unquote('"\\E0DD"');
 	}
-	@if $filename == cut-m-l {
+	@if $filename == type-bold {
 		$char: unquote('"\\E0DE"');
 	}
-	@if $filename == cut-m {
+	@if $filename == type-italic-l {
 		$char: unquote('"\\E0DF"');
 	}
-	@if $filename == cut {
+	@if $filename == type-italic-lg {
 		$char: unquote('"\\E0E0"');
 	}
-	@if $filename == fill-color-l {
+	@if $filename == type-italic-m-l {
 		$char: unquote('"\\E0E1"');
 	}
-	@if $filename == fill-color-m-l {
+	@if $filename == type-italic-m {
 		$char: unquote('"\\E0E2"');
 	}
-	@if $filename == fill-color-m {
+	@if $filename == type-italic-sm {
 		$char: unquote('"\\E0E3"');
 	}
-	@if $filename == fill-color {
+	@if $filename == type-italic {
 		$char: unquote('"\\E0E4"');
 	}
-	@if $filename == indent-left-l {
+	@if $filename == type-size-l {
 		$char: unquote('"\\E0E5"');
 	}
-	@if $filename == indent-left-m-l {
+	@if $filename == type-size-lg {
 		$char: unquote('"\\E0E6"');
 	}
-	@if $filename == indent-left-m {
+	@if $filename == type-size-m-l {
 		$char: unquote('"\\E0E7"');
 	}
-	@if $filename == indent-left {
+	@if $filename == type-size-m {
 		$char: unquote('"\\E0E8"');
 	}
-	@if $filename == indent-right-l {
+	@if $filename == type-size-sm {
 		$char: unquote('"\\E0E9"');
 	}
-	@if $filename == indent-right-m-l {
+	@if $filename == type-size {
 		$char: unquote('"\\E0EA"');
 	}
-	@if $filename == indent-right-m {
+	@if $filename == type-underline-l {
 		$char: unquote('"\\E0EB"');
 	}
-	@if $filename == indent-right {
+	@if $filename == type-underline-lg {
 		$char: unquote('"\\E0EC"');
 	}
-	@if $filename == insert-l {
+	@if $filename == type-underline-m-l {
 		$char: unquote('"\\E0ED"');
 	}
-	@if $filename == insert-m-l {
+	@if $filename == type-underline-m {
 		$char: unquote('"\\E0EE"');
 	}
-	@if $filename == insert-m {
+	@if $filename == type-underline-sm {
 		$char: unquote('"\\E0EF"');
 	}
-	@if $filename == insert {
+	@if $filename == type-underline {
 		$char: unquote('"\\E0F0"');
 	}
-	@if $filename == list-ordered-l {
+	@if $filename == announcement-l {
 		$char: unquote('"\\E0F1"');
 	}
-	@if $filename == list-ordered-m-l {
+	@if $filename == announcement-lg {
 		$char: unquote('"\\E0F2"');
 	}
-	@if $filename == list-ordered-m {
+	@if $filename == announcement-m-l {
 		$char: unquote('"\\E0F3"');
 	}
-	@if $filename == list-ordered {
+	@if $filename == announcement-m {
 		$char: unquote('"\\E0F4"');
 	}
-	@if $filename == list-unordered-l {
+	@if $filename == announcement-sm {
 		$char: unquote('"\\E0F5"');
 	}
-	@if $filename == list-unordered-m-l {
+	@if $filename == announcement {
 		$char: unquote('"\\E0F6"');
 	}
-	@if $filename == list-unordered-m {
+	@if $filename == chat-l {
 		$char: unquote('"\\E0F7"');
 	}
-	@if $filename == list-unordered {
+	@if $filename == chat-lg {
 		$char: unquote('"\\E0F8"');
 	}
-	@if $filename == paste-l {
+	@if $filename == chat-m-l {
 		$char: unquote('"\\E0F9"');
 	}
-	@if $filename == paste-m-l {
+	@if $filename == chat-m {
 		$char: unquote('"\\E0FA"');
 	}
-	@if $filename == paste-m {
+	@if $filename == chat-sm {
 		$char: unquote('"\\E0FB"');
 	}
-	@if $filename == paste {
+	@if $filename == chat {
 		$char: unquote('"\\E0FC"');
 	}
-	@if $filename == type-bold-l {
+	@if $filename == comment-l {
 		$char: unquote('"\\E0FD"');
 	}
-	@if $filename == type-bold-m-l {
+	@if $filename == comment-lg {
 		$char: unquote('"\\E0FE"');
 	}
-	@if $filename == type-bold-m {
+	@if $filename == comment-m-l {
 		$char: unquote('"\\E0FF"');
 	}
-	@if $filename == type-bold {
+	@if $filename == comment-m {
 		$char: unquote('"\\E100"');
 	}
-	@if $filename == type-italic-l {
+	@if $filename == comment-sm {
 		$char: unquote('"\\E101"');
 	}
-	@if $filename == type-italic-m-l {
+	@if $filename == comment {
 		$char: unquote('"\\E102"');
 	}
-	@if $filename == type-italic-m {
+	@if $filename == forum-l {
 		$char: unquote('"\\E103"');
 	}
-	@if $filename == type-italic {
+	@if $filename == forum-lg {
 		$char: unquote('"\\E104"');
 	}
-	@if $filename == type-size-l {
+	@if $filename == forum-m-l {
 		$char: unquote('"\\E105"');
 	}
-	@if $filename == type-size-m-l {
+	@if $filename == forum-m {
 		$char: unquote('"\\E106"');
 	}
-	@if $filename == type-size-m {
+	@if $filename == forum-sm {
 		$char: unquote('"\\E107"');
 	}
-	@if $filename == type-size {
+	@if $filename == forum {
 		$char: unquote('"\\E108"');
 	}
-	@if $filename == type-underline-l {
+	@if $filename == heart-fill-l {
 		$char: unquote('"\\E109"');
 	}
-	@if $filename == type-underline-m-l {
+	@if $filename == heart-fill-lg {
 		$char: unquote('"\\E10A"');
 	}
-	@if $filename == type-underline-m {
+	@if $filename == heart-fill-m-l {
 		$char: unquote('"\\E10B"');
 	}
-	@if $filename == type-underline {
+	@if $filename == heart-fill-m {
 		$char: unquote('"\\E10C"');
 	}
-	@if $filename == facebook-l {
+	@if $filename == heart-fill-sm {
 		$char: unquote('"\\E10D"');
 	}
-	@if $filename == facebook-m-l {
+	@if $filename == heart-fill {
 		$char: unquote('"\\E10E"');
 	}
-	@if $filename == facebook-m {
+	@if $filename == heart-l {
 		$char: unquote('"\\E10F"');
 	}
-	@if $filename == facebook {
+	@if $filename == heart-lg {
 		$char: unquote('"\\E110"');
 	}
-	@if $filename == github-l {
+	@if $filename == heart-m-l {
 		$char: unquote('"\\E111"');
 	}
-	@if $filename == github-m-l {
+	@if $filename == heart-m {
 		$char: unquote('"\\E112"');
 	}
-	@if $filename == github-m {
+	@if $filename == heart-sm {
 		$char: unquote('"\\E113"');
 	}
-	@if $filename == github {
+	@if $filename == heart {
 		$char: unquote('"\\E114"');
 	}
-	@if $filename == googleplus-l {
+	@if $filename == mail-l {
 		$char: unquote('"\\E115"');
 	}
-	@if $filename == googleplus-m-l {
+	@if $filename == mail-lg {
 		$char: unquote('"\\E116"');
 	}
-	@if $filename == googleplus-m {
+	@if $filename == mail-m-l {
 		$char: unquote('"\\E117"');
 	}
-	@if $filename == googleplus {
+	@if $filename == mail-m {
 		$char: unquote('"\\E118"');
 	}
-	@if $filename == instagram-l {
+	@if $filename == mail-sm {
 		$char: unquote('"\\E119"');
 	}
-	@if $filename == instagram-m-l {
+	@if $filename == mail {
 		$char: unquote('"\\E11A"');
 	}
-	@if $filename == instagram-m {
+	@if $filename == notification-l {
 		$char: unquote('"\\E11B"');
 	}
-	@if $filename == instagram {
+	@if $filename == notification-lg {
 		$char: unquote('"\\E11C"');
 	}
-	@if $filename == linkedin-l {
+	@if $filename == notification-m-l {
 		$char: unquote('"\\E11D"');
 	}
-	@if $filename == linkedin-m-l {
+	@if $filename == notification-m {
 		$char: unquote('"\\E11E"');
 	}
-	@if $filename == linkedin-m {
+	@if $filename == notification-sm {
 		$char: unquote('"\\E11F"');
 	}
-	@if $filename == linkedin {
+	@if $filename == notification {
 		$char: unquote('"\\E120"');
 	}
-	@if $filename == slack-l {
+	@if $filename == phone-l {
 		$char: unquote('"\\E121"');
 	}
-	@if $filename == slack-m-l {
+	@if $filename == phone-lg {
 		$char: unquote('"\\E122"');
 	}
-	@if $filename == slack-m {
+	@if $filename == phone-m-l {
 		$char: unquote('"\\E123"');
 	}
-	@if $filename == slack {
+	@if $filename == phone-m {
 		$char: unquote('"\\E124"');
 	}
-	@if $filename == twitter-l {
+	@if $filename == phone-sm {
 		$char: unquote('"\\E125"');
 	}
-	@if $filename == twitter-m-l {
+	@if $filename == phone {
 		$char: unquote('"\\E126"');
 	}
-	@if $filename == twitter-m {
+	@if $filename == role-l {
 		$char: unquote('"\\E127"');
 	}
-	@if $filename == twitter {
+	@if $filename == role-lg {
 		$char: unquote('"\\E128"');
 	}
-	@if $filename == youtube-l {
+	@if $filename == role-m-l {
 		$char: unquote('"\\E129"');
 	}
-	@if $filename == youtube-m-l {
+	@if $filename == role-m {
 		$char: unquote('"\\E12A"');
 	}
-	@if $filename == youtube-m {
+	@if $filename == role-sm {
 		$char: unquote('"\\E12B"');
 	}
-	@if $filename == youtube {
+	@if $filename == role {
 		$char: unquote('"\\E12C"');
 	}
-	@if $filename == mic-off-fill-l {
+	@if $filename == rss-l {
 		$char: unquote('"\\E12D"');
 	}
-	@if $filename == mic-off-fill-m-l {
+	@if $filename == rss-lg {
 		$char: unquote('"\\E12E"');
 	}
-	@if $filename == mic-off-fill-m {
+	@if $filename == rss-m-l {
 		$char: unquote('"\\E12F"');
 	}
-	@if $filename == mic-off-fill {
+	@if $filename == rss-m {
 		$char: unquote('"\\E130"');
 	}
-	@if $filename == mic-off-l {
+	@if $filename == rss-sm {
 		$char: unquote('"\\E131"');
 	}
-	@if $filename == mic-off-m-l {
+	@if $filename == rss {
 		$char: unquote('"\\E132"');
 	}
-	@if $filename == mic-off-m {
+	@if $filename == sentiment-dead-l {
 		$char: unquote('"\\E133"');
 	}
-	@if $filename == mic-off {
+	@if $filename == sentiment-dead-lg {
 		$char: unquote('"\\E134"');
 	}
-	@if $filename == mic-on-fill-l {
+	@if $filename == sentiment-dead-m-l {
 		$char: unquote('"\\E135"');
 	}
-	@if $filename == mic-on-fill-m-l {
+	@if $filename == sentiment-dead-m {
 		$char: unquote('"\\E136"');
 	}
-	@if $filename == mic-on-fill-m {
+	@if $filename == sentiment-dead-sm {
 		$char: unquote('"\\E137"');
 	}
-	@if $filename == mic-on-fill {
+	@if $filename == sentiment-dead {
 		$char: unquote('"\\E138"');
 	}
-	@if $filename == mic-on-l {
+	@if $filename == sentiment-great-l {
 		$char: unquote('"\\E139"');
 	}
-	@if $filename == mic-on-m-l {
+	@if $filename == sentiment-great-lg {
 		$char: unquote('"\\E13A"');
 	}
-	@if $filename == mic-on-m {
+	@if $filename == sentiment-great-m-l {
 		$char: unquote('"\\E13B"');
 	}
-	@if $filename == mic-on {
+	@if $filename == sentiment-great-m {
 		$char: unquote('"\\E13C"');
 	}
-	@if $filename == pause-fill-l {
+	@if $filename == sentiment-great-sm {
 		$char: unquote('"\\E13D"');
 	}
-	@if $filename == pause-fill-m-l {
+	@if $filename == sentiment-great {
 		$char: unquote('"\\E13E"');
 	}
-	@if $filename == pause-fill-m {
+	@if $filename == sentiment-meh-l {
 		$char: unquote('"\\E13F"');
 	}
-	@if $filename == pause-fill {
+	@if $filename == sentiment-meh-lg {
 		$char: unquote('"\\E140"');
 	}
-	@if $filename == pause-l {
+	@if $filename == sentiment-meh-m-l {
 		$char: unquote('"\\E141"');
 	}
-	@if $filename == pause-m-l {
+	@if $filename == sentiment-meh-m {
 		$char: unquote('"\\E142"');
 	}
-	@if $filename == pause-m {
+	@if $filename == sentiment-meh-sm {
 		$char: unquote('"\\E143"');
 	}
-	@if $filename == pause {
+	@if $filename == sentiment-meh {
 		$char: unquote('"\\E144"');
 	}
-	@if $filename == play-fill-l {
+	@if $filename == sentiment-mute-l {
 		$char: unquote('"\\E145"');
 	}
-	@if $filename == play-fill-m-l {
+	@if $filename == sentiment-mute-lg {
 		$char: unquote('"\\E146"');
 	}
-	@if $filename == play-fill-m {
+	@if $filename == sentiment-mute-m-l {
 		$char: unquote('"\\E147"');
 	}
-	@if $filename == play-fill {
+	@if $filename == sentiment-mute-m {
 		$char: unquote('"\\E148"');
 	}
-	@if $filename == play-l {
+	@if $filename == sentiment-mute-sm {
 		$char: unquote('"\\E149"');
 	}
-	@if $filename == play-m-l {
+	@if $filename == sentiment-mute {
 		$char: unquote('"\\E14A"');
 	}
-	@if $filename == play-m {
+	@if $filename == sentiment-sad-l {
 		$char: unquote('"\\E14B"');
 	}
-	@if $filename == play {
+	@if $filename == sentiment-sad-lg {
 		$char: unquote('"\\E14C"');
 	}
-	@if $filename == stop-fill-l {
+	@if $filename == sentiment-sad-m-l {
 		$char: unquote('"\\E14D"');
 	}
-	@if $filename == stop-fill-m-l {
+	@if $filename == sentiment-sad-m {
 		$char: unquote('"\\E14E"');
 	}
-	@if $filename == stop-fill-m {
+	@if $filename == sentiment-sad-sm {
 		$char: unquote('"\\E14F"');
 	}
-	@if $filename == stop-fill {
+	@if $filename == sentiment-sad {
 		$char: unquote('"\\E150"');
 	}
-	@if $filename == stop-l {
+	@if $filename == sentiment-smile-l {
 		$char: unquote('"\\E151"');
 	}
-	@if $filename == stop-m-l {
+	@if $filename == sentiment-smile-lg {
 		$char: unquote('"\\E152"');
 	}
-	@if $filename == stop-m {
+	@if $filename == sentiment-smile-m-l {
 		$char: unquote('"\\E153"');
 	}
-	@if $filename == stop {
+	@if $filename == sentiment-smile-m {
 		$char: unquote('"\\E154"');
 	}
-	@if $filename == video-fill-l {
+	@if $filename == sentiment-smile-sm {
 		$char: unquote('"\\E155"');
 	}
-	@if $filename == video-fill-m-l {
+	@if $filename == sentiment-smile {
 		$char: unquote('"\\E156"');
 	}
-	@if $filename == video-fill-m {
+	@if $filename == sentiment-wink-l {
 		$char: unquote('"\\E157"');
 	}
-	@if $filename == video-fill {
+	@if $filename == sentiment-wink-lg {
 		$char: unquote('"\\E158"');
 	}
-	@if $filename == video-l {
+	@if $filename == sentiment-wink-m-l {
 		$char: unquote('"\\E159"');
 	}
-	@if $filename == video-m-l {
+	@if $filename == sentiment-wink-m {
 		$char: unquote('"\\E15A"');
 	}
-	@if $filename == video-m {
+	@if $filename == sentiment-wink-sm {
 		$char: unquote('"\\E15B"');
 	}
-	@if $filename == video {
+	@if $filename == sentiment-wink {
 		$char: unquote('"\\E15C"');
 	}
-	@if $filename == volume-0-fill-l {
+	@if $filename == sentiment-wow-l {
 		$char: unquote('"\\E15D"');
 	}
-	@if $filename == volume-0-fill-m-l {
+	@if $filename == sentiment-wow-lg {
 		$char: unquote('"\\E15E"');
 	}
-	@if $filename == volume-0-fill-m {
+	@if $filename == sentiment-wow-m-l {
 		$char: unquote('"\\E15F"');
 	}
-	@if $filename == volume-0-fill {
+	@if $filename == sentiment-wow-m {
 		$char: unquote('"\\E160"');
 	}
-	@if $filename == volume-0-l {
+	@if $filename == sentiment-wow-sm {
 		$char: unquote('"\\E161"');
 	}
-	@if $filename == volume-0-m-l {
+	@if $filename == sentiment-wow {
 		$char: unquote('"\\E162"');
 	}
-	@if $filename == volume-0-m {
+	@if $filename == share-l {
 		$char: unquote('"\\E163"');
 	}
-	@if $filename == volume-0 {
+	@if $filename == share-lg {
 		$char: unquote('"\\E164"');
 	}
-	@if $filename == volume-1-fill-l {
+	@if $filename == share-m-l {
 		$char: unquote('"\\E165"');
 	}
-	@if $filename == volume-1-fill-m-l {
+	@if $filename == share-m {
 		$char: unquote('"\\E166"');
 	}
-	@if $filename == volume-1-fill-m {
+	@if $filename == share-sm {
 		$char: unquote('"\\E167"');
 	}
-	@if $filename == volume-1-fill {
+	@if $filename == share {
 		$char: unquote('"\\E168"');
 	}
-	@if $filename == volume-1-l {
+	@if $filename == star-fill-l {
 		$char: unquote('"\\E169"');
 	}
-	@if $filename == volume-1-m-l {
+	@if $filename == star-fill-lg {
 		$char: unquote('"\\E16A"');
 	}
-	@if $filename == volume-1-m {
+	@if $filename == star-fill-m-l {
 		$char: unquote('"\\E16B"');
 	}
-	@if $filename == volume-1 {
+	@if $filename == star-fill-m {
 		$char: unquote('"\\E16C"');
 	}
-	@if $filename == volume-2-fill-l {
+	@if $filename == star-fill-sm {
 		$char: unquote('"\\E16D"');
 	}
-	@if $filename == volume-2-fill-m-l {
+	@if $filename == star-fill {
 		$char: unquote('"\\E16E"');
 	}
-	@if $filename == volume-2-fill-m {
+	@if $filename == star-half-l {
 		$char: unquote('"\\E16F"');
 	}
-	@if $filename == volume-2-fill {
+	@if $filename == star-half-lg {
 		$char: unquote('"\\E170"');
 	}
-	@if $filename == volume-2-l {
+	@if $filename == star-half-m-l {
 		$char: unquote('"\\E171"');
 	}
-	@if $filename == volume-2-m-l {
+	@if $filename == star-half-m {
 		$char: unquote('"\\E172"');
 	}
-	@if $filename == volume-2-m {
+	@if $filename == star-half-sm {
 		$char: unquote('"\\E173"');
 	}
-	@if $filename == volume-2 {
+	@if $filename == star-half {
 		$char: unquote('"\\E174"');
 	}
-	@if $filename == volume-3-fill-l {
+	@if $filename == star-l {
 		$char: unquote('"\\E175"');
 	}
-	@if $filename == volume-3-fill-m-l {
+	@if $filename == star-lg {
 		$char: unquote('"\\E176"');
 	}
-	@if $filename == volume-3-fill-m {
+	@if $filename == star-m-l {
 		$char: unquote('"\\E177"');
 	}
-	@if $filename == volume-3-fill {
+	@if $filename == star-m {
 		$char: unquote('"\\E178"');
 	}
-	@if $filename == volume-3-l {
+	@if $filename == star-sm {
 		$char: unquote('"\\E179"');
 	}
-	@if $filename == volume-3-m-l {
+	@if $filename == star {
 		$char: unquote('"\\E17A"');
 	}
-	@if $filename == volume-3-m {
+	@if $filename == team-l {
 		$char: unquote('"\\E17B"');
 	}
-	@if $filename == volume-3 {
+	@if $filename == team-lg {
 		$char: unquote('"\\E17C"');
 	}
-	@if $filename == volume-down-fill-l {
+	@if $filename == team-m-l {
 		$char: unquote('"\\E17D"');
 	}
-	@if $filename == volume-down-fill-m-l {
+	@if $filename == team-m {
 		$char: unquote('"\\E17E"');
 	}
-	@if $filename == volume-down-fill-m {
+	@if $filename == team-sm {
 		$char: unquote('"\\E17F"');
 	}
-	@if $filename == volume-down-fill {
+	@if $filename == team {
 		$char: unquote('"\\E180"');
 	}
-	@if $filename == volume-down-l {
+	@if $filename == thumbs-down-l {
 		$char: unquote('"\\E181"');
 	}
-	@if $filename == volume-down-m-l {
+	@if $filename == thumbs-down-lg {
 		$char: unquote('"\\E182"');
 	}
-	@if $filename == volume-down-m {
+	@if $filename == thumbs-down-m-l {
 		$char: unquote('"\\E183"');
 	}
-	@if $filename == volume-down {
+	@if $filename == thumbs-down-m {
 		$char: unquote('"\\E184"');
 	}
-	@if $filename == volume-off-fill-l {
+	@if $filename == thumbs-down-sm {
 		$char: unquote('"\\E185"');
 	}
-	@if $filename == volume-off-fill-m-l {
+	@if $filename == thumbs-down {
 		$char: unquote('"\\E186"');
 	}
-	@if $filename == volume-off-fill-m {
+	@if $filename == thumbs-up-l {
 		$char: unquote('"\\E187"');
 	}
-	@if $filename == volume-off-fill {
+	@if $filename == thumbs-up-lg {
 		$char: unquote('"\\E188"');
 	}
-	@if $filename == volume-off-l {
+	@if $filename == thumbs-up-m-l {
 		$char: unquote('"\\E189"');
 	}
-	@if $filename == volume-off-m-l {
+	@if $filename == thumbs-up-m {
 		$char: unquote('"\\E18A"');
 	}
-	@if $filename == volume-off-m {
+	@if $filename == thumbs-up-sm {
 		$char: unquote('"\\E18B"');
 	}
-	@if $filename == volume-off {
+	@if $filename == thumbs-up {
 		$char: unquote('"\\E18C"');
 	}
-	@if $filename == volume-up-fill-l {
+	@if $filename == video-chat-l {
 		$char: unquote('"\\E18D"');
 	}
-	@if $filename == volume-up-fill-m-l {
+	@if $filename == video-chat-lg {
 		$char: unquote('"\\E18E"');
 	}
-	@if $filename == volume-up-fill-m {
+	@if $filename == video-chat-m-l {
 		$char: unquote('"\\E18F"');
 	}
-	@if $filename == volume-up-fill {
+	@if $filename == video-chat-m {
 		$char: unquote('"\\E190"');
 	}
-	@if $filename == volume-up-l {
+	@if $filename == video-chat-sm {
 		$char: unquote('"\\E191"');
 	}
-	@if $filename == volume-up-m-l {
+	@if $filename == video-chat {
 		$char: unquote('"\\E192"');
 	}
-	@if $filename == volume-up-m {
+	@if $filename == mic-off-fill-l {
 		$char: unquote('"\\E193"');
 	}
-	@if $filename == volume-up {
+	@if $filename == mic-off-fill-m-l {
 		$char: unquote('"\\E194"');
 	}
-	@if $filename == alert-l {
+	@if $filename == mic-off-fill-m {
 		$char: unquote('"\\E195"');
 	}
-	@if $filename == alert-m-l {
+	@if $filename == mic-off-fill {
 		$char: unquote('"\\E196"');
 	}
-	@if $filename == alert-m {
+	@if $filename == mic-off-l {
 		$char: unquote('"\\E197"');
 	}
-	@if $filename == alert {
+	@if $filename == mic-off-m-l {
 		$char: unquote('"\\E198"');
 	}
-	@if $filename == arrow-down-l {
+	@if $filename == mic-off-m {
 		$char: unquote('"\\E199"');
 	}
-	@if $filename == arrow-down-m-l {
+	@if $filename == mic-off {
 		$char: unquote('"\\E19A"');
 	}
-	@if $filename == arrow-down-m {
+	@if $filename == mic-on-fill-l {
 		$char: unquote('"\\E19B"');
 	}
-	@if $filename == arrow-down {
+	@if $filename == mic-on-fill-m-l {
 		$char: unquote('"\\E19C"');
 	}
-	@if $filename == arrow-left-l {
+	@if $filename == mic-on-fill-m {
 		$char: unquote('"\\E19D"');
 	}
-	@if $filename == arrow-left-m-l {
+	@if $filename == mic-on-fill {
 		$char: unquote('"\\E19E"');
 	}
-	@if $filename == arrow-left-m {
+	@if $filename == mic-on-l {
 		$char: unquote('"\\E19F"');
 	}
-	@if $filename == arrow-left {
+	@if $filename == mic-on-m-l {
 		$char: unquote('"\\E1A0"');
 	}
-	@if $filename == arrow-right-l {
+	@if $filename == mic-on-m {
 		$char: unquote('"\\E1A1"');
 	}
-	@if $filename == arrow-right-m-l {
+	@if $filename == mic-on {
 		$char: unquote('"\\E1A2"');
 	}
-	@if $filename == arrow-right-m {
+	@if $filename == pause-fill-l {
 		$char: unquote('"\\E1A3"');
 	}
-	@if $filename == arrow-right {
+	@if $filename == pause-fill-m-l {
 		$char: unquote('"\\E1A4"');
 	}
-	@if $filename == arrow-up-l {
+	@if $filename == pause-fill-m {
 		$char: unquote('"\\E1A5"');
 	}
-	@if $filename == arrow-up-m-l {
+	@if $filename == pause-fill {
 		$char: unquote('"\\E1A6"');
 	}
-	@if $filename == arrow-up-m {
+	@if $filename == pause-l {
 		$char: unquote('"\\E1A7"');
 	}
-	@if $filename == arrow-up {
+	@if $filename == pause-m-l {
 		$char: unquote('"\\E1A8"');
 	}
-	@if $filename == box-l {
+	@if $filename == pause-m {
 		$char: unquote('"\\E1A9"');
 	}
-	@if $filename == box-m-l {
+	@if $filename == pause {
 		$char: unquote('"\\E1AA"');
 	}
-	@if $filename == box-m {
+	@if $filename == play-fill-l {
 		$char: unquote('"\\E1AB"');
 	}
-	@if $filename == box {
+	@if $filename == play-fill-m-l {
 		$char: unquote('"\\E1AC"');
 	}
-	@if $filename == calculator-l {
+	@if $filename == play-fill-m {
 		$char: unquote('"\\E1AD"');
 	}
-	@if $filename == calculator-m-l {
+	@if $filename == play-fill {
 		$char: unquote('"\\E1AE"');
 	}
-	@if $filename == calculator-m {
+	@if $filename == play-l {
 		$char: unquote('"\\E1AF"');
 	}
-	@if $filename == calculator {
+	@if $filename == play-m-l {
 		$char: unquote('"\\E1B0"');
 	}
-	@if $filename == calendar-l {
+	@if $filename == play-m {
 		$char: unquote('"\\E1B1"');
 	}
-	@if $filename == calendar-m-l {
+	@if $filename == play {
 		$char: unquote('"\\E1B2"');
 	}
-	@if $filename == calendar-m {
+	@if $filename == stop-fill-l {
 		$char: unquote('"\\E1B3"');
 	}
-	@if $filename == calendar-new-l {
+	@if $filename == stop-fill-m-l {
 		$char: unquote('"\\E1B4"');
 	}
-	@if $filename == calendar-new-m-l {
+	@if $filename == stop-fill-m {
 		$char: unquote('"\\E1B5"');
 	}
-	@if $filename == calendar-new-m {
+	@if $filename == stop-fill {
 		$char: unquote('"\\E1B6"');
 	}
-	@if $filename == calendar-new {
+	@if $filename == stop-l {
 		$char: unquote('"\\E1B7"');
 	}
-	@if $filename == calendar {
+	@if $filename == stop-m-l {
 		$char: unquote('"\\E1B8"');
 	}
-	@if $filename == camera-l {
+	@if $filename == stop-m {
 		$char: unquote('"\\E1B9"');
 	}
-	@if $filename == camera-m-l {
+	@if $filename == stop {
 		$char: unquote('"\\E1BA"');
 	}
-	@if $filename == camera-m {
+	@if $filename == video-fill-l {
 		$char: unquote('"\\E1BB"');
 	}
-	@if $filename == camera {
+	@if $filename == video-fill-m-l {
 		$char: unquote('"\\E1BC"');
 	}
-	@if $filename == caret-circle-down-l {
+	@if $filename == video-fill-m {
 		$char: unquote('"\\E1BD"');
 	}
-	@if $filename == caret-circle-down-m-l {
+	@if $filename == video-fill {
 		$char: unquote('"\\E1BE"');
 	}
-	@if $filename == caret-circle-down-m {
+	@if $filename == video-l {
 		$char: unquote('"\\E1BF"');
 	}
-	@if $filename == caret-circle-down {
+	@if $filename == video-m-l {
 		$char: unquote('"\\E1C0"');
 	}
-	@if $filename == caret-circle-left-l {
+	@if $filename == video-m {
 		$char: unquote('"\\E1C1"');
 	}
-	@if $filename == caret-circle-left-m-l {
+	@if $filename == video {
 		$char: unquote('"\\E1C2"');
 	}
-	@if $filename == caret-circle-left-m {
+	@if $filename == volume-0-fill-l {
 		$char: unquote('"\\E1C3"');
 	}
-	@if $filename == caret-circle-left {
+	@if $filename == volume-0-fill-m-l {
 		$char: unquote('"\\E1C4"');
 	}
-	@if $filename == caret-circle-right-l {
+	@if $filename == volume-0-fill-m {
 		$char: unquote('"\\E1C5"');
 	}
-	@if $filename == caret-circle-right-m-l {
+	@if $filename == volume-0-fill {
 		$char: unquote('"\\E1C6"');
 	}
-	@if $filename == caret-circle-right-m {
+	@if $filename == volume-0-l {
 		$char: unquote('"\\E1C7"');
 	}
-	@if $filename == caret-circle-right {
+	@if $filename == volume-0-m-l {
 		$char: unquote('"\\E1C8"');
 	}
-	@if $filename == caret-circle-up-l {
+	@if $filename == volume-0-m {
 		$char: unquote('"\\E1C9"');
 	}
-	@if $filename == caret-circle-up-m-l {
+	@if $filename == volume-0 {
 		$char: unquote('"\\E1CA"');
 	}
-	@if $filename == caret-circle-up-m {
+	@if $filename == volume-1-fill-l {
 		$char: unquote('"\\E1CB"');
 	}
-	@if $filename == caret-circle-up {
+	@if $filename == volume-1-fill-m-l {
 		$char: unquote('"\\E1CC"');
 	}
-	@if $filename == caret-down-fill-l {
+	@if $filename == volume-1-fill-m {
 		$char: unquote('"\\E1CD"');
 	}
-	@if $filename == caret-down-fill-m-l {
+	@if $filename == volume-1-fill {
 		$char: unquote('"\\E1CE"');
 	}
-	@if $filename == caret-down-fill-m {
+	@if $filename == volume-1-l {
 		$char: unquote('"\\E1CF"');
 	}
-	@if $filename == caret-down-fill {
+	@if $filename == volume-1-m-l {
 		$char: unquote('"\\E1D0"');
 	}
-	@if $filename == caret-down-l {
+	@if $filename == volume-1-m {
 		$char: unquote('"\\E1D1"');
 	}
-	@if $filename == caret-down-m-l {
+	@if $filename == volume-1 {
 		$char: unquote('"\\E1D2"');
 	}
-	@if $filename == caret-down-m {
+	@if $filename == volume-2-fill-l {
 		$char: unquote('"\\E1D3"');
 	}
-	@if $filename == caret-down {
+	@if $filename == volume-2-fill-m-l {
 		$char: unquote('"\\E1D4"');
 	}
-	@if $filename == caret-left-fill-l {
+	@if $filename == volume-2-fill-m {
 		$char: unquote('"\\E1D5"');
 	}
-	@if $filename == caret-left-fill-m-l {
+	@if $filename == volume-2-fill {
 		$char: unquote('"\\E1D6"');
 	}
-	@if $filename == caret-left-fill-m {
+	@if $filename == volume-2-l {
 		$char: unquote('"\\E1D7"');
 	}
-	@if $filename == caret-left-fill {
+	@if $filename == volume-2-m-l {
 		$char: unquote('"\\E1D8"');
 	}
-	@if $filename == caret-left-l {
+	@if $filename == volume-2-m {
 		$char: unquote('"\\E1D9"');
 	}
-	@if $filename == caret-left-m-l {
+	@if $filename == volume-2 {
 		$char: unquote('"\\E1DA"');
 	}
-	@if $filename == caret-left-m {
+	@if $filename == volume-3-fill-l {
 		$char: unquote('"\\E1DB"');
 	}
-	@if $filename == caret-left {
+	@if $filename == volume-3-fill-m-l {
 		$char: unquote('"\\E1DC"');
 	}
-	@if $filename == caret-right-fill-l {
+	@if $filename == volume-3-fill-m {
 		$char: unquote('"\\E1DD"');
 	}
-	@if $filename == caret-right-fill-m-l {
+	@if $filename == volume-3-fill {
 		$char: unquote('"\\E1DE"');
 	}
-	@if $filename == caret-right-fill-m {
+	@if $filename == volume-3-l {
 		$char: unquote('"\\E1DF"');
 	}
-	@if $filename == caret-right-fill {
+	@if $filename == volume-3-m-l {
 		$char: unquote('"\\E1E0"');
 	}
-	@if $filename == caret-right-l {
+	@if $filename == volume-3-m {
 		$char: unquote('"\\E1E1"');
 	}
-	@if $filename == caret-right-m-l {
+	@if $filename == volume-3 {
 		$char: unquote('"\\E1E2"');
 	}
-	@if $filename == caret-right-m {
+	@if $filename == volume-down-fill-l {
 		$char: unquote('"\\E1E3"');
 	}
-	@if $filename == caret-right {
+	@if $filename == volume-down-fill-m-l {
 		$char: unquote('"\\E1E4"');
 	}
-	@if $filename == caret-select-l {
+	@if $filename == volume-down-fill-m {
 		$char: unquote('"\\E1E5"');
 	}
-	@if $filename == caret-select-m-l {
+	@if $filename == volume-down-fill {
 		$char: unquote('"\\E1E6"');
 	}
-	@if $filename == caret-select-m {
+	@if $filename == volume-down-l {
 		$char: unquote('"\\E1E7"');
 	}
-	@if $filename == caret-select {
+	@if $filename == volume-down-m-l {
 		$char: unquote('"\\E1E8"');
 	}
-	@if $filename == caret-up-fill-l {
+	@if $filename == volume-down-m {
 		$char: unquote('"\\E1E9"');
 	}
-	@if $filename == caret-up-fill-m-l {
+	@if $filename == volume-down {
 		$char: unquote('"\\E1EA"');
 	}
-	@if $filename == caret-up-fill-m {
+	@if $filename == volume-off-fill-l {
 		$char: unquote('"\\E1EB"');
 	}
-	@if $filename == caret-up-fill {
+	@if $filename == volume-off-fill-m-l {
 		$char: unquote('"\\E1EC"');
 	}
-	@if $filename == caret-up-l {
+	@if $filename == volume-off-fill-m {
 		$char: unquote('"\\E1ED"');
 	}
-	@if $filename == caret-up-m-l {
+	@if $filename == volume-off-fill {
 		$char: unquote('"\\E1EE"');
 	}
-	@if $filename == caret-up-m {
+	@if $filename == volume-off-l {
 		$char: unquote('"\\E1EF"');
 	}
-	@if $filename == caret-up {
+	@if $filename == volume-off-m-l {
 		$char: unquote('"\\E1F0"');
 	}
-	@if $filename == cart-l {
+	@if $filename == volume-off-m {
 		$char: unquote('"\\E1F1"');
 	}
-	@if $filename == cart-m-l {
+	@if $filename == volume-off {
 		$char: unquote('"\\E1F2"');
 	}
-	@if $filename == cart-m {
+	@if $filename == volume-up-fill-l {
 		$char: unquote('"\\E1F3"');
 	}
-	@if $filename == cart {
+	@if $filename == volume-up-fill-m-l {
 		$char: unquote('"\\E1F4"');
 	}
-	@if $filename == check-box-l {
+	@if $filename == volume-up-fill-m {
 		$char: unquote('"\\E1F5"');
 	}
-	@if $filename == check-box-m-l {
+	@if $filename == volume-up-fill {
 		$char: unquote('"\\E1F6"');
 	}
-	@if $filename == check-box-m {
+	@if $filename == volume-up-l {
 		$char: unquote('"\\E1F7"');
 	}
-	@if $filename == check-box {
+	@if $filename == volume-up-m-l {
 		$char: unquote('"\\E1F8"');
 	}
-	@if $filename == check-circle-l {
+	@if $filename == volume-up-m {
 		$char: unquote('"\\E1F9"');
 	}
-	@if $filename == check-circle-m-l {
+	@if $filename == volume-up {
 		$char: unquote('"\\E1FA"');
 	}
-	@if $filename == check-circle-m {
+	@if $filename == facebook-l {
 		$char: unquote('"\\E1FB"');
 	}
-	@if $filename == check-circle {
+	@if $filename == facebook-m-l {
 		$char: unquote('"\\E1FC"');
 	}
-	@if $filename == check-l {
+	@if $filename == facebook-m {
 		$char: unquote('"\\E1FD"');
 	}
-	@if $filename == check-m-l {
+	@if $filename == facebook {
 		$char: unquote('"\\E1FE"');
 	}
-	@if $filename == check-m {
+	@if $filename == github-l {
 		$char: unquote('"\\E1FF"');
 	}
-	@if $filename == check {
+	@if $filename == github-m-l {
 		$char: unquote('"\\E200"');
 	}
-	@if $filename == circle-fill-l {
+	@if $filename == github-m {
 		$char: unquote('"\\E201"');
 	}
-	@if $filename == circle-fill-m-l {
+	@if $filename == github {
 		$char: unquote('"\\E202"');
 	}
-	@if $filename == circle-fill-m {
+	@if $filename == googleplus-l {
 		$char: unquote('"\\E203"');
 	}
-	@if $filename == circle-fill {
+	@if $filename == googleplus-m-l {
 		$char: unquote('"\\E204"');
 	}
-	@if $filename == circle-l {
+	@if $filename == googleplus-m {
 		$char: unquote('"\\E205"');
 	}
-	@if $filename == circle-m-l {
+	@if $filename == googleplus {
 		$char: unquote('"\\E206"');
 	}
-	@if $filename == circle-m {
+	@if $filename == instagram-l {
 		$char: unquote('"\\E207"');
 	}
-	@if $filename == circle {
+	@if $filename == instagram-m-l {
 		$char: unquote('"\\E208"');
 	}
-	@if $filename == clock-l {
+	@if $filename == instagram-m {
 		$char: unquote('"\\E209"');
 	}
-	@if $filename == clock-m-l {
+	@if $filename == instagram {
 		$char: unquote('"\\E20A"');
 	}
-	@if $filename == clock-m {
+	@if $filename == linkedin-l {
 		$char: unquote('"\\E20B"');
 	}
-	@if $filename == clock {
+	@if $filename == linkedin-m-l {
 		$char: unquote('"\\E20C"');
 	}
-	@if $filename == cloud-l {
+	@if $filename == linkedin-m {
 		$char: unquote('"\\E20D"');
 	}
-	@if $filename == cloud-m-l {
+	@if $filename == linkedin {
 		$char: unquote('"\\E20E"');
 	}
-	@if $filename == cloud-m {
+	@if $filename == slack-l {
 		$char: unquote('"\\E20F"');
 	}
-	@if $filename == cloud {
+	@if $filename == slack-m-l {
 		$char: unquote('"\\E210"');
 	}
-	@if $filename == code-l {
+	@if $filename == slack-m {
 		$char: unquote('"\\E211"');
 	}
-	@if $filename == code-m-l {
+	@if $filename == slack {
 		$char: unquote('"\\E212"');
 	}
-	@if $filename == code-m {
+	@if $filename == twitter-l {
 		$char: unquote('"\\E213"');
 	}
-	@if $filename == code {
+	@if $filename == twitter-m-l {
 		$char: unquote('"\\E214"');
 	}
-	@if $filename == currency-l {
+	@if $filename == twitter-m {
 		$char: unquote('"\\E215"');
 	}
-	@if $filename == currency-m-l {
+	@if $filename == twitter {
 		$char: unquote('"\\E216"');
 	}
-	@if $filename == currency-m {
+	@if $filename == youtube-l {
 		$char: unquote('"\\E217"');
 	}
-	@if $filename == currency {
+	@if $filename == youtube-m-l {
 		$char: unquote('"\\E218"');
 	}
-	@if $filename == desktop-l {
+	@if $filename == youtube-m {
 		$char: unquote('"\\E219"');
 	}
-	@if $filename == desktop-m-l {
+	@if $filename == youtube {
 		$char: unquote('"\\E21A"');
 	}
-	@if $filename == desktop-m {
+	@if $filename == alert-l {
 		$char: unquote('"\\E21B"');
 	}
-	@if $filename == desktop {
+	@if $filename == alert-m-l {
 		$char: unquote('"\\E21C"');
 	}
-	@if $filename == help-l {
+	@if $filename == alert-m {
 		$char: unquote('"\\E21D"');
 	}
-	@if $filename == help-m-l {
+	@if $filename == alert {
 		$char: unquote('"\\E21E"');
 	}
-	@if $filename == help-m {
+	@if $filename == arrow-down-l {
 		$char: unquote('"\\E21F"');
 	}
-	@if $filename == help {
+	@if $filename == arrow-down-m-l {
 		$char: unquote('"\\E220"');
 	}
-	@if $filename == info-l {
+	@if $filename == arrow-down-m {
 		$char: unquote('"\\E221"');
 	}
-	@if $filename == info-m-l {
+	@if $filename == arrow-down {
 		$char: unquote('"\\E222"');
 	}
-	@if $filename == info-m {
+	@if $filename == arrow-left-l {
 		$char: unquote('"\\E223"');
 	}
-	@if $filename == info {
+	@if $filename == arrow-left-m-l {
 		$char: unquote('"\\E224"');
 	}
-	@if $filename == locked-l {
+	@if $filename == arrow-left-m {
 		$char: unquote('"\\E225"');
 	}
-	@if $filename == locked-m-l {
+	@if $filename == arrow-left {
 		$char: unquote('"\\E226"');
 	}
-	@if $filename == locked-m {
+	@if $filename == arrow-right-l {
 		$char: unquote('"\\E227"');
 	}
-	@if $filename == locked {
+	@if $filename == arrow-right-m-l {
 		$char: unquote('"\\E228"');
 	}
-	@if $filename == m-dash-l {
+	@if $filename == arrow-right-m {
 		$char: unquote('"\\E229"');
 	}
-	@if $filename == m-dash-m-l {
+	@if $filename == arrow-right {
 		$char: unquote('"\\E22A"');
 	}
-	@if $filename == m-dash-m {
+	@if $filename == arrow-up-l {
 		$char: unquote('"\\E22B"');
 	}
-	@if $filename == m-dash {
+	@if $filename == arrow-up-m-l {
 		$char: unquote('"\\E22C"');
 	}
-	@if $filename == map-l {
+	@if $filename == arrow-up-m {
 		$char: unquote('"\\E22D"');
 	}
-	@if $filename == map-m-l {
+	@if $filename == arrow-up {
 		$char: unquote('"\\E22E"');
 	}
-	@if $filename == map-m {
+	@if $filename == box-l {
 		$char: unquote('"\\E22F"');
 	}
-	@if $filename == map {
+	@if $filename == box-m-l {
 		$char: unquote('"\\E230"');
 	}
-	@if $filename == media-library-l {
+	@if $filename == box-m {
 		$char: unquote('"\\E231"');
 	}
-	@if $filename == media-library-m-l {
+	@if $filename == box {
 		$char: unquote('"\\E232"');
 	}
-	@if $filename == media-library-m {
+	@if $filename == calculator-l {
 		$char: unquote('"\\E233"');
 	}
-	@if $filename == media-library {
+	@if $filename == calculator-m-l {
 		$char: unquote('"\\E234"');
 	}
-	@if $filename == mobile-l {
+	@if $filename == calculator-m {
 		$char: unquote('"\\E235"');
 	}
-	@if $filename == mobile-m-l {
+	@if $filename == calculator {
 		$char: unquote('"\\E236"');
 	}
-	@if $filename == mobile-m {
+	@if $filename == calendar-l {
 		$char: unquote('"\\E237"');
 	}
-	@if $filename == mobile {
+	@if $filename == calendar-m-l {
 		$char: unquote('"\\E238"');
 	}
-	@if $filename == n-dash-l {
+	@if $filename == calendar-m {
 		$char: unquote('"\\E239"');
 	}
-	@if $filename == n-dash-m-l {
+	@if $filename == calendar-new-l {
 		$char: unquote('"\\E23A"');
 	}
-	@if $filename == n-dash-m {
+	@if $filename == calendar-new-m-l {
 		$char: unquote('"\\E23B"');
 	}
-	@if $filename == n-dash {
+	@if $filename == calendar-new-m {
 		$char: unquote('"\\E23C"');
 	}
-	@if $filename == new-l {
+	@if $filename == calendar-new {
 		$char: unquote('"\\E23D"');
 	}
-	@if $filename == new-m-l {
+	@if $filename == calendar {
 		$char: unquote('"\\E23E"');
 	}
-	@if $filename == new-m {
+	@if $filename == camera-l {
 		$char: unquote('"\\E23F"');
 	}
-	@if $filename == new {
+	@if $filename == camera-m-l {
 		$char: unquote('"\\E240"');
 	}
-	@if $filename == payment-l {
+	@if $filename == camera-m {
 		$char: unquote('"\\E241"');
 	}
-	@if $filename == payment-m-l {
+	@if $filename == camera {
 		$char: unquote('"\\E242"');
 	}
-	@if $filename == payment-m {
+	@if $filename == caret-circle-down-l {
 		$char: unquote('"\\E243"');
 	}
-	@if $filename == payment {
+	@if $filename == caret-circle-down-m-l {
 		$char: unquote('"\\E244"');
 	}
-	@if $filename == product-l {
+	@if $filename == caret-circle-down-m {
 		$char: unquote('"\\E245"');
 	}
-	@if $filename == product-m-l {
+	@if $filename == caret-circle-down {
 		$char: unquote('"\\E246"');
 	}
-	@if $filename == product-m {
+	@if $filename == caret-circle-left-l {
 		$char: unquote('"\\E247"');
 	}
-	@if $filename == product {
+	@if $filename == caret-circle-left-m-l {
 		$char: unquote('"\\E248"');
 	}
-	@if $filename == recommended-l {
+	@if $filename == caret-circle-left-m {
 		$char: unquote('"\\E249"');
 	}
-	@if $filename == recommended-m-l {
+	@if $filename == caret-circle-left {
 		$char: unquote('"\\E24A"');
 	}
-	@if $filename == recommended-m {
+	@if $filename == caret-circle-right-l {
 		$char: unquote('"\\E24B"');
 	}
-	@if $filename == recommended {
+	@if $filename == caret-circle-right-m-l {
 		$char: unquote('"\\E24C"');
 	}
-	@if $filename == tablet-l {
+	@if $filename == caret-circle-right-m {
 		$char: unquote('"\\E24D"');
 	}
-	@if $filename == tablet-m-l {
+	@if $filename == caret-circle-right {
 		$char: unquote('"\\E24E"');
 	}
-	@if $filename == tablet-m {
+	@if $filename == caret-circle-up-l {
 		$char: unquote('"\\E24F"');
 	}
-	@if $filename == tablet {
+	@if $filename == caret-circle-up-m-l {
 		$char: unquote('"\\E250"');
 	}
-	@if $filename == tag-l {
+	@if $filename == caret-circle-up-m {
 		$char: unquote('"\\E251"');
 	}
-	@if $filename == tag-m-l {
+	@if $filename == caret-circle-up {
 		$char: unquote('"\\E252"');
 	}
-	@if $filename == tag-m {
+	@if $filename == caret-down-fill-l {
 		$char: unquote('"\\E253"');
 	}
-	@if $filename == tag {
+	@if $filename == caret-down-fill-m-l {
 		$char: unquote('"\\E254"');
 	}
-	@if $filename == transfer-l {
+	@if $filename == caret-down-fill-m {
 		$char: unquote('"\\E255"');
 	}
-	@if $filename == transfer-m-l {
+	@if $filename == caret-down-fill {
 		$char: unquote('"\\E256"');
 	}
-	@if $filename == transfer-m {
+	@if $filename == caret-down-l {
 		$char: unquote('"\\E257"');
 	}
-	@if $filename == transfer {
+	@if $filename == caret-down-m-l {
 		$char: unquote('"\\E258"');
 	}
-	@if $filename == trash-l {
+	@if $filename == caret-down-m {
 		$char: unquote('"\\E259"');
 	}
-	@if $filename == trash-m-l {
+	@if $filename == caret-down {
 		$char: unquote('"\\E25A"');
 	}
-	@if $filename == trash-m {
+	@if $filename == caret-left-fill-l {
 		$char: unquote('"\\E25B"');
 	}
-	@if $filename == trash {
+	@if $filename == caret-left-fill-m-l {
 		$char: unquote('"\\E25C"');
 	}
-	@if $filename == travel-l {
+	@if $filename == caret-left-fill-m {
 		$char: unquote('"\\E25D"');
 	}
-	@if $filename == travel-m-l {
+	@if $filename == caret-left-fill {
 		$char: unquote('"\\E25E"');
 	}
-	@if $filename == travel-m {
+	@if $filename == caret-left-l {
 		$char: unquote('"\\E25F"');
 	}
-	@if $filename == travel {
+	@if $filename == caret-left-m-l {
 		$char: unquote('"\\E260"');
 	}
-	@if $filename == unlocked-l {
+	@if $filename == caret-left-m {
 		$char: unquote('"\\E261"');
 	}
-	@if $filename == unlocked-m-l {
+	@if $filename == caret-left {
 		$char: unquote('"\\E262"');
 	}
-	@if $filename == unlocked-m {
+	@if $filename == caret-right-fill-l {
 		$char: unquote('"\\E263"');
 	}
-	@if $filename == unlocked {
+	@if $filename == caret-right-fill-m-l {
 		$char: unquote('"\\E264"');
 	}
-	@if $filename == wiki-l {
+	@if $filename == caret-right-fill-m {
 		$char: unquote('"\\E265"');
 	}
-	@if $filename == wiki-m-l {
+	@if $filename == caret-right-fill {
 		$char: unquote('"\\E266"');
 	}
-	@if $filename == wiki-m {
+	@if $filename == caret-right-l {
 		$char: unquote('"\\E267"');
 	}
-	@if $filename == wiki {
+	@if $filename == caret-right-m-l {
 		$char: unquote('"\\E268"');
 	}
-	@if $filename == wireless-l {
+	@if $filename == caret-right-m {
 		$char: unquote('"\\E269"');
 	}
-	@if $filename == wireless-m-l {
+	@if $filename == caret-right {
 		$char: unquote('"\\E26A"');
 	}
-	@if $filename == wireless-m {
+	@if $filename == caret-select-l {
 		$char: unquote('"\\E26B"');
 	}
-	@if $filename == wireless {
+	@if $filename == caret-select-m-l {
 		$char: unquote('"\\E26C"');
 	}
-	@if $filename == archive-l {
+	@if $filename == caret-select-m {
 		$char: unquote('"\\E26D"');
 	}
-	@if $filename == archive-m-l {
+	@if $filename == caret-select {
 		$char: unquote('"\\E26E"');
 	}
-	@if $filename == archive-m {
+	@if $filename == caret-up-fill-l {
 		$char: unquote('"\\E26F"');
 	}
-	@if $filename == archive {
+	@if $filename == caret-up-fill-m-l {
 		$char: unquote('"\\E270"');
 	}
-	@if $filename == attachment-l {
+	@if $filename == caret-up-fill-m {
 		$char: unquote('"\\E271"');
 	}
-	@if $filename == attachment-m-l {
+	@if $filename == caret-up-fill {
 		$char: unquote('"\\E272"');
 	}
-	@if $filename == attachment-m {
+	@if $filename == caret-up-l {
 		$char: unquote('"\\E273"');
 	}
-	@if $filename == attachment {
+	@if $filename == caret-up-m-l {
 		$char: unquote('"\\E274"');
 	}
-	@if $filename == bookmark-l {
+	@if $filename == caret-up-m {
 		$char: unquote('"\\E275"');
 	}
-	@if $filename == bookmark-m-l {
+	@if $filename == caret-up {
 		$char: unquote('"\\E276"');
 	}
-	@if $filename == bookmark-m {
+	@if $filename == cart-l {
 		$char: unquote('"\\E277"');
 	}
-	@if $filename == bookmark {
+	@if $filename == cart-m-l {
 		$char: unquote('"\\E278"');
 	}
-	@if $filename == close-circle-l {
+	@if $filename == cart-m {
 		$char: unquote('"\\E279"');
 	}
-	@if $filename == close-circle-m-l {
+	@if $filename == cart {
 		$char: unquote('"\\E27A"');
 	}
-	@if $filename == close-circle-m {
+	@if $filename == check-box-l {
 		$char: unquote('"\\E27B"');
 	}
-	@if $filename == close-circle {
+	@if $filename == check-box-m-l {
 		$char: unquote('"\\E27C"');
 	}
-	@if $filename == close-l {
+	@if $filename == check-box-m {
 		$char: unquote('"\\E27D"');
 	}
-	@if $filename == close-m-l {
+	@if $filename == check-box {
 		$char: unquote('"\\E27E"');
 	}
-	@if $filename == close-m {
+	@if $filename == check-circle-l {
 		$char: unquote('"\\E27F"');
 	}
-	@if $filename == close {
+	@if $filename == check-circle-m-l {
 		$char: unquote('"\\E280"');
 	}
-	@if $filename == cloud-download-l {
+	@if $filename == check-circle-m {
 		$char: unquote('"\\E281"');
 	}
-	@if $filename == cloud-download-m-l {
+	@if $filename == check-circle {
 		$char: unquote('"\\E282"');
 	}
-	@if $filename == cloud-download-m {
+	@if $filename == check-l {
 		$char: unquote('"\\E283"');
 	}
-	@if $filename == cloud-download {
+	@if $filename == check-m-l {
 		$char: unquote('"\\E284"');
 	}
-	@if $filename == cloud-upload-l {
+	@if $filename == check-m {
 		$char: unquote('"\\E285"');
 	}
-	@if $filename == cloud-upload-m-l {
+	@if $filename == check {
 		$char: unquote('"\\E286"');
 	}
-	@if $filename == cloud-upload-m {
+	@if $filename == circle-fill-l {
 		$char: unquote('"\\E287"');
 	}
-	@if $filename == cloud-upload {
+	@if $filename == circle-fill-m-l {
 		$char: unquote('"\\E288"');
 	}
-	@if $filename == dashboard-l {
+	@if $filename == circle-fill-m {
 		$char: unquote('"\\E289"');
 	}
-	@if $filename == dashboard-m-l {
+	@if $filename == circle-fill {
 		$char: unquote('"\\E28A"');
 	}
-	@if $filename == dashboard-m {
+	@if $filename == circle-l {
 		$char: unquote('"\\E28B"');
 	}
-	@if $filename == dashboard {
+	@if $filename == circle-m-l {
 		$char: unquote('"\\E28C"');
 	}
-	@if $filename == download-l {
+	@if $filename == circle-m {
 		$char: unquote('"\\E28D"');
 	}
-	@if $filename == download-m-l {
+	@if $filename == circle {
 		$char: unquote('"\\E28E"');
 	}
-	@if $filename == download-m {
+	@if $filename == clock-l {
 		$char: unquote('"\\E28F"');
 	}
-	@if $filename == download {
+	@if $filename == clock-m-l {
 		$char: unquote('"\\E290"');
 	}
-	@if $filename == drag-and-drop-l {
+	@if $filename == clock-m {
 		$char: unquote('"\\E291"');
 	}
-	@if $filename == drag-and-drop-m-l {
+	@if $filename == clock {
 		$char: unquote('"\\E292"');
 	}
-	@if $filename == drag-and-drop-m {
+	@if $filename == cloud-l {
 		$char: unquote('"\\E293"');
 	}
-	@if $filename == drag-and-drop {
+	@if $filename == cloud-m-l {
 		$char: unquote('"\\E294"');
 	}
-	@if $filename == edit-document-l {
+	@if $filename == cloud-m {
 		$char: unquote('"\\E295"');
 	}
-	@if $filename == edit-document-m-l {
+	@if $filename == cloud {
 		$char: unquote('"\\E296"');
 	}
-	@if $filename == edit-document-m {
+	@if $filename == code-l {
 		$char: unquote('"\\E297"');
 	}
-	@if $filename == edit-document {
+	@if $filename == code-m-l {
 		$char: unquote('"\\E298"');
 	}
-	@if $filename == edit-l {
+	@if $filename == code-m {
 		$char: unquote('"\\E299"');
 	}
-	@if $filename == edit-m-l {
+	@if $filename == code {
 		$char: unquote('"\\E29A"');
 	}
-	@if $filename == edit-m {
+	@if $filename == currency-l {
 		$char: unquote('"\\E29B"');
 	}
-	@if $filename == edit {
+	@if $filename == currency-m-l {
 		$char: unquote('"\\E29C"');
 	}
-	@if $filename == expand-l {
+	@if $filename == currency-m {
 		$char: unquote('"\\E29D"');
 	}
-	@if $filename == expand-m-l {
+	@if $filename == currency {
 		$char: unquote('"\\E29E"');
 	}
-	@if $filename == expand-m {
+	@if $filename == desktop-l {
 		$char: unquote('"\\E29F"');
 	}
-	@if $filename == expand {
+	@if $filename == desktop-m-l {
 		$char: unquote('"\\E2A0"');
 	}
-	@if $filename == export-l {
+	@if $filename == desktop-m {
 		$char: unquote('"\\E2A1"');
 	}
-	@if $filename == export-m-l {
+	@if $filename == desktop {
 		$char: unquote('"\\E2A2"');
 	}
-	@if $filename == export-m {
+	@if $filename == help-l {
 		$char: unquote('"\\E2A3"');
 	}
-	@if $filename == export {
+	@if $filename == help-m-l {
 		$char: unquote('"\\E2A4"');
 	}
-	@if $filename == filter-l {
+	@if $filename == help-m {
 		$char: unquote('"\\E2A5"');
 	}
-	@if $filename == filter-m-l {
+	@if $filename == help {
 		$char: unquote('"\\E2A6"');
 	}
-	@if $filename == filter-m {
+	@if $filename == info-l {
 		$char: unquote('"\\E2A7"');
 	}
-	@if $filename == filter {
+	@if $filename == info-m-l {
 		$char: unquote('"\\E2A8"');
 	}
-	@if $filename == first-page-l {
+	@if $filename == info-m {
 		$char: unquote('"\\E2A9"');
 	}
-	@if $filename == first-page-m-l {
+	@if $filename == info {
 		$char: unquote('"\\E2AA"');
 	}
-	@if $filename == first-page-m {
+	@if $filename == locked-l {
 		$char: unquote('"\\E2AB"');
 	}
-	@if $filename == first-page {
+	@if $filename == locked-m-l {
 		$char: unquote('"\\E2AC"');
 	}
-	@if $filename == home-l {
+	@if $filename == locked-m {
 		$char: unquote('"\\E2AD"');
 	}
-	@if $filename == home-m-l {
+	@if $filename == locked {
 		$char: unquote('"\\E2AE"');
 	}
-	@if $filename == home-m {
+	@if $filename == m-dash-l {
 		$char: unquote('"\\E2AF"');
 	}
-	@if $filename == home {
+	@if $filename == m-dash-m-l {
 		$char: unquote('"\\E2B0"');
 	}
-	@if $filename == language-switcher-l {
+	@if $filename == m-dash-m {
 		$char: unquote('"\\E2B1"');
 	}
-	@if $filename == language-switcher-m-l {
+	@if $filename == m-dash {
 		$char: unquote('"\\E2B2"');
 	}
-	@if $filename == language-switcher-m {
+	@if $filename == map-l {
 		$char: unquote('"\\E2B3"');
 	}
-	@if $filename == language-switcher {
+	@if $filename == map-m-l {
 		$char: unquote('"\\E2B4"');
 	}
-	@if $filename == last-page-l {
+	@if $filename == map-m {
 		$char: unquote('"\\E2B5"');
 	}
-	@if $filename == last-page-m-l {
+	@if $filename == map {
 		$char: unquote('"\\E2B6"');
 	}
-	@if $filename == last-page-m {
+	@if $filename == media-library-l {
 		$char: unquote('"\\E2B7"');
 	}
-	@if $filename == last-page {
+	@if $filename == media-library-m-l {
 		$char: unquote('"\\E2B8"');
 	}
-	@if $filename == link-external-l {
+	@if $filename == media-library-m {
 		$char: unquote('"\\E2B9"');
 	}
-	@if $filename == link-external-m-l {
+	@if $filename == media-library {
 		$char: unquote('"\\E2BA"');
 	}
-	@if $filename == link-external-m {
+	@if $filename == mobile-l {
 		$char: unquote('"\\E2BB"');
 	}
-	@if $filename == link-external {
+	@if $filename == mobile-m-l {
 		$char: unquote('"\\E2BC"');
 	}
-	@if $filename == link-l {
+	@if $filename == mobile-m {
 		$char: unquote('"\\E2BD"');
 	}
-	@if $filename == link-m-l {
+	@if $filename == mobile {
 		$char: unquote('"\\E2BE"');
 	}
-	@if $filename == link-m {
+	@if $filename == n-dash-l {
 		$char: unquote('"\\E2BF"');
 	}
-	@if $filename == link {
+	@if $filename == n-dash-m-l {
 		$char: unquote('"\\E2C0"');
 	}
-	@if $filename == menu-l {
+	@if $filename == n-dash-m {
 		$char: unquote('"\\E2C1"');
 	}
-	@if $filename == menu-m-l {
+	@if $filename == n-dash {
 		$char: unquote('"\\E2C2"');
 	}
-	@if $filename == menu-m {
+	@if $filename == new-l {
 		$char: unquote('"\\E2C3"');
 	}
-	@if $filename == menu {
+	@if $filename == new-m-l {
 		$char: unquote('"\\E2C4"');
 	}
-	@if $filename == minus-circle-l {
+	@if $filename == new-m {
 		$char: unquote('"\\E2C5"');
 	}
-	@if $filename == minus-circle-m-l {
+	@if $filename == new {
 		$char: unquote('"\\E2C6"');
 	}
-	@if $filename == minus-circle-m {
+	@if $filename == payment-l {
 		$char: unquote('"\\E2C7"');
 	}
-	@if $filename == minus-circle {
+	@if $filename == payment-m-l {
 		$char: unquote('"\\E2C8"');
 	}
-	@if $filename == minus-l {
+	@if $filename == payment-m {
 		$char: unquote('"\\E2C9"');
 	}
-	@if $filename == minus-m-l {
+	@if $filename == payment {
 		$char: unquote('"\\E2CA"');
 	}
-	@if $filename == minus-m {
+	@if $filename == product-l {
 		$char: unquote('"\\E2CB"');
 	}
-	@if $filename == minus {
+	@if $filename == product-m-l {
 		$char: unquote('"\\E2CC"');
 	}
-	@if $filename == more-filled-horizontal-l {
+	@if $filename == product-m {
 		$char: unquote('"\\E2CD"');
 	}
-	@if $filename == more-filled-horizontal-m-l {
+	@if $filename == product {
 		$char: unquote('"\\E2CE"');
 	}
-	@if $filename == more-filled-horizontal-m {
+	@if $filename == recommended-l {
 		$char: unquote('"\\E2CF"');
 	}
-	@if $filename == more-filled-horizontal {
+	@if $filename == recommended-m-l {
 		$char: unquote('"\\E2D0"');
 	}
-	@if $filename == more-filled-vertical-l {
+	@if $filename == recommended-m {
 		$char: unquote('"\\E2D1"');
 	}
-	@if $filename == more-filled-vertical-m-l {
+	@if $filename == recommended {
 		$char: unquote('"\\E2D2"');
 	}
-	@if $filename == more-filled-vertical-m {
+	@if $filename == tablet-l {
 		$char: unquote('"\\E2D3"');
 	}
-	@if $filename == more-filled-vertical {
+	@if $filename == tablet-m-l {
 		$char: unquote('"\\E2D4"');
 	}
-	@if $filename == more-horizontal-l {
+	@if $filename == tablet-m {
 		$char: unquote('"\\E2D5"');
 	}
-	@if $filename == more-horizontal-m-l {
+	@if $filename == tablet {
 		$char: unquote('"\\E2D6"');
 	}
-	@if $filename == more-horizontal-m {
+	@if $filename == tag-l {
 		$char: unquote('"\\E2D7"');
 	}
-	@if $filename == more-horizontal {
+	@if $filename == tag-m-l {
 		$char: unquote('"\\E2D8"');
 	}
-	@if $filename == more-vertical-l {
+	@if $filename == tag-m {
 		$char: unquote('"\\E2D9"');
 	}
-	@if $filename == more-vertical-m-l {
+	@if $filename == tag {
 		$char: unquote('"\\E2DA"');
 	}
-	@if $filename == more-vertical-m {
+	@if $filename == transfer-l {
 		$char: unquote('"\\E2DB"');
 	}
-	@if $filename == more-vertical {
+	@if $filename == transfer-m-l {
 		$char: unquote('"\\E2DC"');
 	}
-	@if $filename == plus-circle-l {
+	@if $filename == transfer-m {
 		$char: unquote('"\\E2DD"');
 	}
-	@if $filename == plus-circle-m-l {
+	@if $filename == transfer {
 		$char: unquote('"\\E2DE"');
 	}
-	@if $filename == plus-circle-m {
+	@if $filename == trash-l {
 		$char: unquote('"\\E2DF"');
 	}
-	@if $filename == plus-circle {
+	@if $filename == trash-m-l {
 		$char: unquote('"\\E2E0"');
 	}
-	@if $filename == plus-l {
+	@if $filename == trash-m {
 		$char: unquote('"\\E2E1"');
 	}
-	@if $filename == plus-m-l {
+	@if $filename == trash {
 		$char: unquote('"\\E2E2"');
 	}
-	@if $filename == plus-m {
+	@if $filename == travel-l {
 		$char: unquote('"\\E2E3"');
 	}
-	@if $filename == plus {
+	@if $filename == travel-m-l {
 		$char: unquote('"\\E2E4"');
 	}
-	@if $filename == print-l {
+	@if $filename == travel-m {
 		$char: unquote('"\\E2E5"');
 	}
-	@if $filename == print-m-l {
+	@if $filename == travel {
 		$char: unquote('"\\E2E6"');
 	}
-	@if $filename == print-m {
+	@if $filename == unlocked-l {
 		$char: unquote('"\\E2E7"');
 	}
-	@if $filename == print {
+	@if $filename == unlocked-m-l {
 		$char: unquote('"\\E2E8"');
 	}
-	@if $filename == profile-l {
+	@if $filename == unlocked-m {
 		$char: unquote('"\\E2E9"');
 	}
-	@if $filename == profile-m-l {
+	@if $filename == unlocked {
 		$char: unquote('"\\E2EA"');
 	}
-	@if $filename == profile-m {
+	@if $filename == wiki-l {
 		$char: unquote('"\\E2EB"');
 	}
-	@if $filename == profile {
+	@if $filename == wiki-m-l {
 		$char: unquote('"\\E2EC"');
 	}
-	@if $filename == refresh-l {
+	@if $filename == wiki-m {
 		$char: unquote('"\\E2ED"');
 	}
-	@if $filename == refresh-m-l {
+	@if $filename == wiki {
 		$char: unquote('"\\E2EE"');
 	}
-	@if $filename == refresh-m {
+	@if $filename == wireless-l {
 		$char: unquote('"\\E2EF"');
 	}
-	@if $filename == refresh {
+	@if $filename == wireless-m-l {
 		$char: unquote('"\\E2F0"');
 	}
-	@if $filename == reset-l {
+	@if $filename == wireless-m {
 		$char: unquote('"\\E2F1"');
 	}
-	@if $filename == reset-m-l {
+	@if $filename == wireless {
 		$char: unquote('"\\E2F2"');
 	}
-	@if $filename == reset-m {
+	@if $filename == archive-l {
 		$char: unquote('"\\E2F3"');
 	}
-	@if $filename == reset {
+	@if $filename == archive-m-l {
 		$char: unquote('"\\E2F4"');
 	}
-	@if $filename == rotate-l {
+	@if $filename == archive-m {
 		$char: unquote('"\\E2F5"');
 	}
-	@if $filename == rotate-m-l {
+	@if $filename == archive {
 		$char: unquote('"\\E2F6"');
 	}
-	@if $filename == rotate-m {
+	@if $filename == attachment-l {
 		$char: unquote('"\\E2F7"');
 	}
-	@if $filename == rotate {
+	@if $filename == attachment-m-l {
 		$char: unquote('"\\E2F8"');
 	}
-	@if $filename == save-l {
+	@if $filename == attachment-m {
 		$char: unquote('"\\E2F9"');
 	}
-	@if $filename == save-m-l {
+	@if $filename == attachment {
 		$char: unquote('"\\E2FA"');
 	}
-	@if $filename == save-m {
+	@if $filename == bookmark-l {
 		$char: unquote('"\\E2FB"');
 	}
-	@if $filename == save {
+	@if $filename == bookmark-m-l {
 		$char: unquote('"\\E2FC"');
 	}
-	@if $filename == search-l {
+	@if $filename == bookmark-m {
 		$char: unquote('"\\E2FD"');
 	}
-	@if $filename == search-m-l {
+	@if $filename == bookmark-sm {
 		$char: unquote('"\\E2FE"');
 	}
-	@if $filename == search-m {
+	@if $filename == bookmark {
 		$char: unquote('"\\E2FF"');
 	}
-	@if $filename == search {
+	@if $filename == close-circle-l {
 		$char: unquote('"\\E300"');
 	}
-	@if $filename == settings-l {
+	@if $filename == close-circle-m-l {
 		$char: unquote('"\\E301"');
 	}
-	@if $filename == settings-m-l {
+	@if $filename == close-circle-m {
 		$char: unquote('"\\E302"');
 	}
-	@if $filename == settings-m {
+	@if $filename == close-circle {
 		$char: unquote('"\\E303"');
 	}
-	@if $filename == settings {
+	@if $filename == close-l {
 		$char: unquote('"\\E304"');
 	}
-	@if $filename == sort-ascending-l {
+	@if $filename == close-m-l {
 		$char: unquote('"\\E305"');
 	}
-	@if $filename == sort-ascending-m-l {
+	@if $filename == close-m {
 		$char: unquote('"\\E306"');
 	}
-	@if $filename == sort-ascending-m {
+	@if $filename == close {
 		$char: unquote('"\\E307"');
 	}
-	@if $filename == sort-ascending {
+	@if $filename == cloud-download-l {
 		$char: unquote('"\\E308"');
 	}
-	@if $filename == sort-descending-l {
+	@if $filename == cloud-download-m-l {
 		$char: unquote('"\\E309"');
 	}
-	@if $filename == sort-descending-m-l {
+	@if $filename == cloud-download-m {
 		$char: unquote('"\\E30A"');
 	}
-	@if $filename == sort-descending-m {
+	@if $filename == cloud-download {
 		$char: unquote('"\\E30B"');
 	}
-	@if $filename == sort-descending {
+	@if $filename == cloud-upload-l {
 		$char: unquote('"\\E30C"');
 	}
-	@if $filename == sort-l {
+	@if $filename == cloud-upload-m-l {
 		$char: unquote('"\\E30D"');
 	}
-	@if $filename == sort-m-l {
+	@if $filename == cloud-upload-m {
 		$char: unquote('"\\E30E"');
 	}
-	@if $filename == sort-m {
+	@if $filename == cloud-upload {
 		$char: unquote('"\\E30F"');
 	}
-	@if $filename == sort {
+	@if $filename == dashboard-l {
 		$char: unquote('"\\E310"');
 	}
-	@if $filename == tools-l {
+	@if $filename == dashboard-m-l {
 		$char: unquote('"\\E311"');
 	}
-	@if $filename == tools-m-l {
+	@if $filename == dashboard-m {
 		$char: unquote('"\\E312"');
 	}
-	@if $filename == tools-m {
+	@if $filename == dashboard-sm {
 		$char: unquote('"\\E313"');
 	}
-	@if $filename == tools {
+	@if $filename == dashboard {
 		$char: unquote('"\\E314"');
 	}
-	@if $filename == top-l {
+	@if $filename == download-l {
 		$char: unquote('"\\E315"');
 	}
-	@if $filename == top-m-l {
+	@if $filename == download-m-l {
 		$char: unquote('"\\E316"');
 	}
-	@if $filename == top-m {
+	@if $filename == download-m {
 		$char: unquote('"\\E317"');
 	}
-	@if $filename == top {
+	@if $filename == download {
 		$char: unquote('"\\E318"');
 	}
-	@if $filename == upload-l {
+	@if $filename == drag-and-drop-l {
 		$char: unquote('"\\E319"');
 	}
-	@if $filename == upload-m-l {
+	@if $filename == drag-and-drop-m-l {
 		$char: unquote('"\\E31A"');
 	}
-	@if $filename == upload-m {
+	@if $filename == drag-and-drop-m {
 		$char: unquote('"\\E31B"');
 	}
-	@if $filename == upload {
+	@if $filename == drag-and-drop {
 		$char: unquote('"\\E31C"');
 	}
-	@if $filename == view-l {
+	@if $filename == edit-document-l {
 		$char: unquote('"\\E31D"');
 	}
-	@if $filename == view-m-l {
+	@if $filename == edit-document-m-l {
 		$char: unquote('"\\E31E"');
 	}
-	@if $filename == view-m {
+	@if $filename == edit-document-m {
 		$char: unquote('"\\E31F"');
 	}
-	@if $filename == view {
+	@if $filename == edit-document {
 		$char: unquote('"\\E320"');
 	}
-	@if $filename == zoom-in-l {
+	@if $filename == edit-l {
 		$char: unquote('"\\E321"');
 	}
-	@if $filename == zoom-in-m-l {
+	@if $filename == edit-m-l {
 		$char: unquote('"\\E322"');
 	}
-	@if $filename == zoom-in-m {
+	@if $filename == edit-m {
 		$char: unquote('"\\E323"');
 	}
-	@if $filename == zoom-in {
+	@if $filename == edit {
 		$char: unquote('"\\E324"');
 	}
-	@if $filename == zoom-out-l {
+	@if $filename == expand-l {
 		$char: unquote('"\\E325"');
 	}
-	@if $filename == zoom-out-m-l {
+	@if $filename == expand-m-l {
 		$char: unquote('"\\E326"');
 	}
-	@if $filename == zoom-out-m {
+	@if $filename == expand-m {
 		$char: unquote('"\\E327"');
 	}
-	@if $filename == zoom-out {
+	@if $filename == expand {
 		$char: unquote('"\\E328"');
+	}
+	@if $filename == export-l {
+		$char: unquote('"\\E329"');
+	}
+	@if $filename == export-m-l {
+		$char: unquote('"\\E32A"');
+	}
+	@if $filename == export-m {
+		$char: unquote('"\\E32B"');
+	}
+	@if $filename == export {
+		$char: unquote('"\\E32C"');
+	}
+	@if $filename == filter-l {
+		$char: unquote('"\\E32D"');
+	}
+	@if $filename == filter-m-l {
+		$char: unquote('"\\E32E"');
+	}
+	@if $filename == filter-m {
+		$char: unquote('"\\E32F"');
+	}
+	@if $filename == filter {
+		$char: unquote('"\\E330"');
+	}
+	@if $filename == first-page-l {
+		$char: unquote('"\\E331"');
+	}
+	@if $filename == first-page-m-l {
+		$char: unquote('"\\E332"');
+	}
+	@if $filename == first-page-m {
+		$char: unquote('"\\E333"');
+	}
+	@if $filename == first-page {
+		$char: unquote('"\\E334"');
+	}
+	@if $filename == home-l {
+		$char: unquote('"\\E335"');
+	}
+	@if $filename == home-m-l {
+		$char: unquote('"\\E336"');
+	}
+	@if $filename == home-m {
+		$char: unquote('"\\E337"');
+	}
+	@if $filename == home {
+		$char: unquote('"\\E338"');
+	}
+	@if $filename == language-switcher-l {
+		$char: unquote('"\\E339"');
+	}
+	@if $filename == language-switcher-m-l {
+		$char: unquote('"\\E33A"');
+	}
+	@if $filename == language-switcher-m {
+		$char: unquote('"\\E33B"');
+	}
+	@if $filename == language-switcher {
+		$char: unquote('"\\E33C"');
+	}
+	@if $filename == last-page-l {
+		$char: unquote('"\\E33D"');
+	}
+	@if $filename == last-page-m-l {
+		$char: unquote('"\\E33E"');
+	}
+	@if $filename == last-page-m {
+		$char: unquote('"\\E33F"');
+	}
+	@if $filename == last-page {
+		$char: unquote('"\\E340"');
+	}
+	@if $filename == link-external-l {
+		$char: unquote('"\\E341"');
+	}
+	@if $filename == link-external-m-l {
+		$char: unquote('"\\E342"');
+	}
+	@if $filename == link-external-m {
+		$char: unquote('"\\E343"');
+	}
+	@if $filename == link-external {
+		$char: unquote('"\\E344"');
+	}
+	@if $filename == link-l {
+		$char: unquote('"\\E345"');
+	}
+	@if $filename == link-m-l {
+		$char: unquote('"\\E346"');
+	}
+	@if $filename == link-m {
+		$char: unquote('"\\E347"');
+	}
+	@if $filename == link {
+		$char: unquote('"\\E348"');
+	}
+	@if $filename == menu-l {
+		$char: unquote('"\\E349"');
+	}
+	@if $filename == menu-m-l {
+		$char: unquote('"\\E34A"');
+	}
+	@if $filename == menu-m {
+		$char: unquote('"\\E34B"');
+	}
+	@if $filename == menu {
+		$char: unquote('"\\E34C"');
+	}
+	@if $filename == minus-circle-l {
+		$char: unquote('"\\E34D"');
+	}
+	@if $filename == minus-circle-m-l {
+		$char: unquote('"\\E34E"');
+	}
+	@if $filename == minus-circle-m {
+		$char: unquote('"\\E34F"');
+	}
+	@if $filename == minus-circle {
+		$char: unquote('"\\E350"');
+	}
+	@if $filename == minus-l {
+		$char: unquote('"\\E351"');
+	}
+	@if $filename == minus-m-l {
+		$char: unquote('"\\E352"');
+	}
+	@if $filename == minus-m {
+		$char: unquote('"\\E353"');
+	}
+	@if $filename == minus {
+		$char: unquote('"\\E354"');
+	}
+	@if $filename == more-filled-horizontal-l {
+		$char: unquote('"\\E355"');
+	}
+	@if $filename == more-filled-horizontal-m-l {
+		$char: unquote('"\\E356"');
+	}
+	@if $filename == more-filled-horizontal-m {
+		$char: unquote('"\\E357"');
+	}
+	@if $filename == more-filled-horizontal {
+		$char: unquote('"\\E358"');
+	}
+	@if $filename == more-filled-vertical-l {
+		$char: unquote('"\\E359"');
+	}
+	@if $filename == more-filled-vertical-m-l {
+		$char: unquote('"\\E35A"');
+	}
+	@if $filename == more-filled-vertical-m {
+		$char: unquote('"\\E35B"');
+	}
+	@if $filename == more-filled-vertical {
+		$char: unquote('"\\E35C"');
+	}
+	@if $filename == more-horizontal-l {
+		$char: unquote('"\\E35D"');
+	}
+	@if $filename == more-horizontal-m-l {
+		$char: unquote('"\\E35E"');
+	}
+	@if $filename == more-horizontal-m {
+		$char: unquote('"\\E35F"');
+	}
+	@if $filename == more-horizontal {
+		$char: unquote('"\\E360"');
+	}
+	@if $filename == more-vertical-l {
+		$char: unquote('"\\E361"');
+	}
+	@if $filename == more-vertical-m-l {
+		$char: unquote('"\\E362"');
+	}
+	@if $filename == more-vertical-m {
+		$char: unquote('"\\E363"');
+	}
+	@if $filename == more-vertical {
+		$char: unquote('"\\E364"');
+	}
+	@if $filename == plus-circle-l {
+		$char: unquote('"\\E365"');
+	}
+	@if $filename == plus-circle-m-l {
+		$char: unquote('"\\E366"');
+	}
+	@if $filename == plus-circle-m {
+		$char: unquote('"\\E367"');
+	}
+	@if $filename == plus-circle {
+		$char: unquote('"\\E368"');
+	}
+	@if $filename == plus-l {
+		$char: unquote('"\\E369"');
+	}
+	@if $filename == plus-m-l {
+		$char: unquote('"\\E36A"');
+	}
+	@if $filename == plus-m {
+		$char: unquote('"\\E36B"');
+	}
+	@if $filename == plus {
+		$char: unquote('"\\E36C"');
+	}
+	@if $filename == print-l {
+		$char: unquote('"\\E36D"');
+	}
+	@if $filename == print-m-l {
+		$char: unquote('"\\E36E"');
+	}
+	@if $filename == print-m {
+		$char: unquote('"\\E36F"');
+	}
+	@if $filename == print {
+		$char: unquote('"\\E370"');
+	}
+	@if $filename == profile-l {
+		$char: unquote('"\\E371"');
+	}
+	@if $filename == profile-m-l {
+		$char: unquote('"\\E372"');
+	}
+	@if $filename == profile-m {
+		$char: unquote('"\\E373"');
+	}
+	@if $filename == profile {
+		$char: unquote('"\\E374"');
+	}
+	@if $filename == refresh-l {
+		$char: unquote('"\\E375"');
+	}
+	@if $filename == refresh-m-l {
+		$char: unquote('"\\E376"');
+	}
+	@if $filename == refresh-m {
+		$char: unquote('"\\E377"');
+	}
+	@if $filename == refresh {
+		$char: unquote('"\\E378"');
+	}
+	@if $filename == reset-l {
+		$char: unquote('"\\E379"');
+	}
+	@if $filename == reset-m-l {
+		$char: unquote('"\\E37A"');
+	}
+	@if $filename == reset-m {
+		$char: unquote('"\\E37B"');
+	}
+	@if $filename == reset {
+		$char: unquote('"\\E37C"');
+	}
+	@if $filename == rotate-l {
+		$char: unquote('"\\E37D"');
+	}
+	@if $filename == rotate-m-l {
+		$char: unquote('"\\E37E"');
+	}
+	@if $filename == rotate-m {
+		$char: unquote('"\\E37F"');
+	}
+	@if $filename == rotate {
+		$char: unquote('"\\E380"');
+	}
+	@if $filename == save-l {
+		$char: unquote('"\\E381"');
+	}
+	@if $filename == save-m-l {
+		$char: unquote('"\\E382"');
+	}
+	@if $filename == save-m {
+		$char: unquote('"\\E383"');
+	}
+	@if $filename == save {
+		$char: unquote('"\\E384"');
+	}
+	@if $filename == search-l {
+		$char: unquote('"\\E385"');
+	}
+	@if $filename == search-m-l {
+		$char: unquote('"\\E386"');
+	}
+	@if $filename == search-m {
+		$char: unquote('"\\E387"');
+	}
+	@if $filename == search {
+		$char: unquote('"\\E388"');
+	}
+	@if $filename == settings-l {
+		$char: unquote('"\\E389"');
+	}
+	@if $filename == settings-m-l {
+		$char: unquote('"\\E38A"');
+	}
+	@if $filename == settings-m {
+		$char: unquote('"\\E38B"');
+	}
+	@if $filename == settings {
+		$char: unquote('"\\E38C"');
+	}
+	@if $filename == sort-ascending-l {
+		$char: unquote('"\\E38D"');
+	}
+	@if $filename == sort-ascending-m-l {
+		$char: unquote('"\\E38E"');
+	}
+	@if $filename == sort-ascending-m {
+		$char: unquote('"\\E38F"');
+	}
+	@if $filename == sort-ascending {
+		$char: unquote('"\\E390"');
+	}
+	@if $filename == sort-descending-l {
+		$char: unquote('"\\E391"');
+	}
+	@if $filename == sort-descending-m-l {
+		$char: unquote('"\\E392"');
+	}
+	@if $filename == sort-descending-m {
+		$char: unquote('"\\E393"');
+	}
+	@if $filename == sort-descending {
+		$char: unquote('"\\E394"');
+	}
+	@if $filename == sort-l {
+		$char: unquote('"\\E395"');
+	}
+	@if $filename == sort-m-l {
+		$char: unquote('"\\E396"');
+	}
+	@if $filename == sort-m {
+		$char: unquote('"\\E397"');
+	}
+	@if $filename == sort {
+		$char: unquote('"\\E398"');
+	}
+	@if $filename == tools-l {
+		$char: unquote('"\\E399"');
+	}
+	@if $filename == tools-m-l {
+		$char: unquote('"\\E39A"');
+	}
+	@if $filename == tools-m {
+		$char: unquote('"\\E39B"');
+	}
+	@if $filename == tools {
+		$char: unquote('"\\E39C"');
+	}
+	@if $filename == top-l {
+		$char: unquote('"\\E39D"');
+	}
+	@if $filename == top-m-l {
+		$char: unquote('"\\E39E"');
+	}
+	@if $filename == top-m {
+		$char: unquote('"\\E39F"');
+	}
+	@if $filename == top {
+		$char: unquote('"\\E3A0"');
+	}
+	@if $filename == upload-l {
+		$char: unquote('"\\E3A1"');
+	}
+	@if $filename == upload-m-l {
+		$char: unquote('"\\E3A2"');
+	}
+	@if $filename == upload-m {
+		$char: unquote('"\\E3A3"');
+	}
+	@if $filename == upload {
+		$char: unquote('"\\E3A4"');
+	}
+	@if $filename == view-l {
+		$char: unquote('"\\E3A5"');
+	}
+	@if $filename == view-m-l {
+		$char: unquote('"\\E3A6"');
+	}
+	@if $filename == view-m {
+		$char: unquote('"\\E3A7"');
+	}
+	@if $filename == view {
+		$char: unquote('"\\E3A8"');
+	}
+	@if $filename == zoom-in-l {
+		$char: unquote('"\\E3A9"');
+	}
+	@if $filename == zoom-in-m-l {
+		$char: unquote('"\\E3AA"');
+	}
+	@if $filename == zoom-in-m {
+		$char: unquote('"\\E3AB"');
+	}
+	@if $filename == zoom-in {
+		$char: unquote('"\\E3AC"');
+	}
+	@if $filename == zoom-out-l {
+		$char: unquote('"\\E3AD"');
+	}
+	@if $filename == zoom-out-m-l {
+		$char: unquote('"\\E3AE"');
+	}
+	@if $filename == zoom-out-m {
+		$char: unquote('"\\E3AF"');
+	}
+	@if $filename == zoom-out {
+		$char: unquote('"\\E3B0"');
 	}
 
 	@return $char;
@@ -2471,11 +2878,17 @@
 .ds-icon-area-chart-l {
 	@include ds-icon(area-chart-l);
 }
+.ds-icon-area-chart-lg {
+	@include ds-icon(area-chart-lg);
+}
 .ds-icon-area-chart-m-l {
 	@include ds-icon(area-chart-m-l);
 }
 .ds-icon-area-chart-m {
 	@include ds-icon(area-chart-m);
+}
+.ds-icon-area-chart-sm {
+	@include ds-icon(area-chart-sm);
 }
 .ds-icon-area-chart {
 	@include ds-icon(area-chart);
@@ -2483,11 +2896,17 @@
 .ds-icon-bar-chart-l {
 	@include ds-icon(bar-chart-l);
 }
+.ds-icon-bar-chart-lg {
+	@include ds-icon(bar-chart-lg);
+}
 .ds-icon-bar-chart-m-l {
 	@include ds-icon(bar-chart-m-l);
 }
 .ds-icon-bar-chart-m {
 	@include ds-icon(bar-chart-m);
+}
+.ds-icon-bar-chart-sm {
+	@include ds-icon(bar-chart-sm);
 }
 .ds-icon-bar-chart {
 	@include ds-icon(bar-chart);
@@ -2495,11 +2914,17 @@
 .ds-icon-line-chart-l {
 	@include ds-icon(line-chart-l);
 }
+.ds-icon-line-chart-lg {
+	@include ds-icon(line-chart-lg);
+}
 .ds-icon-line-chart-m-l {
 	@include ds-icon(line-chart-m-l);
 }
 .ds-icon-line-chart-m {
 	@include ds-icon(line-chart-m);
+}
+.ds-icon-line-chart-sm {
+	@include ds-icon(line-chart-sm);
 }
 .ds-icon-line-chart {
 	@include ds-icon(line-chart);
@@ -2507,11 +2932,17 @@
 .ds-icon-pie-chart-l {
 	@include ds-icon(pie-chart-l);
 }
+.ds-icon-pie-chart-lg {
+	@include ds-icon(pie-chart-lg);
+}
 .ds-icon-pie-chart-m-l {
 	@include ds-icon(pie-chart-m-l);
 }
 .ds-icon-pie-chart-m {
 	@include ds-icon(pie-chart-m);
+}
+.ds-icon-pie-chart-sm {
+	@include ds-icon(pie-chart-sm);
 }
 .ds-icon-pie-chart {
 	@include ds-icon(pie-chart);
@@ -2519,11 +2950,17 @@
 .ds-icon-tree-map-l {
 	@include ds-icon(tree-map-l);
 }
+.ds-icon-tree-map-lg {
+	@include ds-icon(tree-map-lg);
+}
 .ds-icon-tree-map-m-l {
 	@include ds-icon(tree-map-m-l);
 }
 .ds-icon-tree-map-m {
 	@include ds-icon(tree-map-m);
+}
+.ds-icon-tree-map-sm {
+	@include ds-icon(tree-map-sm);
 }
 .ds-icon-tree-map {
 	@include ds-icon(tree-map);
@@ -2531,11 +2968,17 @@
 .ds-icon-add-folder-l {
 	@include ds-icon(add-folder-l);
 }
+.ds-icon-add-folder-lg {
+	@include ds-icon(add-folder-lg);
+}
 .ds-icon-add-folder-m-l {
 	@include ds-icon(add-folder-m-l);
 }
 .ds-icon-add-folder-m {
 	@include ds-icon(add-folder-m);
+}
+.ds-icon-add-folder-sm {
+	@include ds-icon(add-folder-sm);
 }
 .ds-icon-add-folder {
 	@include ds-icon(add-folder);
@@ -2543,11 +2986,17 @@
 .ds-icon-add-page-l {
 	@include ds-icon(add-page-l);
 }
+.ds-icon-add-page-lg {
+	@include ds-icon(add-page-lg);
+}
 .ds-icon-add-page-m-l {
 	@include ds-icon(add-page-m-l);
 }
 .ds-icon-add-page-m {
 	@include ds-icon(add-page-m);
+}
+.ds-icon-add-page-sm {
+	@include ds-icon(add-page-sm);
 }
 .ds-icon-add-page {
 	@include ds-icon(add-page);
@@ -2555,11 +3004,17 @@
 .ds-icon-file-audio-l {
 	@include ds-icon(file-audio-l);
 }
+.ds-icon-file-audio-lg {
+	@include ds-icon(file-audio-lg);
+}
 .ds-icon-file-audio-m-l {
 	@include ds-icon(file-audio-m-l);
 }
 .ds-icon-file-audio-m {
 	@include ds-icon(file-audio-m);
+}
+.ds-icon-file-audio-sm {
+	@include ds-icon(file-audio-sm);
 }
 .ds-icon-file-audio {
 	@include ds-icon(file-audio);
@@ -2567,11 +3022,17 @@
 .ds-icon-file-check-l {
 	@include ds-icon(file-check-l);
 }
+.ds-icon-file-check-lg {
+	@include ds-icon(file-check-lg);
+}
 .ds-icon-file-check-m-l {
 	@include ds-icon(file-check-m-l);
 }
 .ds-icon-file-check-m {
 	@include ds-icon(file-check-m);
+}
+.ds-icon-file-check-sm {
+	@include ds-icon(file-check-sm);
 }
 .ds-icon-file-check {
 	@include ds-icon(file-check);
@@ -2579,11 +3040,17 @@
 .ds-icon-file-code-l {
 	@include ds-icon(file-code-l);
 }
+.ds-icon-file-code-lg {
+	@include ds-icon(file-code-lg);
+}
 .ds-icon-file-code-m-l {
 	@include ds-icon(file-code-m-l);
 }
 .ds-icon-file-code-m {
 	@include ds-icon(file-code-m);
+}
+.ds-icon-file-code-sm {
+	@include ds-icon(file-code-sm);
 }
 .ds-icon-file-code {
 	@include ds-icon(file-code);
@@ -2591,11 +3058,17 @@
 .ds-icon-file-doc-l {
 	@include ds-icon(file-doc-l);
 }
+.ds-icon-file-doc-lg {
+	@include ds-icon(file-doc-lg);
+}
 .ds-icon-file-doc-m-l {
 	@include ds-icon(file-doc-m-l);
 }
 .ds-icon-file-doc-m {
 	@include ds-icon(file-doc-m);
+}
+.ds-icon-file-doc-sm {
+	@include ds-icon(file-doc-sm);
 }
 .ds-icon-file-doc {
 	@include ds-icon(file-doc);
@@ -2603,11 +3076,17 @@
 .ds-icon-file-image-l {
 	@include ds-icon(file-image-l);
 }
+.ds-icon-file-image-lg {
+	@include ds-icon(file-image-lg);
+}
 .ds-icon-file-image-m-l {
 	@include ds-icon(file-image-m-l);
 }
 .ds-icon-file-image-m {
 	@include ds-icon(file-image-m);
+}
+.ds-icon-file-image-sm {
+	@include ds-icon(file-image-sm);
 }
 .ds-icon-file-image {
 	@include ds-icon(file-image);
@@ -2615,17 +3094,26 @@
 .ds-icon-file-jpg-l {
 	@include ds-icon(file-jpg-l);
 }
+.ds-icon-file-jpg-lg {
+	@include ds-icon(file-jpg-lg);
+}
 .ds-icon-file-jpg-m-l {
 	@include ds-icon(file-jpg-m-l);
 }
 .ds-icon-file-jpg-m {
 	@include ds-icon(file-jpg-m);
 }
+.ds-icon-file-jpg-sm {
+	@include ds-icon(file-jpg-sm);
+}
 .ds-icon-file-jpg {
 	@include ds-icon(file-jpg);
 }
 .ds-icon-file-l {
 	@include ds-icon(file-l);
+}
+.ds-icon-file-lg {
+	@include ds-icon(file-lg);
 }
 .ds-icon-file-m-l {
 	@include ds-icon(file-m-l);
@@ -2636,11 +3124,17 @@
 .ds-icon-file-pdf-l {
 	@include ds-icon(file-pdf-l);
 }
+.ds-icon-file-pdf-lg {
+	@include ds-icon(file-pdf-lg);
+}
 .ds-icon-file-pdf-m-l {
 	@include ds-icon(file-pdf-m-l);
 }
 .ds-icon-file-pdf-m {
 	@include ds-icon(file-pdf-m);
+}
+.ds-icon-file-pdf-sm {
+	@include ds-icon(file-pdf-sm);
 }
 .ds-icon-file-pdf {
 	@include ds-icon(file-pdf);
@@ -2648,11 +3142,17 @@
 .ds-icon-file-ppt-l {
 	@include ds-icon(file-ppt-l);
 }
+.ds-icon-file-ppt-lg {
+	@include ds-icon(file-ppt-lg);
+}
 .ds-icon-file-ppt-m-l {
 	@include ds-icon(file-ppt-m-l);
 }
 .ds-icon-file-ppt-m {
 	@include ds-icon(file-ppt-m);
+}
+.ds-icon-file-ppt-sm {
+	@include ds-icon(file-ppt-sm);
 }
 .ds-icon-file-ppt {
 	@include ds-icon(file-ppt);
@@ -2660,17 +3160,29 @@
 .ds-icon-file-sketch-l {
 	@include ds-icon(file-sketch-l);
 }
+.ds-icon-file-sketch-lg {
+	@include ds-icon(file-sketch-lg);
+}
 .ds-icon-file-sketch-m-l {
 	@include ds-icon(file-sketch-m-l);
 }
 .ds-icon-file-sketch-m {
 	@include ds-icon(file-sketch-m);
 }
+.ds-icon-file-sketch-sm {
+	@include ds-icon(file-sketch-sm);
+}
 .ds-icon-file-sketch {
 	@include ds-icon(file-sketch);
 }
+.ds-icon-file-sm {
+	@include ds-icon(file-sm);
+}
 .ds-icon-file-text-l {
 	@include ds-icon(file-text-l);
+}
+.ds-icon-file-text-lg {
+	@include ds-icon(file-text-lg);
 }
 .ds-icon-file-text-m-l {
 	@include ds-icon(file-text-m-l);
@@ -2678,11 +3190,17 @@
 .ds-icon-file-text-m {
 	@include ds-icon(file-text-m);
 }
+.ds-icon-file-text-sm {
+	@include ds-icon(file-text-sm);
+}
 .ds-icon-file-text {
 	@include ds-icon(file-text);
 }
 .ds-icon-file-video-l {
 	@include ds-icon(file-video-l);
+}
+.ds-icon-file-video-lg {
+	@include ds-icon(file-video-lg);
 }
 .ds-icon-file-video-m-l {
 	@include ds-icon(file-video-m-l);
@@ -2690,11 +3208,17 @@
 .ds-icon-file-video-m {
 	@include ds-icon(file-video-m);
 }
+.ds-icon-file-video-sm {
+	@include ds-icon(file-video-sm);
+}
 .ds-icon-file-video {
 	@include ds-icon(file-video);
 }
 .ds-icon-file-xls-l {
 	@include ds-icon(file-xls-l);
+}
+.ds-icon-file-xls-lg {
+	@include ds-icon(file-xls-lg);
 }
 .ds-icon-file-xls-m-l {
 	@include ds-icon(file-xls-m-l);
@@ -2702,17 +3226,26 @@
 .ds-icon-file-xls-m {
 	@include ds-icon(file-xls-m);
 }
+.ds-icon-file-xls-sm {
+	@include ds-icon(file-xls-sm);
+}
 .ds-icon-file-xls {
 	@include ds-icon(file-xls);
 }
 .ds-icon-file-zip-l {
 	@include ds-icon(file-zip-l);
 }
+.ds-icon-file-zip-lg {
+	@include ds-icon(file-zip-lg);
+}
 .ds-icon-file-zip-m-l {
 	@include ds-icon(file-zip-m-l);
 }
 .ds-icon-file-zip-m {
 	@include ds-icon(file-zip-m);
+}
+.ds-icon-file-zip-sm {
+	@include ds-icon(file-zip-sm);
 }
 .ds-icon-file-zip {
 	@include ds-icon(file-zip);
@@ -2723,341 +3256,26 @@
 .ds-icon-folder-l {
 	@include ds-icon(folder-l);
 }
+.ds-icon-folder-lg {
+	@include ds-icon(folder-lg);
+}
 .ds-icon-folder-m-l {
 	@include ds-icon(folder-m-l);
 }
 .ds-icon-folder-m {
 	@include ds-icon(folder-m);
 }
+.ds-icon-folder-sm {
+	@include ds-icon(folder-sm);
+}
 .ds-icon-folder {
 	@include ds-icon(folder);
 }
-.ds-icon-announcement-l {
-	@include ds-icon(announcement-l);
-}
-.ds-icon-announcement-m-l {
-	@include ds-icon(announcement-m-l);
-}
-.ds-icon-announcement-m {
-	@include ds-icon(announcement-m);
-}
-.ds-icon-announcement {
-	@include ds-icon(announcement);
-}
-.ds-icon-chat-l {
-	@include ds-icon(chat-l);
-}
-.ds-icon-chat-m-l {
-	@include ds-icon(chat-m-l);
-}
-.ds-icon-chat-m {
-	@include ds-icon(chat-m);
-}
-.ds-icon-chat {
-	@include ds-icon(chat);
-}
-.ds-icon-comment-l {
-	@include ds-icon(comment-l);
-}
-.ds-icon-comment-m-l {
-	@include ds-icon(comment-m-l);
-}
-.ds-icon-comment-m {
-	@include ds-icon(comment-m);
-}
-.ds-icon-comment {
-	@include ds-icon(comment);
-}
-.ds-icon-forum-l {
-	@include ds-icon(forum-l);
-}
-.ds-icon-forum-m-l {
-	@include ds-icon(forum-m-l);
-}
-.ds-icon-forum-m {
-	@include ds-icon(forum-m);
-}
-.ds-icon-forum {
-	@include ds-icon(forum);
-}
-.ds-icon-heart-fill-l {
-	@include ds-icon(heart-fill-l);
-}
-.ds-icon-heart-fill-m-l {
-	@include ds-icon(heart-fill-m-l);
-}
-.ds-icon-heart-fill-m {
-	@include ds-icon(heart-fill-m);
-}
-.ds-icon-heart-fill {
-	@include ds-icon(heart-fill);
-}
-.ds-icon-heart-l {
-	@include ds-icon(heart-l);
-}
-.ds-icon-heart-m-l {
-	@include ds-icon(heart-m-l);
-}
-.ds-icon-heart-m {
-	@include ds-icon(heart-m);
-}
-.ds-icon-heart {
-	@include ds-icon(heart);
-}
-.ds-icon-mail-l {
-	@include ds-icon(mail-l);
-}
-.ds-icon-mail-m-l {
-	@include ds-icon(mail-m-l);
-}
-.ds-icon-mail-m {
-	@include ds-icon(mail-m);
-}
-.ds-icon-mail {
-	@include ds-icon(mail);
-}
-.ds-icon-notification-l {
-	@include ds-icon(notification-l);
-}
-.ds-icon-notification-m-l {
-	@include ds-icon(notification-m-l);
-}
-.ds-icon-notification-m {
-	@include ds-icon(notification-m);
-}
-.ds-icon-notification {
-	@include ds-icon(notification);
-}
-.ds-icon-phone-l {
-	@include ds-icon(phone-l);
-}
-.ds-icon-phone-m-l {
-	@include ds-icon(phone-m-l);
-}
-.ds-icon-phone-m {
-	@include ds-icon(phone-m);
-}
-.ds-icon-phone {
-	@include ds-icon(phone);
-}
-.ds-icon-role-l {
-	@include ds-icon(role-l);
-}
-.ds-icon-role-m-l {
-	@include ds-icon(role-m-l);
-}
-.ds-icon-role-m {
-	@include ds-icon(role-m);
-}
-.ds-icon-role {
-	@include ds-icon(role);
-}
-.ds-icon-rss-l {
-	@include ds-icon(rss-l);
-}
-.ds-icon-rss-m-l {
-	@include ds-icon(rss-m-l);
-}
-.ds-icon-rss-m {
-	@include ds-icon(rss-m);
-}
-.ds-icon-rss {
-	@include ds-icon(rss);
-}
-.ds-icon-sentiment-dead-l {
-	@include ds-icon(sentiment-dead-l);
-}
-.ds-icon-sentiment-dead-m-l {
-	@include ds-icon(sentiment-dead-m-l);
-}
-.ds-icon-sentiment-dead-m {
-	@include ds-icon(sentiment-dead-m);
-}
-.ds-icon-sentiment-dead {
-	@include ds-icon(sentiment-dead);
-}
-.ds-icon-sentiment-great-l {
-	@include ds-icon(sentiment-great-l);
-}
-.ds-icon-sentiment-great-m-l {
-	@include ds-icon(sentiment-great-m-l);
-}
-.ds-icon-sentiment-great-m {
-	@include ds-icon(sentiment-great-m);
-}
-.ds-icon-sentiment-great {
-	@include ds-icon(sentiment-great);
-}
-.ds-icon-sentiment-meh-l {
-	@include ds-icon(sentiment-meh-l);
-}
-.ds-icon-sentiment-meh-m-l {
-	@include ds-icon(sentiment-meh-m-l);
-}
-.ds-icon-sentiment-meh-m {
-	@include ds-icon(sentiment-meh-m);
-}
-.ds-icon-sentiment-meh {
-	@include ds-icon(sentiment-meh);
-}
-.ds-icon-sentiment-mute-l {
-	@include ds-icon(sentiment-mute-l);
-}
-.ds-icon-sentiment-mute-m-l {
-	@include ds-icon(sentiment-mute-m-l);
-}
-.ds-icon-sentiment-mute-m {
-	@include ds-icon(sentiment-mute-m);
-}
-.ds-icon-sentiment-mute {
-	@include ds-icon(sentiment-mute);
-}
-.ds-icon-sentiment-sad-l {
-	@include ds-icon(sentiment-sad-l);
-}
-.ds-icon-sentiment-sad-m-l {
-	@include ds-icon(sentiment-sad-m-l);
-}
-.ds-icon-sentiment-sad-m {
-	@include ds-icon(sentiment-sad-m);
-}
-.ds-icon-sentiment-sad {
-	@include ds-icon(sentiment-sad);
-}
-.ds-icon-sentiment-smile-l {
-	@include ds-icon(sentiment-smile-l);
-}
-.ds-icon-sentiment-smile-m-l {
-	@include ds-icon(sentiment-smile-m-l);
-}
-.ds-icon-sentiment-smile-m {
-	@include ds-icon(sentiment-smile-m);
-}
-.ds-icon-sentiment-smile {
-	@include ds-icon(sentiment-smile);
-}
-.ds-icon-sentiment-wink-l {
-	@include ds-icon(sentiment-wink-l);
-}
-.ds-icon-sentiment-wink-m-l {
-	@include ds-icon(sentiment-wink-m-l);
-}
-.ds-icon-sentiment-wink-m {
-	@include ds-icon(sentiment-wink-m);
-}
-.ds-icon-sentiment-wink {
-	@include ds-icon(sentiment-wink);
-}
-.ds-icon-sentiment-wow-l {
-	@include ds-icon(sentiment-wow-l);
-}
-.ds-icon-sentiment-wow-m-l {
-	@include ds-icon(sentiment-wow-m-l);
-}
-.ds-icon-sentiment-wow-m {
-	@include ds-icon(sentiment-wow-m);
-}
-.ds-icon-sentiment-wow {
-	@include ds-icon(sentiment-wow);
-}
-.ds-icon-share-l {
-	@include ds-icon(share-l);
-}
-.ds-icon-share-m-l {
-	@include ds-icon(share-m-l);
-}
-.ds-icon-share-m {
-	@include ds-icon(share-m);
-}
-.ds-icon-share {
-	@include ds-icon(share);
-}
-.ds-icon-star-fill-l {
-	@include ds-icon(star-fill-l);
-}
-.ds-icon-star-fill-m-l {
-	@include ds-icon(star-fill-m-l);
-}
-.ds-icon-star-fill-m {
-	@include ds-icon(star-fill-m);
-}
-.ds-icon-star-fill {
-	@include ds-icon(star-fill);
-}
-.ds-icon-star-half-l {
-	@include ds-icon(star-half-l);
-}
-.ds-icon-star-half-m-l {
-	@include ds-icon(star-half-m-l);
-}
-.ds-icon-star-half-m {
-	@include ds-icon(star-half-m);
-}
-.ds-icon-star-half {
-	@include ds-icon(star-half);
-}
-.ds-icon-star-l {
-	@include ds-icon(star-l);
-}
-.ds-icon-star-m-l {
-	@include ds-icon(star-m-l);
-}
-.ds-icon-star-m {
-	@include ds-icon(star-m);
-}
-.ds-icon-star {
-	@include ds-icon(star);
-}
-.ds-icon-team-l {
-	@include ds-icon(team-l);
-}
-.ds-icon-team-m-l {
-	@include ds-icon(team-m-l);
-}
-.ds-icon-team-m {
-	@include ds-icon(team-m);
-}
-.ds-icon-team {
-	@include ds-icon(team);
-}
-.ds-icon-thumbs-down-l {
-	@include ds-icon(thumbs-down-l);
-}
-.ds-icon-thumbs-down-m-l {
-	@include ds-icon(thumbs-down-m-l);
-}
-.ds-icon-thumbs-down-m {
-	@include ds-icon(thumbs-down-m);
-}
-.ds-icon-thumbs-down {
-	@include ds-icon(thumbs-down);
-}
-.ds-icon-thumbs-up-l {
-	@include ds-icon(thumbs-up-l);
-}
-.ds-icon-thumbs-up-m-l {
-	@include ds-icon(thumbs-up-m-l);
-}
-.ds-icon-thumbs-up-m {
-	@include ds-icon(thumbs-up-m);
-}
-.ds-icon-thumbs-up {
-	@include ds-icon(thumbs-up);
-}
-.ds-icon-video-chat-l {
-	@include ds-icon(video-chat-l);
-}
-.ds-icon-video-chat-m-l {
-	@include ds-icon(video-chat-m-l);
-}
-.ds-icon-video-chat-m {
-	@include ds-icon(video-chat-m);
-}
-.ds-icon-video-chat {
-	@include ds-icon(video-chat);
-}
 .ds-icon-align-center-l {
 	@include ds-icon(align-center-l);
+}
+.ds-icon-align-center-lg {
+	@include ds-icon(align-center-lg);
 }
 .ds-icon-align-center-m-l {
 	@include ds-icon(align-center-m-l);
@@ -3065,11 +3283,17 @@
 .ds-icon-align-center-m {
 	@include ds-icon(align-center-m);
 }
+.ds-icon-align-center-sm {
+	@include ds-icon(align-center-sm);
+}
 .ds-icon-align-center {
 	@include ds-icon(align-center);
 }
 .ds-icon-align-justify-l {
 	@include ds-icon(align-justify-l);
+}
+.ds-icon-align-justify-lg {
+	@include ds-icon(align-justify-lg);
 }
 .ds-icon-align-justify-m-l {
 	@include ds-icon(align-justify-m-l);
@@ -3077,11 +3301,17 @@
 .ds-icon-align-justify-m {
 	@include ds-icon(align-justify-m);
 }
+.ds-icon-align-justify-sm {
+	@include ds-icon(align-justify-sm);
+}
 .ds-icon-align-justify {
 	@include ds-icon(align-justify);
 }
 .ds-icon-align-left-l {
 	@include ds-icon(align-left-l);
+}
+.ds-icon-align-left-lg {
+	@include ds-icon(align-left-lg);
 }
 .ds-icon-align-left-m-l {
 	@include ds-icon(align-left-m-l);
@@ -3089,11 +3319,17 @@
 .ds-icon-align-left-m {
 	@include ds-icon(align-left-m);
 }
+.ds-icon-align-left-sm {
+	@include ds-icon(align-left-sm);
+}
 .ds-icon-align-left {
 	@include ds-icon(align-left);
 }
 .ds-icon-align-right-l {
 	@include ds-icon(align-right-l);
+}
+.ds-icon-align-right-lg {
+	@include ds-icon(align-right-lg);
 }
 .ds-icon-align-right-m-l {
 	@include ds-icon(align-right-m-l);
@@ -3101,11 +3337,17 @@
 .ds-icon-align-right-m {
 	@include ds-icon(align-right-m);
 }
+.ds-icon-align-right-sm {
+	@include ds-icon(align-right-sm);
+}
 .ds-icon-align-right {
 	@include ds-icon(align-right);
 }
 .ds-icon-clear-formatting-l {
 	@include ds-icon(clear-formatting-l);
+}
+.ds-icon-clear-formatting-lg {
+	@include ds-icon(clear-formatting-lg);
 }
 .ds-icon-clear-formatting-m-l {
 	@include ds-icon(clear-formatting-m-l);
@@ -3113,11 +3355,17 @@
 .ds-icon-clear-formatting-m {
 	@include ds-icon(clear-formatting-m);
 }
+.ds-icon-clear-formatting-sm {
+	@include ds-icon(clear-formatting-sm);
+}
 .ds-icon-clear-formatting {
 	@include ds-icon(clear-formatting);
 }
 .ds-icon-copy-l {
 	@include ds-icon(copy-l);
+}
+.ds-icon-copy-lg {
+	@include ds-icon(copy-lg);
 }
 .ds-icon-copy-m-l {
 	@include ds-icon(copy-m-l);
@@ -3125,11 +3373,17 @@
 .ds-icon-copy-m {
 	@include ds-icon(copy-m);
 }
+.ds-icon-copy-sm {
+	@include ds-icon(copy-sm);
+}
 .ds-icon-copy {
 	@include ds-icon(copy);
 }
 .ds-icon-cut-l {
 	@include ds-icon(cut-l);
+}
+.ds-icon-cut-lg {
+	@include ds-icon(cut-lg);
 }
 .ds-icon-cut-m-l {
 	@include ds-icon(cut-m-l);
@@ -3137,11 +3391,17 @@
 .ds-icon-cut-m {
 	@include ds-icon(cut-m);
 }
+.ds-icon-cut-sm {
+	@include ds-icon(cut-sm);
+}
 .ds-icon-cut {
 	@include ds-icon(cut);
 }
 .ds-icon-fill-color-l {
 	@include ds-icon(fill-color-l);
+}
+.ds-icon-fill-color-lg {
+	@include ds-icon(fill-color-lg);
 }
 .ds-icon-fill-color-m-l {
 	@include ds-icon(fill-color-m-l);
@@ -3149,11 +3409,17 @@
 .ds-icon-fill-color-m {
 	@include ds-icon(fill-color-m);
 }
+.ds-icon-fill-color-sm {
+	@include ds-icon(fill-color-sm);
+}
 .ds-icon-fill-color {
 	@include ds-icon(fill-color);
 }
 .ds-icon-indent-left-l {
 	@include ds-icon(indent-left-l);
+}
+.ds-icon-indent-left-lg {
+	@include ds-icon(indent-left-lg);
 }
 .ds-icon-indent-left-m-l {
 	@include ds-icon(indent-left-m-l);
@@ -3161,11 +3427,17 @@
 .ds-icon-indent-left-m {
 	@include ds-icon(indent-left-m);
 }
+.ds-icon-indent-left-sm {
+	@include ds-icon(indent-left-sm);
+}
 .ds-icon-indent-left {
 	@include ds-icon(indent-left);
 }
 .ds-icon-indent-right-l {
 	@include ds-icon(indent-right-l);
+}
+.ds-icon-indent-right-lg {
+	@include ds-icon(indent-right-lg);
 }
 .ds-icon-indent-right-m-l {
 	@include ds-icon(indent-right-m-l);
@@ -3173,11 +3445,17 @@
 .ds-icon-indent-right-m {
 	@include ds-icon(indent-right-m);
 }
+.ds-icon-indent-right-sm {
+	@include ds-icon(indent-right-sm);
+}
 .ds-icon-indent-right {
 	@include ds-icon(indent-right);
 }
 .ds-icon-insert-l {
 	@include ds-icon(insert-l);
+}
+.ds-icon-insert-lg {
+	@include ds-icon(insert-lg);
 }
 .ds-icon-insert-m-l {
 	@include ds-icon(insert-m-l);
@@ -3185,11 +3463,17 @@
 .ds-icon-insert-m {
 	@include ds-icon(insert-m);
 }
+.ds-icon-insert-sm {
+	@include ds-icon(insert-sm);
+}
 .ds-icon-insert {
 	@include ds-icon(insert);
 }
 .ds-icon-list-ordered-l {
 	@include ds-icon(list-ordered-l);
+}
+.ds-icon-list-ordered-lg {
+	@include ds-icon(list-ordered-lg);
 }
 .ds-icon-list-ordered-m-l {
 	@include ds-icon(list-ordered-m-l);
@@ -3197,11 +3481,17 @@
 .ds-icon-list-ordered-m {
 	@include ds-icon(list-ordered-m);
 }
+.ds-icon-list-ordered-sm {
+	@include ds-icon(list-ordered-sm);
+}
 .ds-icon-list-ordered {
 	@include ds-icon(list-ordered);
 }
 .ds-icon-list-unordered-l {
 	@include ds-icon(list-unordered-l);
+}
+.ds-icon-list-unordered-lg {
+	@include ds-icon(list-unordered-lg);
 }
 .ds-icon-list-unordered-m-l {
 	@include ds-icon(list-unordered-m-l);
@@ -3209,11 +3499,17 @@
 .ds-icon-list-unordered-m {
 	@include ds-icon(list-unordered-m);
 }
+.ds-icon-list-unordered-sm {
+	@include ds-icon(list-unordered-sm);
+}
 .ds-icon-list-unordered {
 	@include ds-icon(list-unordered);
 }
 .ds-icon-paste-l {
 	@include ds-icon(paste-l);
+}
+.ds-icon-paste-lg {
+	@include ds-icon(paste-lg);
 }
 .ds-icon-paste-m-l {
 	@include ds-icon(paste-m-l);
@@ -3221,11 +3517,17 @@
 .ds-icon-paste-m {
 	@include ds-icon(paste-m);
 }
+.ds-icon-paste-sm {
+	@include ds-icon(paste-sm);
+}
 .ds-icon-paste {
 	@include ds-icon(paste);
 }
 .ds-icon-type-bold-l {
 	@include ds-icon(type-bold-l);
+}
+.ds-icon-type-bold-lg {
+	@include ds-icon(type-bold-lg);
 }
 .ds-icon-type-bold-m-l {
 	@include ds-icon(type-bold-m-l);
@@ -3233,11 +3535,17 @@
 .ds-icon-type-bold-m {
 	@include ds-icon(type-bold-m);
 }
+.ds-icon-type-bold-sm {
+	@include ds-icon(type-bold-sm);
+}
 .ds-icon-type-bold {
 	@include ds-icon(type-bold);
 }
 .ds-icon-type-italic-l {
 	@include ds-icon(type-italic-l);
+}
+.ds-icon-type-italic-lg {
+	@include ds-icon(type-italic-lg);
 }
 .ds-icon-type-italic-m-l {
 	@include ds-icon(type-italic-m-l);
@@ -3245,11 +3553,17 @@
 .ds-icon-type-italic-m {
 	@include ds-icon(type-italic-m);
 }
+.ds-icon-type-italic-sm {
+	@include ds-icon(type-italic-sm);
+}
 .ds-icon-type-italic {
 	@include ds-icon(type-italic);
 }
 .ds-icon-type-size-l {
 	@include ds-icon(type-size-l);
+}
+.ds-icon-type-size-lg {
+	@include ds-icon(type-size-lg);
 }
 .ds-icon-type-size-m-l {
 	@include ds-icon(type-size-m-l);
@@ -3257,11 +3571,17 @@
 .ds-icon-type-size-m {
 	@include ds-icon(type-size-m);
 }
+.ds-icon-type-size-sm {
+	@include ds-icon(type-size-sm);
+}
 .ds-icon-type-size {
 	@include ds-icon(type-size);
 }
 .ds-icon-type-underline-l {
 	@include ds-icon(type-underline-l);
+}
+.ds-icon-type-underline-lg {
+	@include ds-icon(type-underline-lg);
 }
 .ds-icon-type-underline-m-l {
 	@include ds-icon(type-underline-m-l);
@@ -3269,104 +3589,497 @@
 .ds-icon-type-underline-m {
 	@include ds-icon(type-underline-m);
 }
+.ds-icon-type-underline-sm {
+	@include ds-icon(type-underline-sm);
+}
 .ds-icon-type-underline {
 	@include ds-icon(type-underline);
 }
-.ds-icon-facebook-l {
-	@include ds-icon(facebook-l);
+.ds-icon-announcement-l {
+	@include ds-icon(announcement-l);
 }
-.ds-icon-facebook-m-l {
-	@include ds-icon(facebook-m-l);
+.ds-icon-announcement-lg {
+	@include ds-icon(announcement-lg);
 }
-.ds-icon-facebook-m {
-	@include ds-icon(facebook-m);
+.ds-icon-announcement-m-l {
+	@include ds-icon(announcement-m-l);
 }
-.ds-icon-facebook {
-	@include ds-icon(facebook);
+.ds-icon-announcement-m {
+	@include ds-icon(announcement-m);
 }
-.ds-icon-github-l {
-	@include ds-icon(github-l);
+.ds-icon-announcement-sm {
+	@include ds-icon(announcement-sm);
 }
-.ds-icon-github-m-l {
-	@include ds-icon(github-m-l);
+.ds-icon-announcement {
+	@include ds-icon(announcement);
 }
-.ds-icon-github-m {
-	@include ds-icon(github-m);
+.ds-icon-chat-l {
+	@include ds-icon(chat-l);
 }
-.ds-icon-github {
-	@include ds-icon(github);
+.ds-icon-chat-lg {
+	@include ds-icon(chat-lg);
 }
-.ds-icon-googleplus-l {
-	@include ds-icon(googleplus-l);
+.ds-icon-chat-m-l {
+	@include ds-icon(chat-m-l);
 }
-.ds-icon-googleplus-m-l {
-	@include ds-icon(googleplus-m-l);
+.ds-icon-chat-m {
+	@include ds-icon(chat-m);
 }
-.ds-icon-googleplus-m {
-	@include ds-icon(googleplus-m);
+.ds-icon-chat-sm {
+	@include ds-icon(chat-sm);
 }
-.ds-icon-googleplus {
-	@include ds-icon(googleplus);
+.ds-icon-chat {
+	@include ds-icon(chat);
 }
-.ds-icon-instagram-l {
-	@include ds-icon(instagram-l);
+.ds-icon-comment-l {
+	@include ds-icon(comment-l);
 }
-.ds-icon-instagram-m-l {
-	@include ds-icon(instagram-m-l);
+.ds-icon-comment-lg {
+	@include ds-icon(comment-lg);
 }
-.ds-icon-instagram-m {
-	@include ds-icon(instagram-m);
+.ds-icon-comment-m-l {
+	@include ds-icon(comment-m-l);
 }
-.ds-icon-instagram {
-	@include ds-icon(instagram);
+.ds-icon-comment-m {
+	@include ds-icon(comment-m);
 }
-.ds-icon-linkedin-l {
-	@include ds-icon(linkedin-l);
+.ds-icon-comment-sm {
+	@include ds-icon(comment-sm);
 }
-.ds-icon-linkedin-m-l {
-	@include ds-icon(linkedin-m-l);
+.ds-icon-comment {
+	@include ds-icon(comment);
 }
-.ds-icon-linkedin-m {
-	@include ds-icon(linkedin-m);
+.ds-icon-forum-l {
+	@include ds-icon(forum-l);
 }
-.ds-icon-linkedin {
-	@include ds-icon(linkedin);
+.ds-icon-forum-lg {
+	@include ds-icon(forum-lg);
 }
-.ds-icon-slack-l {
-	@include ds-icon(slack-l);
+.ds-icon-forum-m-l {
+	@include ds-icon(forum-m-l);
 }
-.ds-icon-slack-m-l {
-	@include ds-icon(slack-m-l);
+.ds-icon-forum-m {
+	@include ds-icon(forum-m);
 }
-.ds-icon-slack-m {
-	@include ds-icon(slack-m);
+.ds-icon-forum-sm {
+	@include ds-icon(forum-sm);
 }
-.ds-icon-slack {
-	@include ds-icon(slack);
+.ds-icon-forum {
+	@include ds-icon(forum);
 }
-.ds-icon-twitter-l {
-	@include ds-icon(twitter-l);
+.ds-icon-heart-fill-l {
+	@include ds-icon(heart-fill-l);
 }
-.ds-icon-twitter-m-l {
-	@include ds-icon(twitter-m-l);
+.ds-icon-heart-fill-lg {
+	@include ds-icon(heart-fill-lg);
 }
-.ds-icon-twitter-m {
-	@include ds-icon(twitter-m);
+.ds-icon-heart-fill-m-l {
+	@include ds-icon(heart-fill-m-l);
 }
-.ds-icon-twitter {
-	@include ds-icon(twitter);
+.ds-icon-heart-fill-m {
+	@include ds-icon(heart-fill-m);
 }
-.ds-icon-youtube-l {
-	@include ds-icon(youtube-l);
+.ds-icon-heart-fill-sm {
+	@include ds-icon(heart-fill-sm);
 }
-.ds-icon-youtube-m-l {
-	@include ds-icon(youtube-m-l);
+.ds-icon-heart-fill {
+	@include ds-icon(heart-fill);
 }
-.ds-icon-youtube-m {
-	@include ds-icon(youtube-m);
+.ds-icon-heart-l {
+	@include ds-icon(heart-l);
 }
-.ds-icon-youtube {
-	@include ds-icon(youtube);
+.ds-icon-heart-lg {
+	@include ds-icon(heart-lg);
+}
+.ds-icon-heart-m-l {
+	@include ds-icon(heart-m-l);
+}
+.ds-icon-heart-m {
+	@include ds-icon(heart-m);
+}
+.ds-icon-heart-sm {
+	@include ds-icon(heart-sm);
+}
+.ds-icon-heart {
+	@include ds-icon(heart);
+}
+.ds-icon-mail-l {
+	@include ds-icon(mail-l);
+}
+.ds-icon-mail-lg {
+	@include ds-icon(mail-lg);
+}
+.ds-icon-mail-m-l {
+	@include ds-icon(mail-m-l);
+}
+.ds-icon-mail-m {
+	@include ds-icon(mail-m);
+}
+.ds-icon-mail-sm {
+	@include ds-icon(mail-sm);
+}
+.ds-icon-mail {
+	@include ds-icon(mail);
+}
+.ds-icon-notification-l {
+	@include ds-icon(notification-l);
+}
+.ds-icon-notification-lg {
+	@include ds-icon(notification-lg);
+}
+.ds-icon-notification-m-l {
+	@include ds-icon(notification-m-l);
+}
+.ds-icon-notification-m {
+	@include ds-icon(notification-m);
+}
+.ds-icon-notification-sm {
+	@include ds-icon(notification-sm);
+}
+.ds-icon-notification {
+	@include ds-icon(notification);
+}
+.ds-icon-phone-l {
+	@include ds-icon(phone-l);
+}
+.ds-icon-phone-lg {
+	@include ds-icon(phone-lg);
+}
+.ds-icon-phone-m-l {
+	@include ds-icon(phone-m-l);
+}
+.ds-icon-phone-m {
+	@include ds-icon(phone-m);
+}
+.ds-icon-phone-sm {
+	@include ds-icon(phone-sm);
+}
+.ds-icon-phone {
+	@include ds-icon(phone);
+}
+.ds-icon-role-l {
+	@include ds-icon(role-l);
+}
+.ds-icon-role-lg {
+	@include ds-icon(role-lg);
+}
+.ds-icon-role-m-l {
+	@include ds-icon(role-m-l);
+}
+.ds-icon-role-m {
+	@include ds-icon(role-m);
+}
+.ds-icon-role-sm {
+	@include ds-icon(role-sm);
+}
+.ds-icon-role {
+	@include ds-icon(role);
+}
+.ds-icon-rss-l {
+	@include ds-icon(rss-l);
+}
+.ds-icon-rss-lg {
+	@include ds-icon(rss-lg);
+}
+.ds-icon-rss-m-l {
+	@include ds-icon(rss-m-l);
+}
+.ds-icon-rss-m {
+	@include ds-icon(rss-m);
+}
+.ds-icon-rss-sm {
+	@include ds-icon(rss-sm);
+}
+.ds-icon-rss {
+	@include ds-icon(rss);
+}
+.ds-icon-sentiment-dead-l {
+	@include ds-icon(sentiment-dead-l);
+}
+.ds-icon-sentiment-dead-lg {
+	@include ds-icon(sentiment-dead-lg);
+}
+.ds-icon-sentiment-dead-m-l {
+	@include ds-icon(sentiment-dead-m-l);
+}
+.ds-icon-sentiment-dead-m {
+	@include ds-icon(sentiment-dead-m);
+}
+.ds-icon-sentiment-dead-sm {
+	@include ds-icon(sentiment-dead-sm);
+}
+.ds-icon-sentiment-dead {
+	@include ds-icon(sentiment-dead);
+}
+.ds-icon-sentiment-great-l {
+	@include ds-icon(sentiment-great-l);
+}
+.ds-icon-sentiment-great-lg {
+	@include ds-icon(sentiment-great-lg);
+}
+.ds-icon-sentiment-great-m-l {
+	@include ds-icon(sentiment-great-m-l);
+}
+.ds-icon-sentiment-great-m {
+	@include ds-icon(sentiment-great-m);
+}
+.ds-icon-sentiment-great-sm {
+	@include ds-icon(sentiment-great-sm);
+}
+.ds-icon-sentiment-great {
+	@include ds-icon(sentiment-great);
+}
+.ds-icon-sentiment-meh-l {
+	@include ds-icon(sentiment-meh-l);
+}
+.ds-icon-sentiment-meh-lg {
+	@include ds-icon(sentiment-meh-lg);
+}
+.ds-icon-sentiment-meh-m-l {
+	@include ds-icon(sentiment-meh-m-l);
+}
+.ds-icon-sentiment-meh-m {
+	@include ds-icon(sentiment-meh-m);
+}
+.ds-icon-sentiment-meh-sm {
+	@include ds-icon(sentiment-meh-sm);
+}
+.ds-icon-sentiment-meh {
+	@include ds-icon(sentiment-meh);
+}
+.ds-icon-sentiment-mute-l {
+	@include ds-icon(sentiment-mute-l);
+}
+.ds-icon-sentiment-mute-lg {
+	@include ds-icon(sentiment-mute-lg);
+}
+.ds-icon-sentiment-mute-m-l {
+	@include ds-icon(sentiment-mute-m-l);
+}
+.ds-icon-sentiment-mute-m {
+	@include ds-icon(sentiment-mute-m);
+}
+.ds-icon-sentiment-mute-sm {
+	@include ds-icon(sentiment-mute-sm);
+}
+.ds-icon-sentiment-mute {
+	@include ds-icon(sentiment-mute);
+}
+.ds-icon-sentiment-sad-l {
+	@include ds-icon(sentiment-sad-l);
+}
+.ds-icon-sentiment-sad-lg {
+	@include ds-icon(sentiment-sad-lg);
+}
+.ds-icon-sentiment-sad-m-l {
+	@include ds-icon(sentiment-sad-m-l);
+}
+.ds-icon-sentiment-sad-m {
+	@include ds-icon(sentiment-sad-m);
+}
+.ds-icon-sentiment-sad-sm {
+	@include ds-icon(sentiment-sad-sm);
+}
+.ds-icon-sentiment-sad {
+	@include ds-icon(sentiment-sad);
+}
+.ds-icon-sentiment-smile-l {
+	@include ds-icon(sentiment-smile-l);
+}
+.ds-icon-sentiment-smile-lg {
+	@include ds-icon(sentiment-smile-lg);
+}
+.ds-icon-sentiment-smile-m-l {
+	@include ds-icon(sentiment-smile-m-l);
+}
+.ds-icon-sentiment-smile-m {
+	@include ds-icon(sentiment-smile-m);
+}
+.ds-icon-sentiment-smile-sm {
+	@include ds-icon(sentiment-smile-sm);
+}
+.ds-icon-sentiment-smile {
+	@include ds-icon(sentiment-smile);
+}
+.ds-icon-sentiment-wink-l {
+	@include ds-icon(sentiment-wink-l);
+}
+.ds-icon-sentiment-wink-lg {
+	@include ds-icon(sentiment-wink-lg);
+}
+.ds-icon-sentiment-wink-m-l {
+	@include ds-icon(sentiment-wink-m-l);
+}
+.ds-icon-sentiment-wink-m {
+	@include ds-icon(sentiment-wink-m);
+}
+.ds-icon-sentiment-wink-sm {
+	@include ds-icon(sentiment-wink-sm);
+}
+.ds-icon-sentiment-wink {
+	@include ds-icon(sentiment-wink);
+}
+.ds-icon-sentiment-wow-l {
+	@include ds-icon(sentiment-wow-l);
+}
+.ds-icon-sentiment-wow-lg {
+	@include ds-icon(sentiment-wow-lg);
+}
+.ds-icon-sentiment-wow-m-l {
+	@include ds-icon(sentiment-wow-m-l);
+}
+.ds-icon-sentiment-wow-m {
+	@include ds-icon(sentiment-wow-m);
+}
+.ds-icon-sentiment-wow-sm {
+	@include ds-icon(sentiment-wow-sm);
+}
+.ds-icon-sentiment-wow {
+	@include ds-icon(sentiment-wow);
+}
+.ds-icon-share-l {
+	@include ds-icon(share-l);
+}
+.ds-icon-share-lg {
+	@include ds-icon(share-lg);
+}
+.ds-icon-share-m-l {
+	@include ds-icon(share-m-l);
+}
+.ds-icon-share-m {
+	@include ds-icon(share-m);
+}
+.ds-icon-share-sm {
+	@include ds-icon(share-sm);
+}
+.ds-icon-share {
+	@include ds-icon(share);
+}
+.ds-icon-star-fill-l {
+	@include ds-icon(star-fill-l);
+}
+.ds-icon-star-fill-lg {
+	@include ds-icon(star-fill-lg);
+}
+.ds-icon-star-fill-m-l {
+	@include ds-icon(star-fill-m-l);
+}
+.ds-icon-star-fill-m {
+	@include ds-icon(star-fill-m);
+}
+.ds-icon-star-fill-sm {
+	@include ds-icon(star-fill-sm);
+}
+.ds-icon-star-fill {
+	@include ds-icon(star-fill);
+}
+.ds-icon-star-half-l {
+	@include ds-icon(star-half-l);
+}
+.ds-icon-star-half-lg {
+	@include ds-icon(star-half-lg);
+}
+.ds-icon-star-half-m-l {
+	@include ds-icon(star-half-m-l);
+}
+.ds-icon-star-half-m {
+	@include ds-icon(star-half-m);
+}
+.ds-icon-star-half-sm {
+	@include ds-icon(star-half-sm);
+}
+.ds-icon-star-half {
+	@include ds-icon(star-half);
+}
+.ds-icon-star-l {
+	@include ds-icon(star-l);
+}
+.ds-icon-star-lg {
+	@include ds-icon(star-lg);
+}
+.ds-icon-star-m-l {
+	@include ds-icon(star-m-l);
+}
+.ds-icon-star-m {
+	@include ds-icon(star-m);
+}
+.ds-icon-star-sm {
+	@include ds-icon(star-sm);
+}
+.ds-icon-star {
+	@include ds-icon(star);
+}
+.ds-icon-team-l {
+	@include ds-icon(team-l);
+}
+.ds-icon-team-lg {
+	@include ds-icon(team-lg);
+}
+.ds-icon-team-m-l {
+	@include ds-icon(team-m-l);
+}
+.ds-icon-team-m {
+	@include ds-icon(team-m);
+}
+.ds-icon-team-sm {
+	@include ds-icon(team-sm);
+}
+.ds-icon-team {
+	@include ds-icon(team);
+}
+.ds-icon-thumbs-down-l {
+	@include ds-icon(thumbs-down-l);
+}
+.ds-icon-thumbs-down-lg {
+	@include ds-icon(thumbs-down-lg);
+}
+.ds-icon-thumbs-down-m-l {
+	@include ds-icon(thumbs-down-m-l);
+}
+.ds-icon-thumbs-down-m {
+	@include ds-icon(thumbs-down-m);
+}
+.ds-icon-thumbs-down-sm {
+	@include ds-icon(thumbs-down-sm);
+}
+.ds-icon-thumbs-down {
+	@include ds-icon(thumbs-down);
+}
+.ds-icon-thumbs-up-l {
+	@include ds-icon(thumbs-up-l);
+}
+.ds-icon-thumbs-up-lg {
+	@include ds-icon(thumbs-up-lg);
+}
+.ds-icon-thumbs-up-m-l {
+	@include ds-icon(thumbs-up-m-l);
+}
+.ds-icon-thumbs-up-m {
+	@include ds-icon(thumbs-up-m);
+}
+.ds-icon-thumbs-up-sm {
+	@include ds-icon(thumbs-up-sm);
+}
+.ds-icon-thumbs-up {
+	@include ds-icon(thumbs-up);
+}
+.ds-icon-video-chat-l {
+	@include ds-icon(video-chat-l);
+}
+.ds-icon-video-chat-lg {
+	@include ds-icon(video-chat-lg);
+}
+.ds-icon-video-chat-m-l {
+	@include ds-icon(video-chat-m-l);
+}
+.ds-icon-video-chat-m {
+	@include ds-icon(video-chat-m);
+}
+.ds-icon-video-chat-sm {
+	@include ds-icon(video-chat-sm);
+}
+.ds-icon-video-chat {
+	@include ds-icon(video-chat);
 }
 .ds-icon-mic-off-fill-l {
 	@include ds-icon(mic-off-fill-l);
@@ -3679,6 +4392,102 @@
 }
 .ds-icon-volume-up {
 	@include ds-icon(volume-up);
+}
+.ds-icon-facebook-l {
+	@include ds-icon(facebook-l);
+}
+.ds-icon-facebook-m-l {
+	@include ds-icon(facebook-m-l);
+}
+.ds-icon-facebook-m {
+	@include ds-icon(facebook-m);
+}
+.ds-icon-facebook {
+	@include ds-icon(facebook);
+}
+.ds-icon-github-l {
+	@include ds-icon(github-l);
+}
+.ds-icon-github-m-l {
+	@include ds-icon(github-m-l);
+}
+.ds-icon-github-m {
+	@include ds-icon(github-m);
+}
+.ds-icon-github {
+	@include ds-icon(github);
+}
+.ds-icon-googleplus-l {
+	@include ds-icon(googleplus-l);
+}
+.ds-icon-googleplus-m-l {
+	@include ds-icon(googleplus-m-l);
+}
+.ds-icon-googleplus-m {
+	@include ds-icon(googleplus-m);
+}
+.ds-icon-googleplus {
+	@include ds-icon(googleplus);
+}
+.ds-icon-instagram-l {
+	@include ds-icon(instagram-l);
+}
+.ds-icon-instagram-m-l {
+	@include ds-icon(instagram-m-l);
+}
+.ds-icon-instagram-m {
+	@include ds-icon(instagram-m);
+}
+.ds-icon-instagram {
+	@include ds-icon(instagram);
+}
+.ds-icon-linkedin-l {
+	@include ds-icon(linkedin-l);
+}
+.ds-icon-linkedin-m-l {
+	@include ds-icon(linkedin-m-l);
+}
+.ds-icon-linkedin-m {
+	@include ds-icon(linkedin-m);
+}
+.ds-icon-linkedin {
+	@include ds-icon(linkedin);
+}
+.ds-icon-slack-l {
+	@include ds-icon(slack-l);
+}
+.ds-icon-slack-m-l {
+	@include ds-icon(slack-m-l);
+}
+.ds-icon-slack-m {
+	@include ds-icon(slack-m);
+}
+.ds-icon-slack {
+	@include ds-icon(slack);
+}
+.ds-icon-twitter-l {
+	@include ds-icon(twitter-l);
+}
+.ds-icon-twitter-m-l {
+	@include ds-icon(twitter-m-l);
+}
+.ds-icon-twitter-m {
+	@include ds-icon(twitter-m);
+}
+.ds-icon-twitter {
+	@include ds-icon(twitter);
+}
+.ds-icon-youtube-l {
+	@include ds-icon(youtube-l);
+}
+.ds-icon-youtube-m-l {
+	@include ds-icon(youtube-m-l);
+}
+.ds-icon-youtube-m {
+	@include ds-icon(youtube-m);
+}
+.ds-icon-youtube {
+	@include ds-icon(youtube);
 }
 .ds-icon-alert-l {
 	@include ds-icon(alert-l);
@@ -4361,6 +5170,9 @@
 .ds-icon-bookmark-m {
 	@include ds-icon(bookmark-m);
 }
+.ds-icon-bookmark-sm {
+	@include ds-icon(bookmark-sm);
+}
 .ds-icon-bookmark {
 	@include ds-icon(bookmark);
 }
@@ -4420,6 +5232,9 @@
 }
 .ds-icon-dashboard-m {
 	@include ds-icon(dashboard-m);
+}
+.ds-icon-dashboard-sm {
+	@include ds-icon(dashboard-sm);
 }
 .ds-icon-dashboard {
 	@include ds-icon(dashboard);
@@ -4897,20 +5712,20 @@
 .ds-icon-size-default {
 	&::before,
 	&::after {
-		font-size: 23px !important;
+		font-size: #{px-to-rem(23px)};
 	}
 }
 
 .ds-icon-size-medium {
 	&::before,
 	&::after {
-		font-size: 37px !important;
+		font-size: #{px-to-rem(37px)};
 	}
 }
 
 .ds-icon-size-large {
 	&::before,
 	&::after {
-		font-size: 61px !important;
+		font-size: #{px-to-rem(61px)};
 	}
 }

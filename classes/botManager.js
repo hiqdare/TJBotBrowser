@@ -140,7 +140,7 @@ class BotManager {
 	 */
 	disconnectSocket(socket_id) {
 		if (socket_id in this.serialList) {
-			serial = this.serialList[socket_id];
+			let serial = this.serialList[socket_id];
 			this.tjbotList[serial].web.status = 'offline';
 			this.tjDB.addBotToDB(this.tjbotList[serial]);
 			delete this.serialList[socket_id];

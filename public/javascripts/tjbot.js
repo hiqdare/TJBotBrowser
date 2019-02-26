@@ -2,7 +2,7 @@
  *	tjbot.js
  */
 
-$(function(){
+$(function(){	
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
@@ -42,9 +42,11 @@ $(function(){
 			});
 		}
 	};
+	
 	function emitEvent(param) {
-	socket.emit('event', param.data);
-  }
+		console.log("Emit event: ", param.data);
+		socket.emit('event', param.data);
+	}
 
   /**
    * creates for every bot entery a clone with his own information and configuration
@@ -60,44 +62,86 @@ $(function(){
 		clone.addClass("card");
 
 		$('#bot').parent().append(clone);
-		clone.find(".source_update").click(function(){
-			socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "source"}}');
-		});
-		clone.find(".nodejs_update").click(function(){
-			socket.emit('event', '{"serial":"' + serial + '", "event": {"target": "nodejs"}}');
-		});
-		clone.find(".npm_update").click(function(){
-			window.alert('updating npm');
-			socket.emit('event', '{"serial":"' + serial + '", ""event": {target": "npm"}}');
-		});
+		let source_update = clone.find(".source_update");
+		let nodejs_update = clone.find(".nodejs_update");
+		let npm_update = clone.find(".npm_update");
 
 		let tjImage = clone.find(".tjbot");
 		let bot_led = clone.find(".bot-led");
 		let bot_arm = clone.find(".bot-arm");
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
+		// create canvas and context objects
+		let canvas = clone.find('.picker');
+		canvas.attr("id", "picker-" + serial);
+    var ctx = canvas[0].getContext('2d');
 
-		// Wird das noch gebraucht?
-		tjImage.click(function() {
-			//populateBotDetail(bot);
+    // drawing active image
+    var image = new Image();
+    image.onload = function () {
+        ctx.drawImage(image, 0, 0, 200, 200); // draw the image on the canvas
+    }
+
+		image.src = "images/colorwheel.png";
+
+		canvas.click(function(e) { // mouse move handler
+			// get coordinates of current position
+			let canvasOffset = $(canvas).offset();
+			let canvasX = Math.floor(e.pageX - canvasOffset.left);
+			let canvasY = Math.floor(e.pageY - canvasOffset.top);
+
+			// get current pixel
+			let imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
+			let pixel = imageData.data;
+
+			// update preview color
+			let pixelColor = "rgb("+pixel[0]+", "+pixel[1]+", "+pixel[2]+")";
+			let param = {};
+			param.data = '{"serial":"' + serial + '", "event": {"target": "led", "event":"' + pixel[0].toString(16) + pixel[1].toString(16) + pixel[2].toString(16) + '"}}';
+			bot_led.css('backgroundColor', pixelColor);
+			emitEvent(param);
 		});
+
+
+		//tjImage.click(function() {
+			//populateBotDetail(bot);
+		//});
 
 		let status = clone.find(".status");
 		let dropdownElement = clone.find(".voiceList").parent();
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
+			// set color
+			source_update.addClass("ds-text-neutral-8");
+			nodejs_update.addClass("ds-text-neutral-8");
+			npm_update.addClass("ds-text-neutral-8");
 			status.addClass("ds-text-neutral-8");
-			bot_led.addClass("ds-text-neutral-8");
+
+      bot_led.addClass("ds-text-neutral-8");
 			bot_arm.addClass("ds-text-neutral-8");
-			bot_led.click('{"serial": ' + serial + '"event" + {"target": "led", "event":"on"}', emitEvent);
-		  bot_arm.click('{"serial": ' + serial + '"event" + {"target": "arm", "event":"wave"}', emitEvent);
+			canvas.css("display", "block");
+
+			// set action
+			source_update.click('{"serial":"' + serial + '", "event": {"target": "source"}}', emitEvent);
+			nodejs_update.click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
+			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
+		  bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
 
 		} else {
+			// set color
+			source_update.addClass("ds-text-neutral-4");
+			nodejs_update.addClass("ds-text-neutral-4");
+			npm_update.addClass("ds-text-neutral-4");
 			status.addClass("ds-text-neutral-4");
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
 			dropdownElement.addClass("ds-disabled");
-			bot_led.click(false);
+			canvas.css("display", "none");
+
+			// set action
+			source_update.click(false);
+			nodejs_update.click(false);
+			npm_update.click(false);
 			bot_arm.click(false);
 		}
 
@@ -120,15 +164,16 @@ $(function(){
 			}
 		}
 
-		let accordionList = clone.find(".ds-accordion-container");
-		let dropdownList = clone.find(".ds-dropdown");
-
-		for (let i = 0; i < accordionList.length; i++) {
-			accordion = w3ds.accordion(accordionList[i]);
+		for (let accordionItem of clone.find(".ds-accordion-container")) {
+			accordion = w3ds.accordion(accordionItem);
 		}
 
-		for (let i = 0; i < dropdownList.length; i++) {
-			dropMenu = w3ds.dropdown(dropdownList[i]);
+		for (let dropDownItem of clone.find(".ds-dropdown")) {
+			dropMenu = w3ds.dropdown(dropDownItem);
+		}
+
+		for (let trayItem of clone.find(".ds-tray")) {
+			tray = w3ds.tray(trayItem);
 		}
 	}
 

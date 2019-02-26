@@ -7,10 +7,10 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
     right: 0;
     top: 0; }
   to {
-    bottom: 0.15789rem;
-    left: 0.15789rem;
-    right: 0.15789rem;
-    top: 0.15789rem; } }
+    bottom: 3px;
+    left: 3px;
+    right: 3px;
+    top: 3px; } }
 
 .ds-table-container .dataTables_wrapper table.dataTable tbody tr.selected {
   background: solid #f3f3f3; }
@@ -22,11 +22,9 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
   padding: 0 .5rem;
   margin-bottom: 0.83rem;
   font-family: "IBMPlexSans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  letter-spacing: 0.02632rem;
   font-weight: 500;
   font-size: 0.89474rem;
   font-size: 0.78947rem;
-  letter-spacing: 0.02632rem;
   display: block;
   margin-bottom: 0.55333rem;
   text-align: left; }
@@ -38,7 +36,6 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
   display: block;
   font-family: "IBMPlexSans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1rem;
-  letter-spacing: .03rem;
   line-height: 1.4;
   padding: 0.5rem 0.5rem;
   position: relative;
@@ -46,8 +43,8 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
   border: 2px solid #d1d1d1;
   border-radius: 2px;
   transition: background-color 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  height: 2rem !important;
-  margin-left: 0 !important; }
+  height: 2rem;
+  margin-left: 0; }
   .ds-table-container .dataTables_wrapper .dataTables_filter input:not(textarea) {
     height: 2.63158rem;
     padding-bottom: unset;
@@ -74,7 +71,6 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
 .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button {
   margin-bottom: 0.83rem;
   font-family: "IBMPlexSans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  letter-spacing: 0.02632rem;
   font-weight: 500;
   font-size: 0.89474rem;
   padding-bottom: 0.80132rem;
@@ -89,39 +85,23 @@ table.dataTable{width:100%;margin:0 auto;clear:both;border-collapse:separate;bor
   text-align: center;
   transition: background-color 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s cubic-bezier(0.23, 1, 0.32, 1), color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 0;
-  background-color: #fdfdfd;
-  border: 0;
-  border-radius: 2px;
-  color: #232323;
   padding-left: 4rem;
   padding-right: 4rem;
   width: auto;
-  border: 0 !important;
-  color: #232323 !important;
+  border: 0;
+  color: #232323;
   display: inline-block; }
+  .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button:disabled {
+    cursor: not-allowed; }
   .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     text-decoration: none; }
   .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
     outline: 2px dotted #757575;
     outline-offset: 2px; }
-  .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button:visited {
-    color: #232323; }
-  .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background-color: #d1d1d1;
-    color: #232323; }
-  .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button:active {
-    background-color: #fdfdfd;
-    color: #00598a; }
   .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button:hover:not(.disabled) {
-    background: #d1d1d1 !important; }
+    background: #d1d1d1; }
   .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button.current, .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: #d1d1d1 !important;
-    color: #232323 !important; }
+    background: #d1d1d1;
+    color: #232323; }
   .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-    background-color: #fdfdfd;
-    color: #757575;
-    cursor: not-allowed;
-    color: #757575 !important; }
-    .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .ds-table-container .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
-      background-color: #fdfdfd;
-      color: #757575; }
+    color: #555; }
