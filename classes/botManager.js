@@ -8,25 +8,26 @@
 const fs = require('fs');
 const botImageFolder = './public/images/bots/';
 
-let TJBotDB = require('./tjbotDB.js');
-let TJBotTTS = require('./tjbotTTS.js');
-
-/*----------------------------------------------------------------------------*/
-/* DECLARATIONS & INITIALIZATION                                              */
-/*----------------------------------------------------------------------------*/
-
-/*----------------------------------------------------------------------------*/
-/* PRIVATE FUNCTIONS			                                              */
-/*----------------------------------------------------------------------------*/
+const TJBotDB = require('./TjbotDB.js');
+const TJBotTTS = require('./TjbotTTS.js');
 
 /*----------------------------------------------------------------------------*/
 /* BotManager					                                              */
 /*----------------------------------------------------------------------------*/
 
+/**
+ * BotManager
+ *
+ * @constructor
+ * @param {object} vcapServices object with service information
+ */
 class BotManager {
-
-
 	constructor(vcapServices) {
+
+		if (typeof(vcapServices) !== "object") {
+			throw new Error("VCAP service must be type of 'object'");
+		}
+
 		this.tjDB = new TJBotDB(vcapServices);
 		this.tjTTS = new TJBotTTS(vcapServices);
 		this.voiceList = this.tjTTS.getVoices();
@@ -36,6 +37,11 @@ class BotManager {
 		this.socketList = {};
 	}
 
+	/**
+	 * add the checked in bot to the bot list
+	 * @param {object} data information and configuration from bot
+	 * @param {object} socket
+	 */
 	addBotToList(data, socket) {
 		let today = new Date();
 		let dd = "0" + today.getDate();
@@ -71,22 +77,42 @@ class BotManager {
 		this.notifyBrowser();
 	}
 
+	/**
+	 * returns specific socket
+	 * @param {object} serial
+	 */
 	getSocket(serial) {
 		return this.socketList[serial];
 	}
 
+	/**
+	 * updates the specific field in the DB
+	 * @param {object} param object with specific information about the bot and his datafield
+	 */
 	updateField(param) {
 		this.tjbotList[param.serial].basic[param.field] = param.value;
 		this.tjDB.addBotToDB(this.tjbotList[param.serial]);
 		this.notifyBrowser();
 	}
 
+	/**
+	 * updates the configuration in the DB
+	 * @param {object} param object with specific information about the bot and his configuration
+	 */
 	updateConfig(param) {
+
+		if (typeof(param) !== "object") {
+			throw new Error("missing param");
+		}
+
 		this.tjbotList[param.serial].config[param.event.config.field] = param.event.config.value;
 		this.tjDB.addBotToDB(this.tjbotList[param.serial]);
 		this.notifyBrowser();
 	}
 
+	/**
+	 * return a list of bots in JSON format
+	 */
 	getJSONBotList() {
 		let localTJbotlist = this.tjbotList;
 		return JSON.stringify(Object.keys(localTJbotlist).map(function(key) {
@@ -99,10 +125,18 @@ class BotManager {
 		}));
 	}
 
+	/**
+	 * register the browser
+	 * @param {object} socket
+	 */
 	registerBrowser(socket) {
 		this.browserList[socket.id] = socket;
 	}
 
+	/**
+	 * remove socket from socket list when bot disconnects
+	 * @param {string} socket_id
+	 */
 	disconnectSocket(socket_id) {
 		if (socket_id in this.serialList) {
 			let serial = this.serialList[socket_id];
@@ -117,16 +151,24 @@ class BotManager {
 		}
 	}
 
+	/**
+	 * refresh every registered browser
+	 */
 	notifyBrowser() {
-		var list = this.getJSONBotList();
-		var localList = this.browserList;
+		let list = this.getJSONBotList();
+		console.log('list: ', list)
+		let localList = this.browserList;
 		Object.keys(localList).forEach(function(key) {
 			localList[key].emit('botlist', list);
 		});
+
 	}
 
+	/**
+	 * returns a list of images
+	 */
 	getBotImageList() {
-		var botImageList = [];
+		let botImageList = [];
 
 		fs.readdirSync(botImageFolder).forEach(file => {
 			botImageList.push(file);
@@ -134,12 +176,31 @@ class BotManager {
 		return JSON.stringify(botImageList);
 	}
 
+	/**
+	 * returns a list of all available service options
+	 */
 	getOptionList() {
 		let optionList = {};
 		optionList.text_to_speech = {};
 		optionList.text_to_speech.voiceList = this.voiceList;
 
 		return JSON.stringify(optionList);
+	}
+
+	/**
+	 * returns a list with specific bot configuration
+	 * @param {string} socket_id unique ID from client his socket
+	 */
+	getConfigList(socket_id) {
+		if (typeof(socket_id) !== "string") {
+			throw new Error("missing socket_id");
+		}
+
+		let configList = {};
+		let serial = this.serialList[socket_id];
+		configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
+
+		return JSON.stringify(configList);
 	}
 }
 

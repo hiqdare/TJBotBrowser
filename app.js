@@ -5,22 +5,25 @@
 /*----------------------------------------------------------------------------*/
 /* IMPORTS                                                                    */
 /*----------------------------------------------------------------------------*/
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
-var app = express();
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+const app = express();
 
-let BotManager = require('./classes/botManager.js');
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+const log = require('./lib/log.js')(path.basename(__filename));
+
+const BotManager = require('./classes/botManager.js');
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATION AND INITIALIZATION                                             */
@@ -36,16 +39,12 @@ try {
 	console.log("Loaded local VCAP", vcapServices.services);
 }
 
-/*----------------------------------------------------------------------------*/
-/* PRIVATE FUNCTIONS			                                              */
-/*----------------------------------------------------------------------------*/
+
+let botManager = new BotManager(vcapServices);
 
 /*----------------------------------------------------------------------------*/
 /* MAIN                                                                       */
 /*----------------------------------------------------------------------------*/
-
-let botManager = new BotManager(vcapServices);
-
 io.on('connection', function (socket) {
 	console.log("Sockets connected.with id " + socket.id);
 
@@ -59,12 +58,8 @@ io.on('connection', function (socket) {
 	// Whenever a new client connects send the browser an updated list
 	socket.on('checkin', function(data) {
 		botManager.addBotToList(data, socket);
-		socket.emit('vcapServices', vcapServices);
-	});
-
-	socket.on('disconnect', function () {
-		console.log("Socket disconnected.");
-		botManager.disconnectSocket(socket.id);
+		socket.emit('vcapServices', vcapServices); // sends the VCAP_SERVICES to the client
+		socket.emit('config', botManager.getConfigList(socket.id)); // sends a list of all available configs to the client
 	});
 
 	/*socket.on('update', function (data) {
@@ -90,6 +85,12 @@ io.on('connection', function (socket) {
 		} else {
 			// error handling serial not found
 		}
+
+		socket.on('disconnect', function () {
+			console.log("Socket disconnected.");
+			botManager.disconnectSocket(socket.id);
+		});
+
 	});
 
 	socket.on('config', function(data) {
@@ -103,6 +104,7 @@ io.on('connection', function (socket) {
 
 });
 
+// Auslagern
 app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 app.get('/serviceOptionList', (req, res) => res.json(botManager.getOptionList()));
 
@@ -123,7 +125,7 @@ app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
