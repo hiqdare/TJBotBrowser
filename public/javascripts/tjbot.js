@@ -46,8 +46,8 @@ $(function(){
 
 
 	function addBotToList(bot, botImageList, serviceList) {
-		var clone = $('#bot').clone(true); // "deep" clone
-		var serial = bot.data.cpuinfo.Serial;
+		let clone = $('#bot').clone(true); // "deep" clone
+		let serial = bot.data.cpuinfo.Serial;
 		clone.removeAttr('id');
 		clone.removeClass('ds-hide');
 		clone.addClass("card");
@@ -56,22 +56,23 @@ $(function(){
 		let source_update = clone.find(".source_update");
 		let nodejs_update = clone.find(".nodejs_update");
 		let npm_update = clone.find(".npm_update");
-
+		let nodemon_update = clone.find(".nodemon_update");
 		let tjImage = clone.find(".tjbot");
 		let bot_led = clone.find(".bot-led");
 		let bot_arm = clone.find(".bot-arm");
+		let canvas = clone.find('.picker');
+
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
 		// create canvas and context objects
-		let canvas = clone.find('.picker');
 		canvas.attr("id", "picker-" + serial);
-    var ctx = canvas[0].getContext('2d');
+    	let ctx = canvas[0].getContext('2d');
 
-    // drawing active image
-    var image = new Image();
-    image.onload = function () {
-        ctx.drawImage(image, 0, 0, 200, 200); // draw the image on the canvas
-    }
+    	// drawing active image
+    	let image = new Image();
+    	image.onload = function () {
+      		ctx.drawImage(image, 0, 0, 200, 200); // draw the image on the canvas
+    	}
 
 		image.src = "images/colorwheel.png";
 
@@ -88,7 +89,13 @@ $(function(){
 			// update preview color
 			let pixelColor = "rgb("+pixel[0]+", "+pixel[1]+", "+pixel[2]+")";
 			let param = {};
-			param.data = '{"serial":"' + serial + '", "event": {"target": "led", "event":"' + pixel[0].toString(16) + pixel[1].toString(16) + pixel[2].toString(16) + '"}}';
+			let pixel0 = '0' + pixel[0].toString(16);
+			let pixel1 = '0' + pixel[1].toString(16);
+			let pixel2 = '0' + pixel[2].toString(16);
+			pixel0 = pixel0.substr(pixel0.length - 2, 2);
+			pixel1 = pixel1.substr(pixel1.length - 2, 2);
+			pixel2 = pixel2.substr(pixel2.length - 2, 2);
+			param.data = '{"serial":"' + serial + '", "event": {"target": "led", "event":"' + pixel0 + pixel1 + pixel2 + '"}}';
 			bot_led.css('backgroundColor', pixelColor);
 			emitEvent(param);
 		});
@@ -105,8 +112,9 @@ $(function(){
 			source_update.addClass("ds-text-neutral-8");
 			nodejs_update.addClass("ds-text-neutral-8");
 			npm_update.addClass("ds-text-neutral-8");
+			nodemon_update.addClass("ds-text-neutral-8");
 			status.addClass("ds-text-neutral-8");
-      bot_led.addClass("ds-text-neutral-8");
+      		bot_led.addClass("ds-text-neutral-8");
 			bot_arm.addClass("ds-text-neutral-8");
 			canvas.css("display", "block");
 
@@ -114,12 +122,14 @@ $(function(){
 			source_update.click('{"serial":"' + serial + '", "event": {"target": "source"}}', emitEvent);
 			nodejs_update.click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
-		  bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
+			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
+		  	bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
 		} else {
 			// set color
 			source_update.addClass("ds-text-neutral-4");
 			nodejs_update.addClass("ds-text-neutral-4");
 			npm_update.addClass("ds-text-neutral-4");
+			nodemon_update.addClass("ds-text-neutral-4");
 			status.addClass("ds-text-neutral-4");
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
@@ -130,6 +140,7 @@ $(function(){
 			source_update.click(false);
 			nodejs_update.click(false);
 			npm_update.click(false);
+			nodemon_update.click(false);
 			bot_arm.click(false);
 		}
 
@@ -143,6 +154,13 @@ $(function(){
 		clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
 		clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
 		clone.find(".firmware").text(" " + bot.data.firmware + " ");
+		if (bot.data.npm_package.nodemon) {
+			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
+		}
+
+		fillAccordion(clone.find(".version_info"), bot.data.npm_version);
+		fillAccordion(clone.find(".pkg_info"), bot.data.npm_package);
+		fillAccordion(clone.find(".cpu_info"), bot.data.cpuinfo);
 
 		for (let service in serviceList) {
 			switch (service) {
@@ -231,20 +249,35 @@ $(function(){
 		}
 	}
 
+	function fillAccordion(elem, part) {
+		if (Array.isArray(part)) {
+			if (part.length == 1) {
+				elem.text(part[0]);
+			} else {
+				nesting = jQuery('<div class="ds-accordion-nested ds-mar-t-0 ds-mar-b-0">');
+				elem.append(nesting);
+				console.log("is array");
+			}
+		} else if (typeof part === 'object' && part !== null) {
+			console.log("is object" + JSON.stringify(part));
+			table = jQuery('<table class="ds-table ds-table-compact ds-pad-b-1 ds-pad-t-1"><tbody /></table>');
+			elem.append(table);
+			Object.keys(part).sort().forEach(function(key) {
+				item = jQuery('<tr><td>' + key + "</td><td> " + part[key] + " </td>").appendTo(table);
+			});
+		} else {
+			elem.text(part);
+		}
+	}
 
-	function populateBotDetail(bot) {
 
-		$(".detailinfo").show("scale");
-		$(".info_image").attr("src", "images/" + bot.basic.image);
-		$(".info_image").attr("alt", "images/" + bot.basic.image);
-
-		table = $(".bot-table")[0];
+	function fillTree(data, label) {
 		var tree = {
 			'core' : {
 				'themes':{
 					'icons':false
 				},
-				'data' : []
+				data : []
 			}
 		};
 		/*'Simple root node',
@@ -259,9 +292,9 @@ $(function(){
 			'Child 2'
 		]
 	}*/
-	tree.core.data = getTree(bot);
+	tree.core.data = getTree(data);
 
-	$('#detail_tree').jstree(tree);
+	return tree
 }
 
 

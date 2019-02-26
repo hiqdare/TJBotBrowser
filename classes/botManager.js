@@ -37,19 +37,19 @@ class BotManager {
 	}
 
 	addBotToList(data, socket) {
-		var today = new Date();
-		var dd = "0" + today.getDate();
+		let today = new Date();
+		let dd = "0" + today.getDate();
 		dd = dd.substr(dd.length - 2, 2);
-		var mm = "0" + (today.getMonth() + 1);
+		let mm = "0" + (today.getMonth() + 1);
 		mm = mm.substr(mm.length - 2, 2);
-		var yyyy = today.getFullYear();
-		var hour = "0" + today.getHours();
+		let yyyy = today.getFullYear();
+		let hour = "0" + today.getHours();
 		hour = hour.substr(hour.length - 2, 2);
-		var min = "0" + today.getMinutes();
+		let min = "0" + today.getMinutes();
 		min = min.substr(min.length - 2, 2);
 
-		var tjData = JSON.parse(data);
-		var serial = tjData.cpuinfo.Serial;
+		let tjData = JSON.parse(data);
+		let serial = tjData.cpuinfo.Serial;
 		this.serialList[socket.id] = serial;
 		this.socketList[serial] = socket;
 		if (!(serial in this.tjbotList)) {
@@ -65,7 +65,6 @@ class BotManager {
 		}
 		this.tjbotList[serial].data = tjData;
 		this.tjbotList[serial].web = {};
-		//this.tjbotList[serial].web.socket_id = socket_id;
 		this.tjbotList[serial].web.status = 'online';
 		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
 		this.tjDB.addBotToDB(this.tjbotList[serial]);
