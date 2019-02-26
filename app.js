@@ -5,22 +5,24 @@
 /*----------------------------------------------------------------------------*/
 /* IMPORTS                                                                    */
 /*----------------------------------------------------------------------------*/
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
-var app = express();
+const app = express();
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-let BotManager = require('./classes/botManager.js');
+const log = require('./lib/log.js')(path.basename(__filename));
+
+const BotManager = require('./classes/botManager.js');
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATION AND INITIALIZATION                                             */
@@ -36,12 +38,12 @@ try {
 	console.log("Loaded local VCAP", vcapServices.services);
 }
 
+
 let botManager = new BotManager(vcapServices);
 
 /*----------------------------------------------------------------------------*/
 /* MAIN                                                                       */
 /*----------------------------------------------------------------------------*/
-
 io.on('connection', function (socket) {
 	console.log("Sockets connected.with id " + socket.id);
 
@@ -100,7 +102,7 @@ io.on('connection', function (socket) {
 
 });
 
-// Prov
+// Auslagern
 app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 app.get('/serviceOptionList', (req, res) => res.json(botManager.getOptionList()));
 
@@ -121,7 +123,7 @@ app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

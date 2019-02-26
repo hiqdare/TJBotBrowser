@@ -5,7 +5,7 @@
 /*----------------------------------------------------------------------------*/
 /* IMPORTS                                                                    */
 /*----------------------------------------------------------------------------*/
-let TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
+const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
 
 /*----------------------------------------------------------------------------*/
 /* TJBotTTS						                                              */
@@ -21,7 +21,7 @@ class TJBotTTS {
 	constructor(vcapServices) {
 
 		if (typeof(vcapServices) !== "object") {
-			throw new Error("missing vcapServices");
+			throw new Error("VCAP service must be type of 'object'");
 		}
 
 		// set up Text to Speech service
@@ -40,7 +40,7 @@ class TJBotTTS {
 		this.textToSpeech.listVoices(null,
 			function(err, voicesObj) {
 					if (err) {
-						throw err;
+						//throw err;
 					}
 					else {
 						voicesObj.voices.forEach(function(voice) {

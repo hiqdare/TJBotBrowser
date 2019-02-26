@@ -8,8 +8,8 @@
 const fs = require('fs');
 const botImageFolder = './public/images/bots/';
 
-let TJBotDB = require('./tjbotDB.js');
-let TJBotTTS = require('./tjbotTTS.js');
+const TJBotDB = require('./TjbotDB.js');
+const TJBotTTS = require('./TjbotTTS.js');
 
 /*----------------------------------------------------------------------------*/
 /* BotManager					                                              */
@@ -25,7 +25,7 @@ class BotManager {
 	constructor(vcapServices) {
 
 		if (typeof(vcapServices) !== "object") {
-			throw new Error("missing vcapServices");
+			throw new Error("VCAP service must be type of 'object'");
 		}
 
 		this.tjDB = new TJBotDB(vcapServices);
@@ -181,9 +181,6 @@ class BotManager {
 	 * returns a list of all available service options
 	 */
 	getOptionList() {
-
-		throw new Error("test error");
-
 		let optionList = {};
 		optionList.text_to_speech = {};
 		optionList.text_to_speech.voiceList = this.voiceList;

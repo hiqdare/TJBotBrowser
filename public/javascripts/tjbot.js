@@ -8,10 +8,10 @@ $(function(){
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
 	let i = 0;
-	let ENTERKEY = 13;
-	let TABKEY = 9;
+	const ENTERKEY = 13;
+	const TABKEY = 9;
 
-	let socket = io('//' + document.location.hostname + ':' + document.location.port);
+	const socket = io('//' + document.location.hostname + ':' + document.location.port);
 
 	let options = {
 		singleToggle: false,  // true if `ds-single-toggle` class is used

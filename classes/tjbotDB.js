@@ -5,7 +5,7 @@
 /*----------------------------------------------------------------------------*/
 /* IMPORTS                                                                    */
 /*----------------------------------------------------------------------------*/
-let Cloudant = require('@cloudant/cloudant');
+const Cloudant = require('@cloudant/cloudant');
 
 /*----------------------------------------------------------------------------*/
 /* TJBotDB						                                              */
@@ -21,7 +21,7 @@ class TJBotDB {
 	constructor(vcapServices) {
 
 		if (typeof(vcapServices) !== "object") {
-			throw new Error("missing vcapServices");
+			throw new Error("VCAP service must be type of 'object'");
 		}
 
 		this.cloudant = Cloudant(vcapServices.cloudantNoSQLDB[0].credentials);
