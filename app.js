@@ -21,7 +21,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const log = require('./lib/log.js')(path.basename(__filename));
+//const log = require('./lib/log.js')(path.basename(__filename));
 
 const BotManager = require('./classes/botManager.js');
 
@@ -96,13 +96,14 @@ io.on('connection', function (socket) {
 	socket.on('config', function(data) {
 		param = JSON.parse(data);
 		console.log("update: " + param.serial);
-		console.log(param);
 		botManager.updateConfig(param)
 		//botManager.updateConfig(param.event.target.config)
 		botManager.getSocket(param.serial).emit('event', JSON.stringify(param.event));
 	});
 
 });
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 // Auslagern
 app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
