@@ -8,8 +8,8 @@
 const fs = require('fs');
 const botImageFolder = './public/images/bots/';
 
-const TJBotDB = require('./TjbotDB.js');
-const TJBotTTS = require('./TjbotTTS.js');
+const TJBotDB = require('./tjbotDB.js');
+const TJBotTTS = require('./tjbotTTS.js');
 
 /*----------------------------------------------------------------------------*/
 /* BotManager					                                              */
