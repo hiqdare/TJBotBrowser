@@ -20,7 +20,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const log = require('./lib/log.js')(path.basename(__filename));
+//const log = require('./lib/log.js')(path.basename(__filename));
 
 const BotManager = require('./classes/botManager.js');
 
