@@ -23,7 +23,7 @@ const io = require('socket.io')(server);
 
 //const log = require('lib/log.js')(path.basename(__filename));
 
-const BotManager = require('classes/botManager.js');
+const BotManager = require('./classes/botManager.js');
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATION AND INITIALIZATION                                             */
