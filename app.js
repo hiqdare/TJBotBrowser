@@ -15,13 +15,12 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-
 const app = express();
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-//const log = require('lib/log.js')(path.basename(__filename));
+//const log = require('./lib/log.js')(path.basename(__filename));
 
 const BotManager = require('./classes/botManager.js');
 
@@ -77,7 +76,6 @@ io.on('connection', function (socket) {
 	socket.on('event', function(data) {
 		let param = JSON.parse(data);
 		console.log("update: " + param.serial);
-		console.log("param: " + param.event);
 
 		let socket = botManager.getSocket(param.serial);
 		if (socket != null) {
