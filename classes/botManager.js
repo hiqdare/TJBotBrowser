@@ -9,40 +9,51 @@ const fs = require('fs');
 const botImageFolder = './public/images/bots/';
 
 const TJBotDB = require('./tjbotDB.js');
-const TJBotTTS = require('./tjbotTTS.js');
 
 /*----------------------------------------------------------------------------*/
 /* BotManager					                                              */
 /*----------------------------------------------------------------------------*/
 
-/**
- * BotManager
- *
- * @constructor
- * @param {object} vcapServices object with service information
- */
 class BotManager {
+	/**
+	 * BotManager
+	 *
+	 * @constructor
+	 * @param {object} vcapServices object with service information
+	 */
 	constructor(vcapServices) {
 
 		if (typeof(vcapServices) !== "object") {
 			throw new Error("VCAP service must be type of 'object'");
 		}
 
-		this.tjDB = new TJBotDB(vcapServices);
-		this.tjTTS = new TJBotTTS(vcapServices);
-		this.voiceList = this.tjTTS.getVoices();
-		this.tjbotList = this.tjDB.getBotList();
 		this.browserList = {};
 		this.serialList = {};
 		this.socketList = {};
+
+		this.tjDB = new TJBotDB(vcapServices);
+		this.tjbotList = {};
+	}
+
+	/**
+	 * initiate BotManager DB connection and TJBotlist
+ 	 * @param {function} callback function(err)
+	 */
+	init(callback) {
+		this.tjDB.connect(this, function(err){
+			if (err) {
+				callback(err);
+			} 
+		});
 	}
 
 	/**
 	 * add the checked in bot to the bot list
 	 * @param {object} data information and configuration from bot
 	 * @param {object} socket
+ 	 * @param {function} callback function(err)
 	 */
-	addBotToList(data, socket) {
+	addBotToList(data, socket, callback) {
 		let today = new Date();
 		let dd = "0" + today.getDate();
 		dd = dd.substr(dd.length - 2, 2);
@@ -68,12 +79,15 @@ class BotManager {
 			this.tjbotList[serial].basic.image = 'generic.jpeg';
 			this.tjbotList[serial].config = {};
 			this.tjbotList[serial].config.text_to_speech = 'none';
+			this.tjbotList[serial].config.speech_to_text = 'none';
 		}
 		this.tjbotList[serial].data = tjData;
 		this.tjbotList[serial].web = {};
 		this.tjbotList[serial].web.status = 'online';
 		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
-		this.tjDB.addBotToDB(this.tjbotList[serial]);
+		this.tjDB.addBotToDB(this.tjbotList[serial], function(err){
+			callback(err);
+		});
 		this.notifyBrowser();
 	}
 
@@ -88,41 +102,57 @@ class BotManager {
 	/**
 	 * updates the specific field in the DB
 	 * @param {object} param object with specific information about the bot and his datafield
+ 	 * @param {function} callback function(err)
 	 */
-	updateField(param) {
+	updateField(param, callback) {
 		this.tjbotList[param.serial].basic[param.field] = param.value;
-		this.tjDB.addBotToDB(this.tjbotList[param.serial]);
+		this.tjDB.addBotToDB(this.tjbotList[param.serial], function(err){
+			callback(err);
+		});
 		this.notifyBrowser();
 	}
 
 	/**
 	 * updates the configuration in the DB
 	 * @param {object} param object with specific information about the bot and his configuration
+ 	 * @param {function} callback function(err)
 	 */
-	updateConfig(param) {
+	updateConfig(param, callback) {
 
 		if (typeof(param) !== "object") {
 			throw new Error("missing param");
 		}
 
 		this.tjbotList[param.serial].config[param.event.config.field] = param.event.config.value;
-		this.tjDB.addBotToDB(this.tjbotList[param.serial]);
+		this.tjDB.addBotToDB(this.tjbotList[param.serial], function(err){
+			callback(err);
+		});
 		this.notifyBrowser();
 	}
 
 	/**
 	 * return a list of bots in JSON format
+	 * @param {function} callback
 	 */
-	getJSONBotList() {
+	getJSONBotList(callback) {
 		let localTJbotlist = this.tjbotList;
-		return JSON.stringify(Object.keys(localTJbotlist).map(function(key) {
+		callback(null, JSON.stringify(Object.keys(localTJbotlist).map(function(key) {
 			let blist = {};
 			blist.data = localTJbotlist[key].data;
 			blist.web = localTJbotlist[key].web;
 			blist.basic = localTJbotlist[key].basic;
 			blist.config = localTJbotlist[key].config;
 			return blist;
-		}));
+		})));
+	}
+
+	/**
+	 * return a list of bots in JSON format
+	 * @param {object} tjbotList list of tjbots from DB
+	 * @param {function} callback
+	 */
+	setTJBotList(tjbotList){
+		this.tjbotList = tjbotList;
 	}
 
 	/**
@@ -136,12 +166,15 @@ class BotManager {
 	/**
 	 * remove socket from socket list when bot disconnects
 	 * @param {string} socket_id
+	 * @param {function} callback
 	 */
-	disconnectSocket(socket_id) {
+	disconnectSocket(socket_id, callback) {
 		if (socket_id in this.serialList) {
 			let serial = this.serialList[socket_id];
 			this.tjbotList[serial].web.status = 'offline';
-			this.tjDB.addBotToDB(this.tjbotList[serial]);
+			this.tjDB.addBotToDB(this.tjbotList[serial], function(err){
+				callback(err);
+			});
 			delete this.serialList[socket_id];
 			this.notifyBrowser();
 		} else if (socket_id in this.browserList) {
@@ -155,13 +188,17 @@ class BotManager {
 	 * refresh every registered browser
 	 */
 	notifyBrowser() {
-		let list = this.getJSONBotList();
-		console.log('list: ', list)
-		let localList = this.browserList;
-		Object.keys(localList).forEach(function(key) {
-			localList[key].emit('botlist', list);
+		let browserList = this.browserList;
+		this.getJSONBotList(function(err, tjbotList) {
+			if (err) {
+				console.log(err);
+			} else {
+				let localList = browserList;
+				Object.keys(localList).forEach(function(key) {
+					localList[key].emit('botlist', tjbotList);
+				});
+			}
 		});
-
 	}
 
 	/**
@@ -174,17 +211,6 @@ class BotManager {
 			botImageList.push(file);
 		});
 		return JSON.stringify(botImageList);
-	}
-
-	/**
-	 * returns a list of all available service options
-	 */
-	getOptionList() {
-		let optionList = {};
-		optionList.text_to_speech = {};
-		optionList.text_to_speech.voiceList = this.voiceList;
-
-		return JSON.stringify(optionList);
 	}
 
 	/**

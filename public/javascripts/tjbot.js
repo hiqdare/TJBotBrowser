@@ -7,7 +7,7 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
-	let i = 0;
+	let micOn = false;
 	const ENTERKEY = 13;
 	const TABKEY = 9;
 
@@ -22,34 +22,38 @@ $(function(){
 /* PRIVATE FUNCTIONS			                                              */
 /*----------------------------------------------------------------------------*/
 
-/**
- * Updates bot enteries
- * @param {object} botlist array with bot objects
- */
+	/**
+	 * Updates bot enteries
+	 * @param {object} botlist array with bot objects
+	 */
 	function updateBotList(botlist) {
 		$("#rowbot").children(".card").remove();
 		console.log("new bot list: " + botlist.length);
-		$("#botcount").text("TJBots online: " + botlist.length);
+		//$("#botcount").text("TJBots online: " + botlist.length); // fix, not displaying anywhere
 		if (botlist.length > 0) {
 			$.getJSON('/botImageList', function(imageResult){
 				$.getJSON('/serviceOptionList', function(serviceResult){
 					imageResult = JSON.parse(imageResult);
 					serviceResult = JSON.parse(serviceResult);
-					for (let i = 0; i < botlist.length; i++) {
-						addBotToList(botlist[i], imageResult, serviceResult);
+					for (let bot of botlist) {
+						addBotToList(bot, imageResult, serviceResult);
 					}
 				});
 			});
 		}
 	};
-	
+
+	/**
+	 * Logs event and emits with type 'event'
+	 * @param {object} param parameters of the event
+	 */
 	function emitEvent(param) {
 		console.log("Emit event: ", param.data);
 		socket.emit('event', param.data);
 	}
 
   /**
-   * creates for every bot entery a clone with his own information and configuration
+   * creates for every bot entry a clone with his own information and configuration
    * @param {object} bot object with information and configuration about the bot
    * @param {object} botImageList array with images
    * @param {object} serviceList object with service information and options
@@ -69,10 +73,12 @@ $(function(){
 		let tjImage = clone.find(".tjbot");
 		let bot_led = clone.find(".bot-led");
 		let bot_arm = clone.find(".bot-arm");
+		let microphone = clone.find(".microphone");
 		let canvas = clone.find('.picker');
 		let status = clone.find(".status");
-		let sttDropdown = clone.find(".speechList").parent();
-		let dropdownElement = clone.find(".voiceList").parent();
+		let sttDropdown = clone.find(".speech_to_text").parent();
+		let ttsDropdown = clone.find(".text_to_speech").parent();
+		let param = {};
 
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
@@ -100,7 +106,6 @@ $(function(){
 
 			// update preview color
 			let pixelColor = "rgb("+pixel[0]+", "+pixel[1]+", "+pixel[2]+")";
-			let param = {};
 			let pixel0 = '0' + pixel[0].toString(16);
 			let pixel1 = '0' + pixel[1].toString(16);
 			let pixel2 = '0' + pixel[2].toString(16);
@@ -122,6 +127,7 @@ $(function(){
 			status.addClass("ds-text-neutral-8");
       		bot_led.addClass("ds-text-neutral-8");
 			bot_arm.addClass("ds-text-neutral-8");
+			microphone.addClass("ds-text-neutral-8");
 			canvas.css("display", "block");
 
 			// set action
@@ -129,7 +135,21 @@ $(function(){
 			nodejs_update.click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
 			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
-		  	bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
+			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
+			microphone.click(function(event) {
+				if (micOn) {
+					micOn = false;
+					microphone.removeClass("ds-icon-mic-on-fill");
+					microphone.addClass("ds-icon-mic-off-fill");
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"off"}}';
+				} else {
+					micOn = true;
+					microphone.removeClass("ds-icon-mic-off-fill");
+					microphone.addClass("ds-icon-mic-on-fill");
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"on"}}';
+				}
+				emitEvent(param);
+			});
 		} else {
 			// set color
 			source_update.addClass("ds-text-neutral-4");
@@ -139,8 +159,9 @@ $(function(){
 			status.addClass("ds-text-neutral-4");
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
+			microphone.addClass("ds-text-neutral-4");
 			sttDropdown.addClass("ds-disabled");
-			dropdownElement.addClass("ds-disabled");
+			ttsDropdown.addClass("ds-disabled");
 			canvas.css("display", "none");
 
 			// set action
@@ -161,7 +182,9 @@ $(function(){
 		clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
 		clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
 		clone.find(".os_release").text(" " + bot.data.os_release + " ");
-		clone.find(".firmware").text(" " + bot.data.os_info + " ");
+		if (bot.data.firmware) {
+			clone.find(".firmware").text(" " + bot.data.firmware[0] + " ");
+		}
 		if (bot.data.npm_package.nodemon) {
 			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
 		}
@@ -170,10 +193,10 @@ $(function(){
 		fillAccordion(clone.find(".pkg_info"), bot.data.npm_package);
 		fillAccordion(clone.find(".cpu_info"), bot.data.cpuinfo);
 
-		for (let service in serviceList) {
-			switch (service) {
-				case 'text_to_speech':
-				setServiceOptions(clone, serial, service, ".voiceList", bot.config.text_to_speech, serviceList.text_to_speech.voiceList);
+		
+		for (let type of Object.keys(serviceList)) {
+			for (let name of Object.keys(serviceList[type])) {
+				setServiceOptions(serial, type, name, clone.find("." + type), bot.config[type], serviceList[type][name].options);
 				break;
 			}
 		}
@@ -212,8 +235,8 @@ $(function(){
 	 * add an evenlistener for every option
 	 * sends the selected option to the backend
      * @param {object} clone bot entry element
-     * @param {...} serial
-     * @param {...} botImageList array with images
+     * @param {string} serial
+     * @param {string[]} botImageList array with images names
      */
 	function setBotImagelist(clone, serial, botImageList) {
 		botImageDrop = clone.find(".botImageList");
@@ -231,55 +254,57 @@ $(function(){
 	 * creates service options for dropdown
      * add an evenlistener for every option
      * sends the selected option to the backend
-     * @param {object} clone bot entry element
      * @param {string} serial
-     * @param {string} serivce
-	 * @param {string} dropClass dropdown CSS class
+     * @param {string} service
+     * @param {string} serviceName
+	 * @param {object} dropField dropdown CSS class
 	 * @param {string} savedOption last configured option
 	 * @param {object} serviceOptionList list with services and options
      */
-	function setServiceOptions(clone, serial, service, dropClass, savedOption, serviceOptionList) {
-		if (!clone || !serial || !dropClass || !serviceOptionList) {
+	function setServiceOptions(serial, service, serviceName, dropField, savedOption, serviceOptionList) {
+		if (!serial || !dropField || !serviceOptionList) {
 			console.log('tmp');
 		}
 
-		let drop = clone.find(dropClass);
-		drop.children().remove();
+		dropField.children().remove();
 
-		for(let i=0; i< serviceOptionList.length; i++) {
+		for(let serviceOption of serviceOptionList) {
 
-			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOptionList[i] + '</div>'); // create an option
+			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
+			//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '(' + serviceName + ')</div>'); // create an option
 
-			if (serviceOptionList[i] == savedOption) {
-				drop.parent().find('.ds-title').text(savedOption);
+			if (serviceOption == savedOption) {
+				dropField.parent().find('.ds-title').text(savedOption);
 				option.addClass('option-disabled');
 			}
 
-			drop.append(option);
+			dropField.append(option);
 
-			option.click(serviceOptionList[i], function(event) {
+			option.click(serviceOption, function(event) {
 				option = $(event.target); // get the clicked option
-				isDropdownOptionDisabled = option.hasClass('option-disabled');
 
-				if (!isDropdownOptionDisabled) {
-					dropdownElement = drop.parent();
-					dropTitle = dropdownElement.find('.ds-title');
-					dropTitle.text(option.text()); // change the title with input from the selected option.
+				if (!option.hasClass('option-disabled')) {
+					dropField.parent().find('.ds-title').text(option.text()); // change the title with input from the selected option.
 
-					disabledDropdownOptionsList = drop.find('.option-disabled') // get a list from all disabled options
+					disabledDropdownOptionsList = dropField.find('.option-disabled') // get a list from all disabled options
 
 					if (disabledDropdownOptionsList.length > 0) {
-						for (let a = 0; a < disabledDropdownOptionsList.length; a++) {
-							$(disabledDropdownOptionsList[a]).removeClass('option-disabled'); // remove class for all disabled options
+						for (let disabledDropdownOption of disabledDropdownOptionsList) {
+							$(disabledDropdownOption).removeClass('option-disabled'); // remove class for all disabled options
 						}
 					}
 					option.addClass('option-disabled'); // disables the selected option
-					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"field":"' + service + '", "service":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
+					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"field":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
 				}
 			});
 		}
 	}
 
+	/**
+	 * Updates bot enteries
+	 * @param {object} elem element to be filled with data
+	 * @param {object} part json object containing information for accordion
+	 */
 	function fillAccordion(elem, part) {
 		if (Array.isArray(part)) {
 			if (part.length == 1) {
@@ -290,7 +315,6 @@ $(function(){
 				console.log("is array");
 			}
 		} else if (typeof part === 'object' && part !== null) {
-			console.log("is object");
 			table = jQuery('<table class="ds-table ds-table-compact ds-pad-b-1 ds-pad-t-1"><tbody /></table>');
 			elem.append(table);
 			Object.keys(part).sort().forEach(function(key) {
@@ -302,7 +326,7 @@ $(function(){
 	}
 
 
-	function fillTree(data, label) {
+	/*function fillTree(data, label) {
 		var tree = {
 			'core' : {
 				'themes':{
@@ -322,18 +346,17 @@ $(function(){
 			{ 'text' : 'Child 1' },
 			'Child 2'
 		]
-	}*/
+	}
 	tree.core.data = getTree(data);
 
 	return tree
-}
+}*/
 
 // Wird das noch gebraucht?
 /**
- * ...
- * @param {...} part ...
+ * 
  */
-	function getTree(part) {
+	/*function getTree(part) {
 		let result = [];
 		if (Array.isArray(part)) {
 			let elemTree;
@@ -365,7 +388,7 @@ $(function(){
 			result.push(part);
 			return result;
 		}
-	}
+	}*/
 
 /*----------------------------------------------------------------------------*/
 /* MAIN							                                              */
@@ -383,9 +406,4 @@ $(function(){
 	socket.on('botlist', function(data) {
 		updateBotList(JSON.parse(data));
 	});
-
-	socket.on('refresh', function(data) {
-		updateBotList(JSON.parse(data));
-	});
-
 });

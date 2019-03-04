@@ -23,6 +23,7 @@ const io = require('socket.io')(server);
 //const log = require('./lib/log.js')(path.basename(__filename));
 
 const BotManager = require('./classes/botManager.js');
+const ServiceManager = require('./classes/serviceManager.js');
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATION AND INITIALIZATION                                             */
@@ -35,11 +36,14 @@ try {
 	vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } catch(err) {
 	vcapServices = require('./vcap-local.json').services;
-	console.log("Loaded local VCAP", vcapServices.services);
+	console.log("Loaded local VCAP", vcapServices);
 }
 
 
+
 let botManager = new BotManager(vcapServices);
+botManager.init(handleError);
+let serviceManager = new ServiceManager(vcapServices);
 
 /*----------------------------------------------------------------------------*/
 /* MAIN                                                                       */
@@ -51,12 +55,19 @@ io.on('connection', function (socket) {
 
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
-		socket.emit('botlist', botManager.getJSONBotList());
+		botManager.getJSONBotList(function(err, tjbotList) {
+			if (err) {
+				handleError(err);
+			} else {
+				console.log("Emit botlist " + tjbotList.length);
+				socket.emit('botlist', tjbotList);
+			}
+		});
 	});
 
 	// Whenever a new client connects send the browser an updated list
 	socket.on('checkin', function(data) {
-		botManager.addBotToList(data, socket);
+		botManager.addBotToList(data, socket, handleError);
 		socket.emit('vcapServices', vcapServices); // sends the VCAP_SERVICES to the client
 		socket.emit('config', botManager.getConfigList(socket.id)); // sends a list of all available configs to the client
 	});
@@ -70,7 +81,7 @@ io.on('connection', function (socket) {
 	socket.on('save', function(data) {
 		param = JSON.parse(data);
 		console.log("Save " + param.serial);
-		botManager.updateField(param);
+		botManager.updateField(param,handleError);
 	});
 
 	socket.on('event', function(data) {
@@ -84,17 +95,17 @@ io.on('connection', function (socket) {
 			// error handling serial not found
 		}
 
-		socket.on('disconnect', function () {
-			console.log("Socket disconnected.");
-			botManager.disconnectSocket(socket.id);
-		});
+	});
 
+	socket.on('disconnect', function () {
+		console.log("Socket disconnected.");
+		botManager.disconnectSocket(socket.id, handleError);
 	});
 
 	socket.on('config', function(data) {
 		param = JSON.parse(data);
 		console.log("update: " + param.serial);
-		botManager.updateConfig(param)
+		botManager.updateConfig(param, handleError)
 		//botManager.updateConfig(param.event.target.config)
 		botManager.getSocket(param.serial).emit('event', JSON.stringify(param.event));
 	});
@@ -105,7 +116,15 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 // Auslagern
 app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
-app.get('/serviceOptionList', (req, res) => res.json(botManager.getOptionList()));
+app.get('/serviceOptionList', (req, res) => serviceManager.getOptionList(
+		function(err, optionList) {
+			if (err) {
+				handleError(err);
+				res.json([]);
+			} else {
+				res.json(optionList);
+			}
+		}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -144,6 +163,10 @@ app.use(function (req, res, next) {
 	  res.io = io;
 	  next();
 });
+
+function handleError(err) {
+	console.log("Error: " + err.message);
+}
 
 /*----------------------------------------------------------------------------*/
 /* EXPORTS                                                                    */

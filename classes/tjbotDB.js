@@ -6,6 +6,7 @@
 /* IMPORTS                                                                    */
 /*----------------------------------------------------------------------------*/
 const Cloudant = require('@cloudant/cloudant');
+const dbName = 'tjbotdb';
 
 /*----------------------------------------------------------------------------*/
 /* TJBotDB						                                              */
@@ -25,65 +26,80 @@ class TJBotDB {
 		}
 
 		this.cloudant = Cloudant(vcapServices.cloudantNoSQLDB[0].credentials);
+	}
 
+	
+
+	/**
+	 * add the bot to the DB
+	 * @param {object} botManager botManager to store the tjbotList in
+	 * @param {function} callback function(err)
+	 */
+	connect(botManager, callback) {
 		if(this.cloudant) {
-			//database name
-			let dbName = 'tjbotdb';
-
 			// Create a new "mydb" database.
 			this.cloudant.db.create(dbName, function(err, data) {
-					if(!err) //err if database doesn't already exists
+				if(err) { // err if database doesn't already exists
+					callback(err);
+				} else {
 					console.log("Created database: " + dbName);
+					console.log("data: " + data);
+				}
 			});
 
 			// Specify the database we are going to use (mydb)...
 			this.mydb = this.cloudant.db.use(dbName);
 
-			if(!this.mydb) {
-				console.log("No DB connection");
+			if(this.mydb) {
+				this.mydb.list({ include_docs: true }, function(err, body) {
+					let botList = {};
+					let count = 0;
+					if (err) {
+						// handle err
+						callback(err);
+					} else {
+						body.rows.forEach(function(row) {
+							count++;
+							if(row.doc) {
+								row.doc.web.status = "offline";
+								if (row.doc.data.cpuinfo.Serial in botList) {
+									console.log("DUPLICATE SERIAL ENTRY " + row.doc.data.cpuinfo.Serial);
+								}
+								botList[row.doc.data.cpuinfo.Serial] = row.doc;
+							}
+						});
+						console.log(count + " entries in DB vs. " + Object.keys(botList).length + " in list");
+						botManager.setTJBotList(botList);
+					}
+				});
+			} else {
+				callback(new Error("No DB connection"));
 			}
+			console.log("DB connected");
 		}
 	}
 
 	/**
 	 * add the bot to the DB
 	 * @param {object} tjbot object with information and configuration
+	 * @param {function} callback function(err)
 	 */
-	addBotToDB(tjbot) {
+	addBotToDB(tjbot, callback) {
 		if(!this.mydb) {
-			console.log("No database.");
-		}
-		// insert the username as a document
-		this.mydb.insert(tjbot, function(err, body, header) {
-			if (err) {
-				console.log('[mydb.insert] ', err.message);
-				return;
-			} else {
-				let result = JSON.stringify(body);
-				if (body.ok) {
-					tjbot._id = body.id;
-					tjbot._rev = body.rev;
+			callback(new Error("No database"));
+		} else {
+			// insert the username as a document
+			this.mydb.insert(tjbot, function(err, body, header) {
+				if (err) {
+					callback(err);
+				} else {
+					if (body.ok) {
+						tjbot._id = body.id;
+						tjbot._rev = body.rev;
+					}
 				}
-				console.log('body: ' + result);
-			}
-		});
-	}
-
-	/**
-	 * returns a list with bot objects
-	 */
-	getBotList() {
-		let list = {};
-		this.mydb.list({ include_docs: true }, function(err, body) {
-			if (!err) {
-				body.rows.forEach(function(row) {
-					if(row.doc)
-						row.doc.web.status = "offline";
-						list[row.doc.data.cpuinfo.Serial] = row.doc;
-				});
-			}
-		});
-		return list;
+			});
+		}
 	}
 }
 
