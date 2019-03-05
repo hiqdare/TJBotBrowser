@@ -89,7 +89,7 @@ io.on('connection', function (socket) {
 		console.log("update: " + param.serial);
 
 		if (param.event.target == 'microphone') {
-			botManager.updateListener(param.serial, socket.id, param.event.event);
+			botManager.updateObserver(param.serial, socket.id, param.event.event);
 		}
 
 		let botSocket = botManager.getSocket(param.serial);

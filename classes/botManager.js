@@ -243,7 +243,8 @@ class BotManager {
 			delete this.serialList[socket_id];
 			this.notifyBrowser();
 		} else if (socket_id in this.browserList) {
-			delete this.browserList[socket_id];
+			delete this.browserList[socket_id];$
+			// TO DO remove socket_id from observerlist
 		} else {
 			console.log(socket_id + " not found");
 		}
