@@ -92,9 +92,9 @@ io.on('connection', function (socket) {
 			botManager.updateListener(param.serial, socket.id, param.event.event);
 		}
 
-		let socket = botManager.getSocket(param.serial);
-		if (socket != null) {
-			socket.emit('event', JSON.stringify(param.event));
+		let botSocket = botManager.getSocket(param.serial);
+		if (botSocket != null) {
+			botSocket.emit('event', JSON.stringify(param.event));
 		} else {
 			// error handling serial not found
 		}
