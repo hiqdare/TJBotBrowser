@@ -30,6 +30,8 @@ class BotManager {
 		this.browserList = {};
 		this.serialList = {};
 		this.socketList = {};
+		this.socketObserver = {};
+		this.observedSocket = {};
 
 		this.tjDB = new TJBotDB(vcapServices);
 		this.tjbotList = {};
@@ -93,10 +95,18 @@ class BotManager {
 
 	/**
 	 * returns specific socket
-	 * @param {object} serial
+	 * @param {string} serial
 	 */
 	getSocket(serial) {
 		return this.socketList[serial];
+	}
+
+	/**
+	 * returns specific socket
+	 * @param {string} socket_id
+	 */
+	getBrowserSocket(socket_id) {
+		return this.browserList[socket_id];
 	}
 
 	/**
@@ -118,7 +128,6 @@ class BotManager {
  	 * @param {function} callback function(err)
 	 */
 	updateConfig(param, callback) {
-
 		if (typeof(param) !== "object") {
 			throw new Error("missing param");
 		}
@@ -128,6 +137,62 @@ class BotManager {
 			callback(err);
 		});
 		this.notifyBrowser();
+	}
+
+	/**
+	 * updates the configuration in the DB
+	 * @param {string} serial tjbot serial number
+ 	 * @param {string} event on or off
+	 */
+	updateObserver(serial, socket_id, event) {
+		if (event == "on") {
+			if (serial in this.observedSocket) {
+				// add socket_id to serial observerList
+				this.observedSocket[serial].push(socket_id);
+			} else {
+				// create new observerList for serial
+				this.observedSocket[serial] = [socket_id];
+			}
+			if (socket_id in this.socketObserver) {
+				// add serial to list of observed serials
+				this.socketObserver[socket_id].push(serial);
+			} else {
+				// create new list of observered serials
+				this.socketObserver[socket_id] = [serial];
+			}
+		} else {
+			// check socket_id has list
+			if (socket_id in this.socketObserver) {
+				if (this.socketObserver[socket_id].length == 1) {
+					delete this.socketObserver[socket_id];
+				} else {
+					for (let i = 0; i < this.socketObserver[socket_id]; i ++) {
+						if (this.socketObserver[socket_id][i] == serial) {
+							this.socketObserver[socket_id].splice(i, 1);
+						}
+					}
+				}
+			}
+			if (serial in this.observedSocket) {
+				if (this.observedSocket[serial].length == 1) {
+					delete this.observedSocket[serial];
+				} else {
+					for (let i = 0; i < this.observedSocket[serial]; i ++) {
+						if (this.observedSocket[serial][i] == socket_id) {
+							this.observedSocket[serial].splice(i, 1);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * updates the configuration in the DB
+	 * @param {string} socket_id
+	 */
+	getObserverList(socket_id) {
+		return this.observedSocket[this.serialList[socket_id]];
 	}
 
 	/**

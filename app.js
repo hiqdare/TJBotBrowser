@@ -88,6 +88,10 @@ io.on('connection', function (socket) {
 		let param = JSON.parse(data);
 		console.log("update: " + param.serial);
 
+		if (param.event.target == 'microphone') {
+			botManager.updateListener(param.serial, socket.id, param.event.event);
+		}
+
 		let socket = botManager.getSocket(param.serial);
 		if (socket != null) {
 			socket.emit('event', JSON.stringify(param.event));
@@ -106,8 +110,16 @@ io.on('connection', function (socket) {
 		param = JSON.parse(data);
 		console.log("update: " + param.serial);
 		botManager.updateConfig(param, handleError)
-		//botManager.updateConfig(param.event.target.config)
-		botManager.getSocket(param.serial).emit('event', JSON.stringify(param.event));
+		let socket = botManager.getSocket(param.serial);
+		if (socket != null) {
+			socket.emit('event', JSON.stringify(param.event));
+		}
+	});
+
+	socket.on('listen', function(data) {
+		for (let observer of botManager.getObserverList(socket.id)) {
+			botManager.getBrowserSocket(observer).emit('listen', data)
+		}
 	});
 
 });

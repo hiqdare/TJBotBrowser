@@ -406,4 +406,8 @@ $(function(){
 	socket.on('botlist', function(data) {
 		updateBotList(JSON.parse(data));
 	});
+
+	socket.on('listen', function(data) {
+		console.log("msg: " + data);
+	})
 });
