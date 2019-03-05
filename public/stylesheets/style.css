@@ -37,7 +37,11 @@
   text-align: left;
 }
 
-.voiceList {
+.text_to_speech {
+	position: unset!important;
+}
+
+.speech_to_text {
 	position: unset!important;
 }
 
