@@ -45,7 +45,7 @@ class BotManager {
 		this.tjDB.connect(this, function(err){
 			if (err) {
 				callback(err);
-			} 
+			}
 		});
 	}
 
@@ -243,7 +243,7 @@ class BotManager {
 			delete this.serialList[socket_id];
 			this.notifyBrowser();
 		} else if (socket_id in this.browserList) {
-			delete this.browserList[socket_id];$
+			delete this.browserList[socket_id];
 			// TO DO remove socket_id from observerlist
 		} else {
 			console.log(socket_id + " not found");
@@ -288,9 +288,14 @@ class BotManager {
 			throw new Error("missing socket_id");
 		}
 
+		let tjbotList = this.tjbotList;
 		let configList = {};
 		let serial = this.serialList[socket_id];
-		configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
+
+		Object.keys(tjbotList[serial].config).forEach(function(key) {
+			configList[key] = tjbotList[serial].config[key];
+		});
+		//configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
 
 		return JSON.stringify(configList);
 	}
