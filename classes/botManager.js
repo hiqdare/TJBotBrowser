@@ -45,7 +45,7 @@ class BotManager {
 		this.tjDB.connect(this, function(err){
 			if (err) {
 				callback(err);
-			} 
+			}
 		});
 	}
 
@@ -288,9 +288,14 @@ class BotManager {
 			throw new Error("missing socket_id");
 		}
 
+		let tjbotList = this.tjbotList;
 		let configList = {};
 		let serial = this.serialList[socket_id];
-		configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
+
+		Object.keys(tjbotList[serial].config).forEach(function(key) {
+			configList[key] = tjbotList[serial].config[key];
+		});
+		//configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
 
 		return JSON.stringify(configList);
 	}
