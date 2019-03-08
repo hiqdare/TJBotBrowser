@@ -7,7 +7,7 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
-	let micOn = false;
+	let micOn = false;// TODO: Set state on login
 	const ENTERKEY = 13;
 	const TABKEY = 9;
 

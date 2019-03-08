@@ -78,12 +78,14 @@ io.on('connection', function (socket) {
 		browserSocket = botManager.getSocket(param.serial).emit('update', param.target);
 	});*/
 
+	// TODO: merge save, event and config
 	socket.on('save', function(data) {
 		param = JSON.parse(data);
 		console.log("Save " + param.serial);
 		botManager.updateField(param,handleError);
 	});
 
+	// TODO: save bulb color when set
 	socket.on('event', function(data) {
 		let param = JSON.parse(data);
 		console.log("update: " + param.serial);
@@ -96,7 +98,7 @@ io.on('connection', function (socket) {
 		if (botSocket != null) {
 			botSocket.emit('event', JSON.stringify(param.event));
 		} else {
-			// error handling serial not found
+			// TODO: error handling serial not found
 		}
 
 	});
