@@ -16,16 +16,16 @@ const dbName = 'tjbotdb';
  * TJBotDB
  *
  * @constructor
- * @param {object} vcapServices object with service information
+ * @param {object} cloudantNoSQLDB object with service information
  */
 class TJBotDB {
-	constructor(vcapServices) {
+	constructor(cloudantNoSQLDB) {
 
-		if (typeof(vcapServices) !== "object") {
-			throw new Error("VCAP service must be type of 'object'");
+		if (typeof(cloudantNoSQLDB) !== "object") {
+			throw new Error("cloudantNoSQLDB must be type of 'object'");
 		}
 
-		this.cloudant = Cloudant(vcapServices.cloudantNoSQLDB[0].credentials);
+		this.cloudant = Cloudant(cloudantNoSQLDB.credentials);
 	}
 
 	
