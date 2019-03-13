@@ -112,7 +112,7 @@ $(function(){
 			pixel0 = pixel0.substr(pixel0.length - 2, 2);
 			pixel1 = pixel1.substr(pixel1.length - 2, 2);
 			pixel2 = pixel2.substr(pixel2.length - 2, 2);
-			param.data = '{"serial":"' + serial + '", "event": {"target": "led", "action":"' + pixel0 + pixel1 + pixel2 + '"}}';
+			param.data = '{"serial":"' + serial + '", "event": {"target": "led", "event":"' + pixel0 + pixel1 + pixel2 + '"}}';
 			bot_led.css('backgroundColor', pixelColor);
 			emitEvent(param);
 		});
@@ -135,18 +135,18 @@ $(function(){
 			nodejs_update.click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
 			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
-			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
+			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
 			microphone.click(function(event) {
 				if (micOn) {
 					micOn = false;
 					microphone.removeClass("ds-icon-mic-on-fill");
 					microphone.addClass("ds-icon-mic-off-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"off"}}';
 				} else {
 					micOn = true;
 					microphone.removeClass("ds-icon-mic-off-fill");
 					microphone.addClass("ds-icon-mic-on-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"on"}}';
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"on"}}';
 				}
 				emitEvent(param);
 			});
@@ -160,8 +160,8 @@ $(function(){
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
 			microphone.addClass("ds-text-neutral-4");
-			//sttDropdown.addClass("ds-disabled");
-			//ttsDropdown.addClass("ds-disabled");
+			sttDropdown.addClass("ds-disabled");
+			ttsDropdown.addClass("ds-disabled");
 			canvas.css("display", "none");
 
 			// set action
@@ -280,7 +280,9 @@ $(function(){
 
 			dropField.append(option);
 
-			option.click('{"name":"' + serviceName + '", "option":"' + serviceOption + '"}', function(event) {
+			option.click(serviceOption, function(event) {
+				option = $(event.target); // get the clicked option
+
 				if (!option.hasClass('option-disabled')) {
 					dropField.parent().find('.ds-title').text(option.text()); // change the title with input from the selected option.
 
@@ -292,7 +294,7 @@ $(function(){
 						}
 					}
 					option.addClass('option-disabled'); // disables the selected option
-					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"' + service + '":' + event.data + '}}}') // sends the selected option to the back-end
+					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"field":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
 				}
 			});
 		}

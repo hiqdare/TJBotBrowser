@@ -40,16 +40,9 @@ try {
 }
 
 
-if (vcapServices.cloudantNoSQLDB == null) {
-	console.log("No Cloudant DB services connected");
-	throw new Error("No Cloudant DB services connected");
-}
 
-let botManager = new BotManager(vcapServices.cloudantNoSQLDB[0]);
+let botManager = new BotManager(vcapServices);
 botManager.init(handleError);
-
-delete vcapServices.cloudantNoSQLDB;
-
 let serviceManager = new ServiceManager(vcapServices);
 
 /*----------------------------------------------------------------------------*/
@@ -60,24 +53,23 @@ io.on('connection', function (socket) {
 
 	socket.emit('start', 'Socket started');
 
-	// register Browser
 	socket.on('browser', function() {
 		botManager.registerBrowser(socket);
 		botManager.getJSONBotList(function(err, tjbotList) {
 			if (err) {
 				handleError(err);
 			} else {
-				console.log("Emit botlist ");
+				console.log("Emit botlist " + tjbotList.length);
 				socket.emit('botlist', tjbotList);
 			}
 		});
 	});
 
 	// Whenever a new client connects send the browser an updated list
-	socket.on('checkin', function(data) { 
-		let config = botManager.addBotToList(data, socket, handleError); // TO DO make addBotList return config
-		console.log("checkin config: " + JSON.stringify(config));
-		socket.emit('config', serviceManager.getConfigCredentials(config)); // sends a list of all available configs to the client
+	socket.on('checkin', function(data) {
+		botManager.addBotToList(data, socket, handleError);
+		socket.emit('vcapServices', vcapServices); // sends the VCAP_SERVICES to the client
+		socket.emit('config', botManager.getConfigList(socket.id)); // sends a list of all available configs to the client
 	});
 
 	/*socket.on('update', function (data) {
@@ -88,9 +80,9 @@ io.on('connection', function (socket) {
 
 	// TODO: merge save, event and config
 	socket.on('save', function(data) {
-		let param = JSON.parse(data);
+		param = JSON.parse(data);
 		console.log("Save " + param.serial);
-		botManager.updateField(param, handleError);
+		botManager.updateField(param,handleError);
 	});
 
 	// TODO: save bulb color when set
@@ -117,11 +109,9 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('config', function(data) {
-		let param = JSON.parse(data);
-		console.log("config: " + data);
-		botManager.updateConfig(JSON.parse(data), handleError)
-		param.event.config = serviceManager.getConfigCredentials(param.event.config);
-		console.log(JSON.stringify(param));
+		param = JSON.parse(data);
+		console.log("update: " + param.serial);
+		botManager.updateConfig(param, handleError)
 		let socket = botManager.getSocket(param.serial);
 		if (socket != null) {
 			socket.emit('event', JSON.stringify(param.event));
