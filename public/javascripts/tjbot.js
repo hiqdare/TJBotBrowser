@@ -2,7 +2,9 @@
  *	tjbot.js
  */
 
-$(function(){	
+$(function(){
+
+
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
@@ -23,6 +25,34 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 
 	/**
+	 * Creates an input for user or bot
+	 * @param {string} text input text
+	 * @param {string} text input class
+	 */
+	function createInput(text, inputClass) {
+		let clone = $('.active-overlay').find('#' + inputClass).clone(true);
+		clone.removeAttr('id');
+		clone.removeClass('ds-hide');
+		$('.active-overlay').find('#' + inputClass).parent().append(clone);
+	};
+
+	/**
+	 * Opens the overlay
+	 * @param {object} overlay overlay element that should be opened
+	 * @param {object} microphone microphone icon element
+	 */
+	function openOverlay(overlay) {
+		overlay.removeClass('ds-hide');
+		overlay.addClass('active-overlay');
+
+		overlay.find('.ds-icon-close').click(function(e) {
+			overlay.addClass('ds-hide');
+			micOn = true;
+			emitEvent(param);
+		});
+	};
+
+	/**
 	 * Updates bot enteries
 	 * @param {object} botlist array with bot objects
 	 */
@@ -34,7 +64,7 @@ $(function(){
 			$.getJSON('/botImageList', function(imageResult){
 				$.getJSON('/serviceOptionList', function(serviceResult){
 					imageResult = JSON.parse(imageResult);
-					serviceResult = JSON.parse(serviceResult);
+					//serviceResult = JSON.parse(serviceResult);
 					for (let bot of botlist) {
 						addBotToList(bot, imageResult, serviceResult);
 					}
@@ -78,7 +108,9 @@ $(function(){
 		let status = clone.find(".status");
 		let sttDropdown = clone.find(".speech_to_text").parent();
 		let ttsDropdown = clone.find(".text_to_speech").parent();
+		let assistantDropdown = clone.find(".assistant").parent();
 		let param = {};
+		let overlay = clone.find(".overlay");
 
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
@@ -139,14 +171,15 @@ $(function(){
 			microphone.click(function(event) {
 				if (micOn) {
 					micOn = false;
-					microphone.removeClass("ds-icon-mic-on-fill");
-					microphone.addClass("ds-icon-mic-off-fill");
+					//microphone.removeClass("ds-icon-mic-on-fill");
+					//microphone.addClass("ds-icon-mic-off-fill");
 					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"off"}}';
 				} else {
 					micOn = true;
-					microphone.removeClass("ds-icon-mic-off-fill");
-					microphone.addClass("ds-icon-mic-on-fill");
+					//microphone.removeClass("ds-icon-mic-off-fill");
+					//microphone.addClass("ds-icon-mic-on-fill");
 					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"on"}}';
+					openOverlay(overlay);
 				}
 				emitEvent(param);
 			});
@@ -162,6 +195,7 @@ $(function(){
 			microphone.addClass("ds-text-neutral-4");
 			sttDropdown.addClass("ds-disabled");
 			ttsDropdown.addClass("ds-disabled");
+			assistantDropdown.addClass("ds-disabled");
 			canvas.css("display", "none");
 
 			// set action
@@ -193,7 +227,7 @@ $(function(){
 		fillAccordion(clone.find(".pkg_info"), bot.data.npm_package);
 		fillAccordion(clone.find(".cpu_info"), bot.data.cpuinfo);
 
-		
+
 		for (let type of Object.keys(serviceList)) {
 			for (let name of Object.keys(serviceList[type])) {
 				setServiceOptions(serial, type, name, clone.find("." + type), bot.config[type], serviceList[type][name].options);
@@ -354,7 +388,7 @@ $(function(){
 
 // Wird das noch gebraucht?
 /**
- * 
+ *
  */
 	/*function getTree(part) {
 		let result = [];
