@@ -40,9 +40,16 @@ try {
 }
 
 
+if (vcapServices.cloudantNoSQLDB == null) {
+	console.log("No Cloudant DB services connected");
+	throw new Error("No Cloudant DB services connected");
+}
 
-let botManager = new BotManager(vcapServices);
+let botManager = new BotManager(vcapServices.cloudantNoSQLDB[0]);
 botManager.init(handleError);
+
+delete vcapServices.cloudantNoSQLDB;
+
 let serviceManager = new ServiceManager(vcapServices);
 
 /*----------------------------------------------------------------------------*/
@@ -53,6 +60,7 @@ io.on('connection', function (socket) {
 
 	socket.emit('start', 'Socket started');
 
+	// register Browser
 	socket.on('browser', function() {
 		console.log("socket browser");
 		botManager.registerBrowser(socket);
@@ -60,7 +68,7 @@ io.on('connection', function (socket) {
 			if (err) {
 				handleError(err);
 			} else {
-				console.log("Emit botlist " + tjbotList.length);
+				console.log("Emit botlist ");
 				socket.emit('botlist', tjbotList);
 			}
 		});
@@ -72,17 +80,14 @@ io.on('connection', function (socket) {
 		let config = botManager.addBotToList(data, socket, handleError);
 		console.log("checkin config: " + JSON.stringify(config));
 		socket.emit('init_config', JSON.stringify(serviceManager.getConfigCredentials(config))); // sends a list of all available configs to the client
-
 	});
 
 	// TODO: merge save, event and config
 	socket.on('save', function(data) {
-
 		console.log("socket save");
 		let param = JSON.parse(data);
-
 		console.log("Save " + param.serial);
-		botManager.updateField(param,handleError);
+		botManager.updateField(param, handleError);
 	});
 
 	// TODO: save bulb color when set
@@ -112,7 +117,6 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('config', function(data) {
-
 		console.log("socket config");
 		let param = JSON.parse(data);
 		console.log("config: " + data);
@@ -122,7 +126,6 @@ io.on('connection', function (socket) {
 		let botSocket = botManager.getSocket(param.serial);
 		if (botSocket != null) {
 			botSocket.emit('event', JSON.stringify(param.event));
-
 		}
 	});
 
