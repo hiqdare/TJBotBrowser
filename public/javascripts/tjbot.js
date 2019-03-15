@@ -2,7 +2,7 @@
  *	tjbot.js
  */
 
-$(function(){	
+$(function(){
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
@@ -21,6 +21,34 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* PRIVATE FUNCTIONS			                                              */
 /*----------------------------------------------------------------------------*/
+
+	/**
+	 * Creates an input for user or bot
+	 * @param {string} text input text
+	 * @param {string} text input class
+	 */
+	function createInput(text, inputClass) {
+		let clone = $('.active-overlay').find('#' + inputClass).clone(true);
+		clone.removeAttr('id');
+		clone.removeClass('ds-hide');
+		$('.active-overlay').find('#' + inputClass).parent().append(clone);
+	};
+
+	/**
+	 * Opens the overlay
+	 * @param {object} overlay overlay element that should be opened
+	 * @param {object} microphone microphone icon element
+	 */
+	function openOverlay(overlay) {
+		overlay.removeClass('ds-hide');
+		overlay.addClass('active-overlay');
+
+		overlay.find('.ds-icon-close').click(function(e) {
+			overlay.addClass('ds-hide');
+			micOn = true;
+			//emitEvent(param);
+		});
+	};
 
 	/**
 	 * Updates bot enteries
@@ -78,6 +106,8 @@ $(function(){
 		let status = clone.find(".status");
 		let sttDropdown = clone.find(".speech_to_text").parent();
 		let ttsDropdown = clone.find(".text_to_speech").parent();
+		let assistantDropdown = clone.find(".assistant").parent();
+		let overlay = clone.find(".overlay");
 		let param = {};
 
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
@@ -118,7 +148,7 @@ $(function(){
 		});
 
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
-		if (bot.web.status == "online") {
+		if (bot.web.status == "offline") {
 			// set color
 			source_update.addClass("ds-text-neutral-8");
 			nodejs_update.addClass("ds-text-neutral-8");
@@ -148,6 +178,7 @@ $(function(){
 					microphone.removeClass("ds-icon-mic-off-fill");
 					microphone.addClass("ds-icon-mic-on-fill");
 					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"on"}}';
+					openOverlay(overlay);
 				}
 				emitEvent(param);
 			});
@@ -161,8 +192,9 @@ $(function(){
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
 			microphone.addClass("ds-text-neutral-4");
-			//sttDropdown.addClass("ds-disabled");
-			//ttsDropdown.addClass("ds-disabled");
+			sttDropdown.addClass("ds-disabled");
+			ttsDropdown.addClass("ds-disabled");
+			assistantDropdown.addClass("ds-disabled");
 			canvas.css("display", "none");
 
 			// set action
@@ -194,7 +226,7 @@ $(function(){
 		fillAccordion(clone.find(".pkg_info"), bot.data.npm_package);
 		fillAccordion(clone.find(".cpu_info"), bot.data.cpuinfo);
 
-		
+
 		for (let type of Object.keys(serviceList)) {
 			for (let name of Object.keys(serviceList[type])) {
 				setServiceOptions(serial, type, name, clone.find("." + type), bot.config[type], serviceList[type][name].options);
@@ -271,19 +303,19 @@ $(function(){
 
 		for(let serviceOption of serviceOptionList) {
 
-			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
-			//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '(' + serviceName + ')</div>'); // create an option
+			//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
+			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption.name + '(' + serviceName + ')</div>'); // create an option
 
-			if (savedOption && serviceOption == savedOption.option) {
+			if (savedOption && serviceOption.id == savedOption.option) {
 				dropField.parent().find('.ds-title').text(savedOption.option);
 				option.addClass('option-disabled');
 			}
 
 			dropField.append(option);
 
-			option.click('{"name":"' + serviceName + '", "option":"' + serviceOption + '"}', function(event) {
+			option.click('{"name":"' + serviceName + '", "option":"' + serviceOption.id + '"}', function(event) {
 				if (!option.hasClass('option-disabled')) {
-					dropField.parent().find('.ds-title').text(option.text()); // change the title with input from the selected option.
+					dropField.parent().find('.ds-title').text(serviceOption.name); // change the title with input from the selected option.
 
 					disabledDropdownOptionsList = dropField.find('.option-disabled') // get a list from all disabled options
 
@@ -353,7 +385,7 @@ $(function(){
 
 // Wird das noch gebraucht?
 /**
- * 
+ *
  */
 	/*function getTree(part) {
 		let result = [];
