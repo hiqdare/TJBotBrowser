@@ -19,16 +19,21 @@ class BotManager {
 	 * BotManager
 	 *
 	 * @constructor
-	 * @param {object} cloudantNoSQLDB object with service information
+	 * @param {object} vcapServices object with service information
 	 */
-	constructor(cloudantNoSQLDB) {
+	constructor(vcapServices) {
+
+		if (typeof(vcapServices) !== "object") {
+			throw new Error("VCAP service must be type of 'object'");
+		}
+
 		this.browserList = {};
 		this.serialList = {};
 		this.socketList = {};
 		this.socketObserver = {};
 		this.observedSocket = {};
 
-		this.tjDB = new TJBotDB(cloudantNoSQLDB);
+		this.tjDB = new TJBotDB(vcapServices);
 		this.tjbotList = {};
 	}
 
@@ -89,7 +94,6 @@ class BotManager {
 			callback(err);
 		});
 		this.notifyBrowser();
-		return this.tjbotList[serial].config;
 	}
 
 	/**
@@ -130,9 +134,11 @@ class BotManager {
 		if (typeof(param) !== "object") {
 			throw new Error("missing param");
 		}
+
 		for (let service of Object.keys(param.event.config)) {
 			this.tjbotList[param.serial].config[service] = param.event.config[service];
 		}
+
 		this.tjDB.addBotToDB(this.tjbotList[param.serial], function(err){
 			callback(err);
 		});
@@ -289,6 +295,27 @@ class BotManager {
 			botImageList.push(file);
 		});
 		return JSON.stringify(botImageList);
+	}
+
+	/**
+	 * returns a list with specific bot configuration
+	 * @param {string} socket_id unique ID from client his socket
+	 */
+	getConfigList(socket_id) {
+		if (typeof(socket_id) !== "string") {
+			throw new Error("missing socket_id");
+		}
+
+		let tjbotList = this.tjbotList;
+		let configList = {};
+		let serial = this.serialList[socket_id];
+
+		Object.keys(tjbotList[serial].config).forEach(function(key) {
+			configList[key] = tjbotList[serial].config[key];
+		});
+		//configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
+
+		return JSON.stringify(configList);
 	}
 }
 
