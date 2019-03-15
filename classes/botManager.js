@@ -19,21 +19,16 @@ class BotManager {
 	 * BotManager
 	 *
 	 * @constructor
-	 * @param {object} vcapServices object with service information
+	 * @param {object} cloudantNoSQLDB object with service information
 	 */
-	constructor(vcapServices) {
-
-		if (typeof(vcapServices) !== "object") {
-			throw new Error("VCAP service must be type of 'object'");
-		}
-
+	constructor(cloudantNoSQLDB) {
 		this.browserList = {};
 		this.serialList = {};
 		this.socketList = {};
 		this.socketObserver = {};
 		this.observedSocket = {};
 
-		this.tjDB = new TJBotDB(vcapServices);
+		this.tjDB = new TJBotDB(cloudantNoSQLDB);
 		this.tjbotList = {};
 	}
 
@@ -87,10 +82,14 @@ class BotManager {
 		this.tjbotList[serial].web = {};
 		this.tjbotList[serial].web.status = 'online';
 		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
+		if (this.tjbotList[serial].config.test) {
+			delete this.tjbotList[serial].config.test;	
+		}
 		this.tjDB.addBotToDB(this.tjbotList[serial], function(err){
 			callback(err);
 		});
 		this.notifyBrowser();
+		return this.tjbotList[serial].config;
 	}
 
 	/**
@@ -131,8 +130,9 @@ class BotManager {
 		if (typeof(param) !== "object") {
 			throw new Error("missing param");
 		}
-
-		this.tjbotList[param.serial].config[param.event.config.field] = param.event.config.value;
+		for (let service of Object.keys(param.event.config)) {
+			this.tjbotList[param.serial].config[service] = param.event.config[service];
+		}
 		this.tjDB.addBotToDB(this.tjbotList[param.serial], function(err){
 			callback(err);
 		});
@@ -146,6 +146,10 @@ class BotManager {
 	 */
 	updateObserver(serial, socket_id, event) {
 		if (event == "on") {
+			if (!this.tjbotList[serial].web.microphone) {
+				this.tjbotList[serial].web.microphone = "on";
+				this.notifyBrowser();
+			}
 			if (serial in this.observedSocket) {
 				// add socket_id to serial observerList
 				this.observedSocket[serial].push(socket_id);
@@ -176,6 +180,10 @@ class BotManager {
 			if (serial in this.observedSocket) {
 				if (this.observedSocket[serial].length == 1) {
 					delete this.observedSocket[serial];
+					if (this.tjbotList[serial].web.microphone) {
+						delete this.tjbotList[serial].web.microphone;
+						this.notifyBrowser();
+					}
 				} else {
 					for (let i = 0; i < this.observedSocket[serial]; i ++) {
 						if (this.observedSocket[serial][i] == socket_id) {
@@ -192,7 +200,11 @@ class BotManager {
 	 * @param {string} socket_id
 	 */
 	getObserverList(socket_id) {
-		return this.observedSocket[this.serialList[socket_id]];
+		if (socket_id in this.serialList && this.serialList[socket_id] in this.observedSocket) {
+			return this.observedSocket[this.serialList[socket_id]];
+		} else {
+			return [];
+		}
 	}
 
 	/**
@@ -277,27 +289,6 @@ class BotManager {
 			botImageList.push(file);
 		});
 		return JSON.stringify(botImageList);
-	}
-
-	/**
-	 * returns a list with specific bot configuration
-	 * @param {string} socket_id unique ID from client his socket
-	 */
-	getConfigList(socket_id) {
-		if (typeof(socket_id) !== "string") {
-			throw new Error("missing socket_id");
-		}
-
-		let tjbotList = this.tjbotList;
-		let configList = {};
-		let serial = this.serialList[socket_id];
-
-		Object.keys(tjbotList[serial].config).forEach(function(key) {
-			configList[key] = tjbotList[serial].config[key];
-		});
-		//configList.text_to_speech = this.tjbotList[serial].config.text_to_speech;
-
-		return JSON.stringify(configList);
 	}
 }
 

@@ -7,7 +7,7 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
-	let micOn = false;// TODO: Set state on login
+	let micOn = {};
 	const ENTERKEY = 13;
 	const TABKEY = 9;
 
@@ -61,7 +61,7 @@ $(function(){
 	function addBotToList(bot, botImageList, serviceList) {
 		let clone = $('#bot').clone(true); // "deep" clone
 		let serial = bot.data.cpuinfo.Serial;
-		clone.removeAttr('id');
+		clone.attr('id', "bot_" + serial);
 		clone.removeClass('ds-hide');
 		clone.addClass("card");
 
@@ -112,7 +112,7 @@ $(function(){
 			pixel0 = pixel0.substr(pixel0.length - 2, 2);
 			pixel1 = pixel1.substr(pixel1.length - 2, 2);
 			pixel2 = pixel2.substr(pixel2.length - 2, 2);
-			param.data = '{"serial":"' + serial + '", "event": {"target": "led", "event":"' + pixel0 + pixel1 + pixel2 + '"}}';
+			param.data = '{"serial":"' + serial + '", "event": {"target": "led", "action":"' + pixel0 + pixel1 + pixel2 + '"}}';
 			bot_led.css('backgroundColor', pixelColor);
 			emitEvent(param);
 		});
@@ -135,18 +135,19 @@ $(function(){
 			nodejs_update.click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
 			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
-			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
+			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
+			micOn[serial] = (bot.web.microphone != null);
 			microphone.click(function(event) {
-				if (micOn) {
-					micOn = false;
+				if (micOn[serial]) {
+					micOn[serial] = false;
 					microphone.removeClass("ds-icon-mic-on-fill");
 					microphone.addClass("ds-icon-mic-off-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"off"}}';
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
 				} else {
-					micOn = true;
+					micOn[serial] = true;
 					microphone.removeClass("ds-icon-mic-off-fill");
 					microphone.addClass("ds-icon-mic-on-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"on"}}';
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"on"}}';
 				}
 				emitEvent(param);
 			});
@@ -160,8 +161,8 @@ $(function(){
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
 			microphone.addClass("ds-text-neutral-4");
-			sttDropdown.addClass("ds-disabled");
-			ttsDropdown.addClass("ds-disabled");
+			//sttDropdown.addClass("ds-disabled");
+			//ttsDropdown.addClass("ds-disabled");
 			canvas.css("display", "none");
 
 			// set action
@@ -185,8 +186,8 @@ $(function(){
 		if (bot.data.firmware) {
 			clone.find(".firmware").text(" " + bot.data.firmware[0] + " ");
 		}
-		if (bot.data.npm_package.nodemon) {
-			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
+		if (bot.data.npm_package && bot.data.npm_package.nodemon) {
+			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " "); // TO DO version not showing
 		}
 
 		fillAccordion(clone.find(".version_info"), bot.data.npm_version);
@@ -254,9 +255,9 @@ $(function(){
 	 * creates service options for dropdown
      * add an evenlistener for every option
      * sends the selected option to the backend
-     * @param {string} serial
-     * @param {string} service
-     * @param {string} serviceName
+     * @param {string} serial serial ID of the TJBot
+     * @param {string} service name of the IBM Cloud service
+     * @param {string} serviceName name of the service instance
 	 * @param {object} dropField dropdown CSS class
 	 * @param {string} savedOption last configured option
 	 * @param {object} serviceOptionList list with services and options
@@ -273,16 +274,14 @@ $(function(){
 			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
 			//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '(' + serviceName + ')</div>'); // create an option
 
-			if (serviceOption == savedOption) {
-				dropField.parent().find('.ds-title').text(savedOption);
+			if (savedOption && serviceOption == savedOption.option) {
+				dropField.parent().find('.ds-title').text(savedOption.option);
 				option.addClass('option-disabled');
 			}
 
 			dropField.append(option);
 
-			option.click(serviceOption, function(event) {
-				option = $(event.target); // get the clicked option
-
+			option.click('{"name":"' + serviceName + '", "option":"' + serviceOption + '"}', function(event) {
 				if (!option.hasClass('option-disabled')) {
 					dropField.parent().find('.ds-title').text(option.text()); // change the title with input from the selected option.
 
@@ -294,7 +293,7 @@ $(function(){
 						}
 					}
 					option.addClass('option-disabled'); // disables the selected option
-					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"field":"' + service + '", "value":"' + option.text() + '"}}}') // sends the selected option to the back-end
+					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"' + service + '":' + event.data + '}}}') // sends the selected option to the back-end
 				}
 			});
 		}
