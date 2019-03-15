@@ -49,11 +49,12 @@ let serviceManager = new ServiceManager(vcapServices);
 /* MAIN                                                                       */
 /*----------------------------------------------------------------------------*/
 io.on('connection', function (socket) {
-	console.log("Sockets connected.with id " + socket.id);
+	console.log("Sockets connected with id " + socket.id);
 
 	socket.emit('start', 'Socket started');
 
 	socket.on('browser', function() {
+		console.log("socket browser");
 		botManager.registerBrowser(socket);
 		botManager.getJSONBotList(function(err, tjbotList) {
 			if (err) {
@@ -66,41 +67,43 @@ io.on('connection', function (socket) {
 	});
 
 	// Whenever a new client connects send the browser an updated list
-	socket.on('checkin', function(data) {
-		botManager.addBotToList(data, socket, handleError);
-		socket.emit('vcapServices', vcapServices); // sends the VCAP_SERVICES to the client
-		socket.emit('config', botManager.getConfigList(socket.id)); // sends a list of all available configs to the client
-	});
+	socket.on('checkin', function(data) { 
+		console.log("socket checkin");
+		let config = botManager.addBotToList(data, socket, handleError);
+		console.log("checkin config: " + JSON.stringify(config));
+		socket.emit('init_config', JSON.stringify(serviceManager.getConfigCredentials(config))); // sends a list of all available configs to the client
 
-	/*socket.on('update', function (data) {
-		param = JSON.parse(data);
-		console.log("update: " + param.serial);
-		browserSocket = botManager.getSocket(param.serial).emit('update', param.target);
-	});*/
+	});
 
 	// TODO: merge save, event and config
 	socket.on('save', function(data) {
-		param = JSON.parse(data);
+
+		console.log("socket save");
+		let param = JSON.parse(data);
+
 		console.log("Save " + param.serial);
 		botManager.updateField(param,handleError);
 	});
 
 	// TODO: save bulb color when set
 	socket.on('event', function(data) {
+		console.log("socket event");
 		let param = JSON.parse(data);
-		console.log("update: " + param.serial);
+		console.log("event: " + param.serial + " " + param.event.target);
 
 		if (param.event.target == 'microphone') {
 			botManager.updateObserver(param.serial, socket.id, param.event.event);
 		}
 
+		console.log("observer set");
 		let botSocket = botManager.getSocket(param.serial);
-		if (botSocket != null) {
+		if (botSocket) {
+			console.log("event " + botSocket.id);
 			botSocket.emit('event', JSON.stringify(param.event));
 		} else {
+			console.log(param.serial + " not online");
 			// TODO: error handling serial not found
 		}
-
 	});
 
 	socket.on('disconnect', function () {
@@ -109,16 +112,22 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('config', function(data) {
-		param = JSON.parse(data);
-		console.log("update: " + param.serial);
-		botManager.updateConfig(param, handleError)
-		let socket = botManager.getSocket(param.serial);
-		if (socket != null) {
-			socket.emit('event', JSON.stringify(param.event));
+
+		console.log("socket config");
+		let param = JSON.parse(data);
+		console.log("config: " + data);
+		botManager.updateConfig(JSON.parse(data), handleError)
+		param.event.config = serviceManager.getConfigCredentials(param.event.config);
+		console.log("call event on bot: " + JSON.stringify(param));
+		let botSocket = botManager.getSocket(param.serial);
+		if (botSocket != null) {
+			botSocket.emit('event', JSON.stringify(param.event));
+
 		}
 	});
 
 	socket.on('listen', function(data) {
+		console.log("socket listen");
 		for (let observer of botManager.getObserverList(socket.id)) {
 			botManager.getBrowserSocket(observer).emit('listen', data)
 		}

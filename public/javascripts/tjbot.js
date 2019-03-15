@@ -9,7 +9,7 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
-	let micOn = false;// TODO: Set state on login
+	let micOn = {};
 	const ENTERKEY = 13;
 	const TABKEY = 9;
 
@@ -91,7 +91,7 @@ $(function(){
 	function addBotToList(bot, botImageList, serviceList) {
 		let clone = $('#bot').clone(true); // "deep" clone
 		let serial = bot.data.cpuinfo.Serial;
-		clone.removeAttr('id');
+		clone.attr('id', "bot_" + serial);
 		clone.removeClass('ds-hide');
 		clone.addClass("card");
 
@@ -167,19 +167,22 @@ $(function(){
 			nodejs_update.click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
 			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
-			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "event":"wave"}}', emitEvent);
+
+			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
+			micOn[serial] = (bot.web.microphone != null);
 			microphone.click(function(event) {
-				if (micOn) {
-					micOn = false;
-					//microphone.removeClass("ds-icon-mic-on-fill");
-					//microphone.addClass("ds-icon-mic-off-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"off"}}';
+				if (micOn[serial]) {
+					micOn[serial] = false;
+					microphone.removeClass("ds-icon-mic-on-fill");
+					microphone.addClass("ds-icon-mic-off-fill");
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
 				} else {
-					micOn = true;
-					//microphone.removeClass("ds-icon-mic-off-fill");
-					//microphone.addClass("ds-icon-mic-on-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "event":"on"}}';
-					openOverlay(overlay);
+					micOn[serial] = true;
+					microphone.removeClass("ds-icon-mic-off-fill");
+					microphone.addClass("ds-icon-mic-on-fill");
+					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"on"}}';
+          openOverlay(overlay);
+
 				}
 				emitEvent(param);
 			});
@@ -219,8 +222,8 @@ $(function(){
 		if (bot.data.firmware) {
 			clone.find(".firmware").text(" " + bot.data.firmware[0] + " ");
 		}
-		if (bot.data.npm_package.nodemon) {
-			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
+		if (bot.data.npm_package && bot.data.npm_package.nodemon) {
+			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " "); // TO DO version not showing
 		}
 
 		fillAccordion(clone.find(".version_info"), bot.data.npm_version);
@@ -307,8 +310,8 @@ $(function(){
 			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
 			//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '(' + serviceName + ')</div>'); // create an option
 
-			if (serviceOption == savedOption) {
-				dropField.parent().find('.ds-title').text(savedOption);
+			if (savedOption && serviceOption == savedOption.option) {
+				dropField.parent().find('.ds-title').text(savedOption.option);
 				option.addClass('option-disabled');
 			}
 
