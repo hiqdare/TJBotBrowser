@@ -255,9 +255,9 @@ $(function(){
 	 * creates service options for dropdown
      * add an evenlistener for every option
      * sends the selected option to the backend
-     * @param {string} serial
-     * @param {string} service
-     * @param {string} serviceName
+     * @param {string} serial serial ID of the TJBot
+     * @param {string} service name of the IBM Cloud service
+     * @param {string} serviceName name of the service instance
 	 * @param {object} dropField dropdown CSS class
 	 * @param {string} savedOption last configured option
 	 * @param {object} serviceOptionList list with services and options
