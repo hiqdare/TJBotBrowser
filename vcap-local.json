@@ -13,26 +13,8 @@
 					"name": "tts_burk",
 					"credentials": {
 
-						"apikey": "SyA_Qu37knBNLfrgGSpsiPD93QXTeHzYSgYaDu1RfwXl",
-						"url": "https://gateway-lon.watsonplatform.net/text-to-speech/api"
-					}
-				},
-				{
-					"name": "Text to Speech TJ1",
-					"credentials": {
-
-						"apikey": "BNUhX55_6f2Qq_QOAOqEcCm6_VpV41UEYdGMKIu4lV9g",
-						"url": "https://stream.watsonplatform.net/text-to-speech/api"
-					}
-	    	}
-			],
-	  	"speech_to_text": [
-	   		{
-					"name": "Speech to Text TJ1",
-					"credentials": {
-
-						"apikey": "gNbhlo-qUWi7GvPO0JnIt-3rW1WqYqi2tCwhp4sjJ-5O",
-						"url": "https://stream.watsonplatform.net/speech-to-text/api"
+						"apikey": "<apikey>",
+						"url": "<url>"
 					}
 	    	}
 			]

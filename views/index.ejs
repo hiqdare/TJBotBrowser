@@ -94,7 +94,7 @@
                     <span class="ds-mar-r-1 status ds-icon-size-default ds-icon-wireless"></span>
                     <i class="ds-mar-r-1 far fa-lightbulb bot-led" alt="LED" data-toggle="tooltip" title="LED"></i>
                     <i class="ds-mar-r-1 far fa-hand-paper bot-arm" alt="arm" data-toggle="tooltip" title="arm"></i>
-                    <span class="ds-mar-r-1 microphone ds-icon-size-default ds-icon-mic-off-fill"></span>
+                    <span class="ds-mar-r-1 microphone ds-icon-size-default ds-icon-mic-on-fill"></span>
                   </div>
                   <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
                     <div class="ds-row ds-pad-b-1 ds-pad-t-1">
@@ -122,6 +122,19 @@
                       </div>
                     </div>
                     <!-- END STT -->
+                    <!-- ASSISTANT -->
+                    <div class="ds-row">
+                      <div class="ds-col-xs-11">
+                        <h4 class="ds-heading-4">Assistant</h4>
+                      </div>
+                      <div class="ds-col-xs-11">
+                        <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
+                          <div class="ds-title" role="menu-title">Choose your workspace</div>
+                          <div class="ds-options assistant" role="group"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END ASSISTANT -->
                     <!-- TTS -->
                     <div class="ds-row">
                       <div class="ds-col-xs-11">
@@ -209,10 +222,43 @@
           </div>
           <!-- END ds-row -->
         </div>
+        <!-- overlay -->
+        <div class="overlay ds-hide">
+          <!-- overlay content -->
+          <div class="overlay-content ds-shadow-floating ds-neutral-1">
+              <div class="ds-row">
+                  <div class="ds-col-xs-1 ds-col-lg-1 ds-offset-11">
+                      <span class="ds-icon-close ds-mar-l-2"></span>
+                  </div>
+              </div>
+              <div class="ds-row chathistory">
+                  <div class="ds-col-xs-10 ds-col-lg-10 ds-offset-1 ds-hide" id="tjbotInput">
+                      <div class="ds-col-xs-1 ds-col-lg-1">
+                          <img src="images/bots/generic.jpeg" class="tjbot overlay-img ds-border-blue-6" alt="Chatbot profil picture">
+                      </div>
+                      <div class="ds-col-xs-7 ds-col-lg-7 ds-mar-t-1 ds-mar-l-1_5">
+                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</p>
+                          <p class="ds-caption ds-label ds-font-weight-medium">TJBot name</p>
+                      </div>
+                  </div>
+                  <div class="ds-col-xs-10 ds-col-lg-10 ds-offset-1 ds-hide" id="userInput">
+                      <div class="ds-col-xs-7 ds-col-lg-7 ds-float-right">
+                          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</p>
+                      </div>
+                      <span class="ds-icon-size-default ds-icon-profile ds-float-right ds-mar-r-1"></span>
+                </div>
+            </div>
+            <div class="ds-row">
+                <div class="ds-col-xs-1 ds-col-lg-1 ds-offset-11">
+                    <span class="ds-icon-trash ds-mar-l-2"></span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- END overlay -->
       </div>
     </div>
     <!-- END ds-grid -->
-
     <footer class="ds-sticky-footer ds-grid ds-bg-neutral-warm-2" style="width: 100%; height: 110px;" >
       <div class="ds-row">
         <h5 class="ds-offset-xs-1 ds-col-xs-10 ds-pad-t-2_5 ds-heading-5">
