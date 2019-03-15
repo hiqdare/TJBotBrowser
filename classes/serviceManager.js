@@ -40,13 +40,10 @@ class ServiceManager {
                     });
                 }
             } else {
-                if (key != 'cloudantNoSQLDB') {
-                    console.log('service ' + key + ' not found');
-                }
+                console.log('service ' + key + ' not found');
             }
         }
     }
-
 
     getConfigCredentials(config) {
         for (let service of Object.keys(config)) {
@@ -61,6 +58,8 @@ class ServiceManager {
         }
         return config;
     }
+
+
 
 	/**
 	 * returns a list of all available service options
