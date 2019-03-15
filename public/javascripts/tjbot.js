@@ -185,7 +185,7 @@ $(function(){
 		if (bot.data.firmware) {
 			clone.find(".firmware").text(" " + bot.data.firmware[0] + " ");
 		}
-		if (bot.data.npm_package.nodemon) {
+		if (bot.data.npm_package && bot.data.npm_package.nodemon) {
 			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
 		}
 
@@ -273,8 +273,8 @@ $(function(){
 			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
 			//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '(' + serviceName + ')</div>'); // create an option
 
-			if (serviceOption == savedOption) {
-				dropField.parent().find('.ds-title').text(savedOption);
+			if (savedOption && serviceOption == savedOption.option) {
+				dropField.parent().find('.ds-title').text(savedOption.option);
 				option.addClass('option-disabled');
 			}
 

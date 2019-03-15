@@ -47,8 +47,14 @@ class ServiceManager {
 
     getConfigCredentials(config) {
         for (let service of Object.keys(config)) {
-            config[service].url = this.serviceList[config[service].name].service._options.url;
-            config[service].iam_apikey = this.serviceList[config[service].name].service._options.iam_apikey;
+            if (config[service]) {
+                if (config[service].name in this.serviceList) {
+                    config[service].url = this.serviceList[config[service].name].service._options.url;
+                    config[service].iam_apikey = this.serviceList[config[service].name].service._options.iam_apikey;
+                } else {
+                    console.log(service + " " + config[service].name + " not in " + Object.keys(this.serviceList));
+                }
+            }
         }
         return config;
     }
@@ -94,11 +100,15 @@ class ServiceManager {
                         function(err, speechModels) {
                             calls--;
                             let modelList = [];
+                            let modelOptions;
                             if (err) {
                                 callback(err);
                             } else {
                                 for (let model of speechModels.models) {
-                                    modelList.push(model.name);
+                                    let modelOptions = model.name.split("_");
+                                    if (modelOptions.length == 2 && modelOptions[1] == "BroadbandModel") {
+                                        modelList.push(modelOptions[0]);
+                                    }
                                 }
                                 optionList.speech_to_text[key].options = modelList;
                                 if (calls == 0) {

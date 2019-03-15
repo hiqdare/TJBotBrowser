@@ -82,6 +82,9 @@ class BotManager {
 		this.tjbotList[serial].web = {};
 		this.tjbotList[serial].web.status = 'online';
 		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
+		if (this.tjbotList[serial].config.test) {
+			delete this.tjbotList[serial].config.test;	
+		}
 		this.tjDB.addBotToDB(this.tjbotList[serial], function(err){
 			callback(err);
 		});
@@ -127,8 +130,9 @@ class BotManager {
 		if (typeof(param) !== "object") {
 			throw new Error("missing param");
 		}
-
-		this.tjbotList[param.serial].config[param.event.config.service] = param.event.config.setting;
+		for (let service of Object.keys(param.event.config)) {
+			this.tjbotList[param.serial].config[service] = param.event.config[service];
+		}
 		this.tjDB.addBotToDB(this.tjbotList[param.serial], function(err){
 			callback(err);
 		});
