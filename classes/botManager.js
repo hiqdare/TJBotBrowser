@@ -200,7 +200,11 @@ class BotManager {
 	 * @param {string} socket_id
 	 */
 	getObserverList(socket_id) {
-		return this.observedSocket[this.serialList[socket_id]];
+		if (socket_id in this.serialList && this.serialList[socket_id] in this.observedSocket) {
+			return this.observedSocket[this.serialList[socket_id]];
+		} else {
+			return [];
+		}
 	}
 
 	/**

@@ -136,9 +136,9 @@ $(function(){
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
 			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
 			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
-			micOnv[serial] = (bot.web.microphone != null); // TO DO get status of mic from backend
+			micOn[serial] = (bot.web.microphone != null); // TO DO get status of mic from backend
 			microphone.click(function(event) {
-				if (micOn) {
+				if (micOn[serial]) {
 					micOn[serial] = false;
 					microphone.removeClass("ds-icon-mic-on-fill");
 					microphone.addClass("ds-icon-mic-off-fill");
@@ -187,7 +187,7 @@ $(function(){
 			clone.find(".firmware").text(" " + bot.data.firmware[0] + " ");
 		}
 		if (bot.data.npm_package && bot.data.npm_package.nodemon) {
-			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
+			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " "); // TO DO version not showing
 		}
 
 		fillAccordion(clone.find(".version_info"), bot.data.npm_version);
