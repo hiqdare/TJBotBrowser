@@ -146,6 +146,10 @@ class BotManager {
 	 */
 	updateObserver(serial, socket_id, event) {
 		if (event == "on") {
+			if (!this.tjbotList[serial].web.microphone) {
+				this.tjbotList[serial].web.microphone = "on";
+				this.notifyBrowser();
+			}
 			if (serial in this.observedSocket) {
 				// add socket_id to serial observerList
 				this.observedSocket[serial].push(socket_id);
@@ -176,6 +180,10 @@ class BotManager {
 			if (serial in this.observedSocket) {
 				if (this.observedSocket[serial].length == 1) {
 					delete this.observedSocket[serial];
+					if (this.tjbotList[serial].web.microphone) {
+						delete this.tjbotList[serial].web.microphone;
+						this.notifyBrowser();
+					}
 				} else {
 					for (let i = 0; i < this.observedSocket[serial]; i ++) {
 						if (this.observedSocket[serial][i] == socket_id) {

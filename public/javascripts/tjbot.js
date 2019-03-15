@@ -7,7 +7,7 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
-	let micOn = false;// TODO: Set state on login
+	let micOn = {};// TODO: Set state on login
 	const ENTERKEY = 13;
 	const TABKEY = 9;
 
@@ -61,7 +61,7 @@ $(function(){
 	function addBotToList(bot, botImageList, serviceList) {
 		let clone = $('#bot').clone(true); // "deep" clone
 		let serial = bot.data.cpuinfo.Serial;
-		clone.removeAttr('id');
+		clone.attr('id', "bot_" + serial);
 		clone.removeClass('ds-hide');
 		clone.addClass("card");
 
@@ -136,14 +136,15 @@ $(function(){
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
 			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
 			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
+			micOnv[serial] = (bot.web.microphone != null); // TO DO get status of mic from backend
 			microphone.click(function(event) {
 				if (micOn) {
-					micOn = false;
+					micOn[serial] = false;
 					microphone.removeClass("ds-icon-mic-on-fill");
 					microphone.addClass("ds-icon-mic-off-fill");
 					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
 				} else {
-					micOn = true;
+					micOn[serial] = true;
 					microphone.removeClass("ds-icon-mic-off-fill");
 					microphone.addClass("ds-icon-mic-on-fill");
 					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"on"}}';
