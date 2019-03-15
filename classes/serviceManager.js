@@ -105,7 +105,7 @@ class ServiceManager {
                                 callback(err);
                             } else {
                                 for (let model of speechModels.models) {
-                                    let modelOptions = model.name.split("_");
+                                    modelOptions = model.name.split("_");
                                     if (modelOptions.length == 2 && modelOptions[1] == "BroadbandModel") {
                                         modelList.push(modelOptions[0]);
                                     }

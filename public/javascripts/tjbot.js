@@ -7,7 +7,7 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
-	let micOn = {};// TODO: Set state on login
+	let micOn = {};
 	const ENTERKEY = 13;
 	const TABKEY = 9;
 
@@ -136,7 +136,7 @@ $(function(){
 			npm_update.click('{"serial":"' + serial + '", "event": {"target": "npm"}}', emitEvent);
 			nodemon_update.click('{"serial":"' + serial + '", "event": {"target": "nodemon"}}', emitEvent);
 			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
-			micOn[serial] = (bot.web.microphone != null); // TO DO get status of mic from backend
+			micOn[serial] = (bot.web.microphone != null);
 			microphone.click(function(event) {
 				if (micOn[serial]) {
 					micOn[serial] = false;
