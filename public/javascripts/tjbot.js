@@ -135,7 +135,7 @@ $(function(){
 		});
 
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
-		if (bot.web.status == "offline") {
+		if (bot.web.status == "online") {
 			// set color
 			source_update.addClass("ds-text-neutral-8");
 			nodejs_update.addClass("ds-text-neutral-8");
