@@ -30,6 +30,7 @@ $(function(){
 	function createMessage(text, inputClass) {
 		let clone = $('.active-overlay').find('#' + inputClass).clone(true);
 		clone.removeAttr('id');
+		clone.find('.text').text(text);
 		clone.removeClass('ds-hide');
 		clone.addClass('message');
 		$('.active-overlay').find('#' + inputClass).parent().append(clone);

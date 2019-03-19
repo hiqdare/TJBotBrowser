@@ -75,7 +75,7 @@ io.on('connection', function (socket) {
 	});
 
 	// Whenever a new client connects send the browser an updated list
-	socket.on('checkin', function(data) { 
+	socket.on('checkin', function(data) {
 		console.log("socket checkin");
 		let config = botManager.addBotToList(data, socket, handleError);
 		console.log("checkin config: " + JSON.stringify(config));
@@ -97,7 +97,7 @@ io.on('connection', function (socket) {
 		console.log("event: " + param.serial + " " + param.event.target);
 
 		if (param.event.target == 'microphone') {
-			botManager.updateObserver(param.serial, socket.id, param.event.event);
+			botManager.updateObserver(param.serial, socket.id, param.event.action);
 		}
 
 		console.log("observer set");
@@ -133,6 +133,13 @@ io.on('connection', function (socket) {
 		console.log("socket listen");
 		for (let observer of botManager.getObserverList(socket.id)) {
 			botManager.getBrowserSocket(observer).emit('listen', data)
+		}
+	});
+
+	socket.on('output', function(data) {
+		console.log("socket output");
+		for (let observer of botManager.getObserverList(socket.id)) {
+			botManager.getBrowserSocket(observer).emit('output', data)
 		}
 	});
 

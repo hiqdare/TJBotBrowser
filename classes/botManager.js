@@ -146,10 +146,10 @@ class BotManager {
 	 */
 	updateObserver(serial, socket_id, event) {
 		if (event == "on") {
-			if (!this.tjbotList[serial].web.microphone) {
+			/*if (!this.tjbotList[serial].web.microphone) {
 				this.tjbotList[serial].web.microphone = "on";
 				this.notifyBrowser();
-			}
+			}*/
 			if (serial in this.observedSocket) {
 				// add socket_id to serial observerList
 				this.observedSocket[serial].push(socket_id);
