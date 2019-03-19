@@ -83,7 +83,7 @@ class BotManager {
 		this.tjbotList[serial].web.status = 'online';
 		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
 		if (this.tjbotList[serial].config.test) {
-			delete this.tjbotList[serial].config.test;	
+			delete this.tjbotList[serial].config.test;
 		}
 		this.tjDB.addBotToDB(this.tjbotList[serial], function(err){
 			callback(err);
@@ -267,6 +267,7 @@ class BotManager {
 	 */
 	notifyBrowser() {
 		let browserList = this.browserList;
+		console.log(browserList);
 		this.getJSONBotList(function(err, tjbotList) {
 			if (err) {
 				console.log(err);

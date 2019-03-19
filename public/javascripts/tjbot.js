@@ -23,31 +23,16 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 
 	/**
-	 * Creates an input for user or bot
+	 * Creates a message for user or bot
 	 * @param {string} text input text
 	 * @param {string} text input class
 	 */
-	function createInput(text, inputClass) {
+	function createMessage(text, inputClass) {
 		let clone = $('.active-overlay').find('#' + inputClass).clone(true);
 		clone.removeAttr('id');
 		clone.removeClass('ds-hide');
+		clone.addClass('message');
 		$('.active-overlay').find('#' + inputClass).parent().append(clone);
-	};
-
-	/**
-	 * Opens the overlay
-	 * @param {object} overlay overlay element that should be opened
-	 * @param {object} microphone microphone icon element
-	 */
-	function openOverlay(overlay) {
-		overlay.removeClass('ds-hide');
-		overlay.addClass('active-overlay');
-
-		overlay.find('.ds-icon-close').click(function(e) {
-			overlay.addClass('ds-hide');
-			micOn = true;
-			//emitEvent(param);
-		});
 	};
 
 	/**
@@ -108,6 +93,7 @@ $(function(){
 		let ttsDropdown = clone.find(".text_to_speech").parent();
 		let assistantDropdown = clone.find(".assistant").parent();
 		let overlay = clone.find(".overlay");
+		let chathistory = clone.find(".chathistory");
 		let param = {};
 
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
@@ -168,17 +154,22 @@ $(function(){
 			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
 			micOn[serial] = (bot.web.microphone != null);
 			microphone.click(function(event) {
-				if (micOn[serial]) {
-					micOn[serial] = false;
-					microphone.removeClass("ds-icon-mic-on-fill");
-					microphone.addClass("ds-icon-mic-off-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
-				} else {
+				if (!micOn[serial]) {
 					micOn[serial] = true;
-					microphone.removeClass("ds-icon-mic-off-fill");
-					microphone.addClass("ds-icon-mic-on-fill");
 					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"on"}}';
-					openOverlay(overlay);
+					overlay.removeClass('ds-hide');
+					overlay.addClass('active-overlay');
+
+					overlay.find('.ds-icon-trash').click(function(e) {
+						console.log("klick")
+						chathistory.children('.message').remove()
+					});
+					overlay.find('.ds-icon-close').click(function(e) {
+						overlay.addClass('ds-hide');
+						micOn[serial] = false;
+						param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
+						emitEvent(param);
+					});
 				}
 				emitEvent(param);
 			});
@@ -307,13 +298,14 @@ $(function(){
 			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption.name + '(' + serviceName + ')</div>'); // create an option
 
 			if (savedOption && serviceOption.id == savedOption.option) {
-				dropField.parent().find('.ds-title').text(savedOption.option);
+				dropField.parent().find('.ds-title').text(serviceOption.name);
 				option.addClass('option-disabled');
 			}
 
 			dropField.append(option);
 
 			option.click('{"name":"' + serviceName + '", "option":"' + serviceOption.id + '"}', function(event) {
+				option = $(event.target);
 				if (!option.hasClass('option-disabled')) {
 					dropField.parent().find('.ds-title').text(serviceOption.name); // change the title with input from the selected option.
 
@@ -439,6 +431,13 @@ $(function(){
 	});
 
 	socket.on('listen', function(data) {
-		console.log("msg: " + data);
-	})
+		createMessage(data, "tjbotMessage");
+		console.log("tjbot msg: " + data);
+	});
+
+	socket.on('output', function(data) {
+		createMessage(data, "userMessage");
+		console.log("user msg: " + data);
+	});
+
 });

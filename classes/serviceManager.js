@@ -24,7 +24,7 @@ class ServiceManager {
 	constructor(vcapServices) {
 
         if (typeof(vcapServices) !== "object") {
-			throw new Error("VCAP service must be type of 'object'");
+			throw new Error("vcapServices must be type of 'object'");
         }
 
         this.serviceList = {};
