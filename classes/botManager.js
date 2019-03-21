@@ -267,7 +267,6 @@ class BotManager {
 	 */
 	notifyBrowser() {
 		let browserList = this.browserList;
-		console.log(browserList);
 		this.getJSONBotList(function(err, tjbotList) {
 			if (err) {
 				console.log(err);
