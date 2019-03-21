@@ -28,7 +28,7 @@ class TJBotDB {
 		this.cloudant = Cloudant(cloudantNoSQLDB.credentials);
 	}
 
-	
+
 
 	/**
 	 * add the bot to the DB

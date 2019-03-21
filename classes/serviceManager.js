@@ -130,8 +130,14 @@ class ServiceManager {
                             let workspaceNameList = [];
                             let workspaceIdList = [];
                             if (err) {
-                                callback(err);
+                                if(err.code == 400) {
+                                    callback(new Error('serviceManager.js: getOptionList(): Watson Assistant Service: Invalid Request'));
+                                } else {
+                                    callback(err);
+                                }
+                                //
                             } else {
+                                console.log("workspacesObj.code: ", workspacesObj.code);
                                 for (let workspace of workspacesObj.workspaces) {
                                     optionList.assistant[key].options.push({name: workspace.name, id: workspace.workspace_id});
                                 }
