@@ -7,7 +7,8 @@
 /*----------------------------------------------------------------------------*/
 
 const serviceClasses = {'text_to_speech': require('watson-developer-cloud/text-to-speech/v1'),
-                        'speech_to_text': require('watson-developer-cloud/speech-to-text/v1')};
+                        'speech_to_text': require('watson-developer-cloud/speech-to-text/v1'),
+                        'assistant': require('watson-developer-cloud/assistant/v1')};
 
 /*----------------------------------------------------------------------------*/
 /* ServiceManager					                                          */
@@ -23,11 +24,11 @@ class ServiceManager {
 	constructor(vcapServices) {
 
         if (typeof(vcapServices) !== "object") {
-			throw new Error("VCAP service must be type of 'object'");
+			throw new Error("vcapServices must be type of 'object'");
         }
 
         this.serviceList = {};
-        
+
         let keys = Object.keys(vcapServices);
         for (let key of keys) {
             if (serviceClasses.hasOwnProperty(key)) {
@@ -36,7 +37,8 @@ class ServiceManager {
                     this.serviceList[item.name].type = key;
                     this.serviceList[item.name].service = new serviceClasses[key]({
                         iam_apikey: (item.credentials.apikey),
-                        url: (item.credentials.url)
+                        url: (item.credentials.url),
+                        version: "2019-02-28"
                     });
                 }
             } else {
@@ -68,6 +70,7 @@ class ServiceManager {
         let optionList = {};
         optionList.speech_to_text = {};
         optionList.text_to_speech = {};
+        optionList.assistant = {};
         let serviceList = this.serviceList;
         let keylist = Object.keys(serviceList);
         let calls = keylist.length;
@@ -75,6 +78,7 @@ class ServiceManager {
             switch(serviceList[key].type) {
                 case 'text_to_speech':
                     optionList.text_to_speech[key] = {};
+                    optionList.text_to_speech[key].options = [];
                     serviceList[key].service.listVoices(null,
                         function(err, voicesObj) {
                             calls--;
@@ -83,10 +87,9 @@ class ServiceManager {
                                 callback(err);
                             } else {
                                 for (let voice of voicesObj.voices) {
-                                    voiceList.push(voice.name);
+                                    optionList.text_to_speech[key].options.push({name: voice.name, id: voice.name});
                                 }
-                                
-                                optionList.text_to_speech[key].options = voiceList;
+
                                 if (calls == 0) {
                                     callback(null, JSON.stringify(optionList));
                                 }
@@ -96,7 +99,8 @@ class ServiceManager {
                     break;
                 case 'speech_to_text':
                     optionList.speech_to_text[key] = {};
-                    serviceList[key].service.listModels(null, 
+                    optionList.speech_to_text[key].options = [];
+                    serviceList[key].service.listModels(null,
                         function(err, speechModels) {
                             calls--;
                             let modelList = [];
@@ -107,10 +111,9 @@ class ServiceManager {
                                 for (let model of speechModels.models) {
                                     modelOptions = model.name.split("_");
                                     if (modelOptions.length == 2 && modelOptions[1] == "BroadbandModel") {
-                                        modelList.push(modelOptions[0]);
+                                        optionList.speech_to_text[key].options.push({name: modelOptions[0], id: modelOptions[0]});
                                     }
                                 }
-                                optionList.speech_to_text[key].options = modelList;
                                 if (calls == 0) {
                                     callback(null, JSON.stringify(optionList));
                                 }
@@ -118,6 +121,33 @@ class ServiceManager {
                         }
                     );
                     break;
+                case 'assistant':
+                    optionList.assistant[key] = {};
+                    optionList.assistant[key].options = [];
+                    serviceList[key].service.listWorkspaces(null,
+                        function(err, workspacesObj) {
+                            calls--;
+                            let workspaceNameList = [];
+                            let workspaceIdList = [];
+                            if (err) {
+                                if(err.code == 400) {
+                                    callback(new Error('serviceManager.js: getOptionList(): Watson Assistant Service: Invalid Request'));
+                                } else {
+                                    callback(err);
+                                }
+                                //
+                            } else {
+                                console.log("workspacesObj.code: ", workspacesObj.code);
+                                for (let workspace of workspacesObj.workspaces) {
+                                    optionList.assistant[key].options.push({name: workspace.name, id: workspace.workspace_id});
+                                }
+                                if (calls == 0) {
+                                    callback(null, JSON.stringify(optionList));
+                                }
+                            }
+                        }
+                    );
+                break;
                 default:
                     calls--;
             }
@@ -133,4 +163,4 @@ class ServiceManager {
 /* EXPORTS                                                                    */
 /*----------------------------------------------------------------------------*/
 
-module.exports = ServiceManager; 
+module.exports = ServiceManager;

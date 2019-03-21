@@ -83,7 +83,7 @@ class BotManager {
 		this.tjbotList[serial].web.status = 'online';
 		this.tjbotList[serial].web.lastlogin = yyyy + mm + dd + hour + min;
 		if (this.tjbotList[serial].config.test) {
-			delete this.tjbotList[serial].config.test;	
+			delete this.tjbotList[serial].config.test;
 		}
 		this.tjDB.addBotToDB(this.tjbotList[serial], function(err){
 			callback(err);
@@ -146,10 +146,10 @@ class BotManager {
 	 */
 	updateObserver(serial, socket_id, event) {
 		if (event == "on") {
-			if (!this.tjbotList[serial].web.microphone) {
+			/*if (!this.tjbotList[serial].web.microphone) {
 				this.tjbotList[serial].web.microphone = "on";
 				this.notifyBrowser();
-			}
+			}*/
 			if (serial in this.observedSocket) {
 				// add socket_id to serial observerList
 				this.observedSocket[serial].push(socket_id);
