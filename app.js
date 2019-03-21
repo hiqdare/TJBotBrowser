@@ -152,9 +152,8 @@ app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 app.get('/serviceOptionList', (req, res) => serviceManager.getOptionList(
 		function(err, optionList) {
 			if (err) {
-				console.log(err);
 				handleError(err);
-				//res.json([]);
+				res.json([]);
 			} else {
 				res.json(optionList);
 			}
