@@ -30,7 +30,9 @@ class ServiceManager {
 			throw new Error("vcapServices must be type of 'object'");
         }
 
-        vcapServices.asistant = vcapServices.conversation;
+        if (vcapServices.conversation) {
+            vcapServices.assistant = vcapServices.conversation;
+        }
 
         this.serviceList = {};
 
@@ -142,7 +144,6 @@ class ServiceManager {
                                 }
                                 //
                             } else {
-                                console.log("workspacesObj.code: ", workspacesObj.code);
                                 for (let workspace of workspacesObj.workspaces) {
                                     optionList.assistant[key].options.push({name: workspace.name, id: workspace.workspace_id});
                                 }

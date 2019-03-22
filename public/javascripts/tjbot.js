@@ -297,9 +297,10 @@ $(function(){
 	 * @param {object} serviceOptionList list with services and options
      */
 	function setServiceOptions(serial, service, serviceName, dropField, savedOption, serviceOptionList) {
-		if (!serial || !service || !serviceName || !dropField || !savedOption || !serviceOptionList) {
+
+		/*if (!serial || !service || !serviceName || !dropField || !savedOption || !serviceOptionList) {
 			console.log('Error: tjbot.js: setServiceOptions(): Parameter missing');
-		}
+		}*/
 
 		dropField.children().remove();
 
