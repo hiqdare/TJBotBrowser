@@ -457,12 +457,12 @@ $(function(){
 	});
 
 	socket.on('listen', function(data) {
-		createMessage(data, "tjbotMessage");
+		createMessage(data, "userMessage");
 		console.log("tjbot msg: " + data);
 	});
 
 	socket.on('output', function(data) {
-		createMessage(data, "userMessage");
+		createMessage(data, "tjbotMessage");
 		console.log("user msg: " + data);
 	});
 

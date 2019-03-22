@@ -30,6 +30,7 @@ class ServiceManager {
 			throw new Error("vcapServices must be type of 'object'");
         }
 
+
         if (vcapServices.conversation) {
             vcapServices.assistant = vcapServices.conversation;
         }
