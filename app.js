@@ -97,7 +97,7 @@ io.on('connection', function (socket) {
 		console.log("event: " + param.serial + " " + param.event.target);
 
 		if (param.event.target == 'microphone') {
-			botManager.updateObserver(param.serial, socket.id, param.event.event);
+			botManager.updateObserver(param.serial, socket.id, param.event.action);
 		}
 
 		console.log("observer set");
@@ -135,7 +135,7 @@ io.on('connection', function (socket) {
 			botManager.getBrowserSocket(observer).emit('listen', data)
 		}
 	});
-	
+
 	socket.on('output', function(data) {
 		console.log("socket output");
 		for (let observer of botManager.getObserverList(socket.id)) {
