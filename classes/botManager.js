@@ -88,7 +88,7 @@ class BotManager {
 		this.tjDB.addBotToDB(this.tjbotList[serial], function(err){
 			callback(err);
 		});
-		this.notifyBrowser();
+		this.notifyBrowser(this.tjbotList[serial]);
 		return this.tjbotList[serial].config;
 	}
 
@@ -118,7 +118,7 @@ class BotManager {
 		this.tjDB.addBotToDB(this.tjbotList[param.serial], function(err){
 			callback(err);
 		});
-		this.notifyBrowser();
+		this.notifyBrowser(this.tjbotList[param.serial]);
 	}
 
 	/**
@@ -136,7 +136,7 @@ class BotManager {
 		this.tjDB.addBotToDB(this.tjbotList[param.serial], function(err){
 			callback(err);
 		});
-		this.notifyBrowser();
+		this.notifyBrowser(this.tjbotList[param.serial]);
 	}
 
 	/**
@@ -148,7 +148,7 @@ class BotManager {
 		if (event == "on") {
 			if (!this.tjbotList[serial].web.microphone) {
 				this.tjbotList[serial].web.microphone = "on";
-				this.notifyBrowser();
+				this.notifyBrowser(this.tjbotList[serial]);
 			}
 			if (serial in this.observedSocket) {
 				// add socket_id to serial observerList
@@ -182,7 +182,7 @@ class BotManager {
 					delete this.observedSocket[serial];
 					if (this.tjbotList[serial].web.microphone) {
 						delete this.tjbotList[serial].web.microphone;
-						this.notifyBrowser();
+						this.notifyBrowser(this.tjbotList[serial]);
 					}
 				} else {
 					for (let i = 0; i < this.observedSocket[serial]; i ++) {
@@ -226,7 +226,6 @@ class BotManager {
 	/**
 	 * return a list of bots in JSON format
 	 * @param {object} tjbotList list of tjbots from DB
-	 * @param {function} callback
 	 */
 	setTJBotList(tjbotList){
 		this.tjbotList = tjbotList;
@@ -253,8 +252,8 @@ class BotManager {
 				callback(err);
 			});
 			delete this.serialList[socket_id];
-			this.notifyBrowser();
-		} else if (socket_id in this.browserList) {
+			this.notifyBrowser(this.tjbotList[serial]);
+		} else if (socket_id in this.browserList) { 
 			delete this.browserList[socket_id];
 			// TODO: remove socket_id from observerlist
 		} else {
@@ -265,18 +264,16 @@ class BotManager {
 	/**
 	 * refresh every registered browser
 	 */
-	notifyBrowser() {
-		let browserList = this.browserList;
-		this.getJSONBotList(function(err, tjbotList) {
-			if (err) {
-				console.log(err);
-			} else {
-				let localList = browserList;
-				Object.keys(localList).forEach(function(key) {
-					localList[key].emit('botlist', tjbotList);
-				});
-			}
-		});
+	notifyBrowser(tjbot) {
+		let tjbotCopy = {};
+
+		tjbotCopy.data = tjbot.data;
+		tjbotCopy.web = tjbot.web;
+		tjbotCopy.basic = tjbot.basic;
+		tjbotCopy.config = tjbot.config;
+		for (let browser of Object.values(this.browserList)) {
+			browser.emit('updateBot', JSON.stringify(tjbotCopy));
+		}
 	}
 
 	/**
