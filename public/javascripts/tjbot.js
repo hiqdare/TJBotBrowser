@@ -25,6 +25,20 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 
 	/**
+	 * Creates a message for user or bot
+	 * @param {string} text input text
+	 * @param {string} text input class
+	 */
+	function createMessage(text, inputClass) {
+		let clone = $('.active-overlay').find('#' + inputClass).clone(true);
+		clone.removeAttr('id');
+		clone.find('.text').text(text);
+		clone.removeClass('ds-hide');
+		clone.addClass('message');
+		$('.active-overlay').find('#' + inputClass).parent().append(clone);
+	};
+
+	/**
 	 * Updates bot entry
 	 * @param {object} botlist array with bot objects
 	 */
@@ -99,6 +113,9 @@ $(function(){
 		let status = card.find(".status");
 		let sttDropdown = card.find(".speech_to_text").parent();
 		let ttsDropdown = card.find(".text_to_speech").parent();
+		let assistantDropdown = clone.find(".assistant").parent();
+		let overlay = clone.find(".overlay");
+		let chathistory = clone.find(".chathistory");
 		let param = {};
 
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
@@ -156,6 +173,7 @@ $(function(){
       		bot_led.addClass("ds-text-neutral-8");
 			bot_arm.addClass("ds-text-neutral-8");
 			microphone.addClass("ds-text-neutral-8");
+			assistantDropdown.removeClass("ds-disabled");
 			canvas.css("display", "block");
 
 			// set action
@@ -166,16 +184,22 @@ $(function(){
 			bot_arm.click('{"serial": "' + serial + '","event": {"target": "arm", "action":"wave"}}', emitEvent);
 			micOn[serial] = (bot.web.microphone != null);
 			microphone.click(function(event) {
-				if (micOn[serial]) {
-					micOn[serial] = false;
-					microphone.removeClass("ds-icon-mic-on-fill");
-					microphone.addClass("ds-icon-mic-off-fill");
-					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
-				} else {
+				if (!micOn[serial]) {
 					micOn[serial] = true;
-					microphone.removeClass("ds-icon-mic-off-fill");
-					microphone.addClass("ds-icon-mic-on-fill");
 					param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"on"}}';
+					overlay.removeClass('ds-hide');
+					overlay.addClass('active-overlay');
+
+					overlay.find('.ds-icon-trash').click(function(e) {
+						console.log("klick")
+						chathistory.children('.message').remove();
+					});
+					overlay.find('.ds-icon-close').click(function(e) {
+						overlay.addClass('ds-hide');
+						micOn[serial] = false;
+						param.data = '{"serial":"' + serial + '", "event": {"target": "microphone", "action":"off"}}';
+						emitEvent(param);
+					});
 				}
 				emitEvent(param);
 			});
@@ -189,8 +213,15 @@ $(function(){
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
 			microphone.addClass("ds-text-neutral-4");
-			//sttDropdown.addClass("ds-disabled");
-			//ttsDropdown.addClass("ds-disabled");
+			sttDropdown.addClass("ds-disabled");
+			sttDropdown.attr("data-toggle", "tooltip");
+			sttDropdown.attr("title", "service not available");
+			ttsDropdown.addClass("ds-disabled");
+			ttsDropdown.attr("data-toggle", "tooltip");
+			ttsDropdown.attr("title", "service not available");
+			assistantDropdown.addClass("ds-disabled");
+			assistantDropdown.attr("data-toggle", "tooltip");
+			assistantDropdown.attr("title", "service not available");
 			canvas.css("display", "none");
 
 			// set action
@@ -218,6 +249,8 @@ $(function(){
 			card.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
 		}
 
+		card.find(".tjbot-name").text(bot.basic.name); // set TJBot name in overlay
+
 		fillAccordion(card.find(".version_info"), bot.data.npm_version);
 		fillAccordion(card.find(".pkg_info"), bot.data.npm_package);
 		fillAccordion(card.find(".cpu_info"), bot.data.cpuinfo);
@@ -226,6 +259,7 @@ $(function(){
 		for (let type of Object.keys(serviceList)) {
 			for (let name of Object.keys(serviceList[type])) {
 				setServiceOptions(serial, type, name, card.find("." + type), bot.config[type], serviceList[type][name].options);
+				//setServiceOptions(serial, type, name, clone.find("." + type), bot.config[type], []); // only for testing
 				break;
 			}
 		}
@@ -284,33 +318,48 @@ $(function(){
 
 		dropField.children().remove();
 
-		for(let serviceOption of serviceOptionList) {
+		if (serviceOptionList.length == 0) {
+			dropField.parent().addClass('ds-disabled');
+			dropField.parent().attr("data-toggle", "tooltip");
+			dropField.parent().attr("title", "No option available");
 
-			option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
-			//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '(' + serviceName + ')</div>'); // create an option
-
-			if (savedOption && serviceOption == savedOption.option) {
-				dropField.parent().find('.ds-title').text(savedOption.option);
-				option.addClass('option-disabled');
+			if(service == "assistant") {
+				dropField.parent().attr("data-toggle", "tooltip");
+				dropField.parent().attr("title", "No workspaces available");
 			}
 
-			dropField.append(option);
+		} else {
+			//dropField.parent().removeClass('ds-disabled')
 
-			option.click('{"name":"' + serviceName + '", "option":"' + serviceOption + '"}', function(event) {
-				if (!option.hasClass('option-disabled')) {
-					dropField.parent().find('.ds-title').text(option.text()); // change the title with input from the selected option.
+			for(let serviceOption of serviceOptionList) {
 
-					disabledDropdownOptionsList = dropField.find('.option-disabled') // get a list from all disabled options
+				//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
+				option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption.name + '(' + serviceName + ')</div>'); // create an option
 
-					if (disabledDropdownOptionsList.length > 0) {
-						for (let disabledDropdownOption of disabledDropdownOptionsList) {
-							$(disabledDropdownOption).removeClass('option-disabled'); // remove class for all disabled options
-						}
-					}
-					option.addClass('option-disabled'); // disables the selected option
-					socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"' + service + '":' + event.data + '}}}') // sends the selected option to the back-end
+				if (savedOption && serviceOption == savedOption.option) {
+					dropField.parent().find('.ds-title').text(serviceOption.name);
+					option.addClass('option-disabled');
 				}
-			});
+
+				dropField.append(option);
+
+				option.click('{"name":"' + serviceName + '", "option":"' + serviceOption.id + '"}', function(event) {
+					option = $(event.target);
+					if (!option.hasClass('option-disabled')) {
+						dropField.parent().find('.ds-title').text(serviceOption.name); // change the title with input from the selected option.
+
+						disabledDropdownOptionsList = dropField.find('.option-disabled') // get a list from all disabled options
+
+						if (disabledDropdownOptionsList.length > 0) {
+							for (let disabledDropdownOption of disabledDropdownOptionsList) {
+								$(disabledDropdownOption).removeClass('option-disabled'); // remove class for all disabled options
+							}
+						}
+						option.addClass('option-disabled'); // disables the selected option
+						socket.emit('config', '{"serial":"' + serial + '", "event": {"target":"service", "config": {"' + service + '":' + event.data + '}}}') // sends the selected option to the back-end
+					}
+				});
+			}
 		}
 	}
 
@@ -427,6 +476,12 @@ $(function(){
 	});
 
 	socket.on('listen', function(data) {
-		console.log("msg: " + data);
-	})
+		createMessage(data, "userMessage");
+		console.log("tjbot msg: " + data);
+	});
+
+	socket.on('output', function(data) {
+		createMessage(data, "tjbotMessage");
+		console.log("user msg: " + data);
+	});
 });

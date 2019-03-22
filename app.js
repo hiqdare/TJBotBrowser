@@ -135,6 +135,13 @@ io.on('connection', function (socket) {
 			botManager.getBrowserSocket(observer).emit('listen', data)
 		}
 	});
+	
+	socket.on('output', function(data) {
+		console.log("socket output");
+		for (let observer of botManager.getObserverList(socket.id)) {
+			botManager.getBrowserSocket(observer).emit('output', data)
+		}
+	});
 
 });
 
