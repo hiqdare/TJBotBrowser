@@ -14,6 +14,9 @@ const serviceClasses = {'text_to_speech': require('watson-developer-cloud/text-t
 /* ServiceManager					                                          */
 /*----------------------------------------------------------------------------*/
 
+//let conversation =
+
+
 /**
  * ServiceManager
  *
@@ -26,6 +29,8 @@ class ServiceManager {
         if (typeof(vcapServices) !== "object") {
 			throw new Error("vcapServices must be type of 'object'");
         }
+
+        vcapServices.asistant = vcapServices.conversation;
 
         this.serviceList = {};
 

@@ -90,7 +90,7 @@ p {
 
 .card {
   float: left;
-  width: 450px;
+  max-width: 520px;
   padding: .75rem;
   margin-bottom: 2rem;
   border: 0;
@@ -319,4 +319,5 @@ footer p {
      height: 60px;
      width: 60px;
     }
+
 }
