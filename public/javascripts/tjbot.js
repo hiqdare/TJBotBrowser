@@ -2,7 +2,7 @@
  *	tjbot.js
  */
 
-$(function(){	
+$(function(){
 
 /*----------------------------------------------------------------------------*/
 /* DECLARATIONS & INITIALIZATION                                              */
@@ -117,6 +117,7 @@ $(function(){
 		let overlay = clone.find(".overlay");
 		let chathistory = clone.find(".chathistory");
 		let param = {};
+
 
 		tjImage.attr("src", "images/bots/" + bot.basic.image);
 		tjImage.attr("alt", "images/bots/" + bot.basic.image);
@@ -248,14 +249,13 @@ $(function(){
 		if (bot.data.npm_package && bot.data.npm_package.nodemon) {
 			card.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
 		}
-
+    
 		card.find(".tjbot-name").text(bot.basic.name); // set TJBot name in overlay
 
 		fillAccordion(card.find(".version_info"), bot.data.npm_version);
 		fillAccordion(card.find(".pkg_info"), bot.data.npm_package);
 		fillAccordion(card.find(".cpu_info"), bot.data.cpuinfo);
 
-		
 		for (let type of Object.keys(serviceList)) {
 			for (let name of Object.keys(serviceList[type])) {
 				setServiceOptions(serial, type, name, card.find("." + type), bot.config[type], serviceList[type][name].options);
@@ -312,10 +312,11 @@ $(function(){
 	 * @param {object} serviceOptionList list with services and options
      */
 	function setServiceOptions(serial, service, serviceName, dropField, savedOption, serviceOptionList) {
-		if (!serial || !dropField || !serviceOptionList) {
-			console.log('tmp');
-		}
 
+		/*if (!serial || !service || !serviceName || !dropField || !savedOption || !serviceOptionList) {
+			console.log('Error: tjbot.js: setServiceOptions(): Parameter missing');
+		}*/
+    
 		dropField.children().remove();
 
 		if (serviceOptionList.length == 0) {
@@ -336,7 +337,7 @@ $(function(){
 				//option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption + '</div>'); // create an option
 				option = jQuery('<div class="ds-option" role="menuitem">' + serviceOption.name + '(' + serviceName + ')</div>'); // create an option
 
-				if (savedOption && serviceOption == savedOption.option) {
+				if (savedOption && serviceOption.id == savedOption.option) {
 					dropField.parent().find('.ds-title').text(serviceOption.name);
 					option.addClass('option-disabled');
 				}
@@ -418,7 +419,7 @@ $(function(){
 
 // Wird das noch gebraucht?
 /**
- * 
+ *
  */
 	/*function getTree(part) {
 		let result = [];

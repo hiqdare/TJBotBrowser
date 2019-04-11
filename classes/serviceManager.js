@@ -14,6 +14,9 @@ const serviceClasses = {'text_to_speech': require('watson-developer-cloud/text-t
 /* ServiceManager					                                          */
 /*----------------------------------------------------------------------------*/
 
+//let conversation =
+
+
 /**
  * ServiceManager
  *
@@ -33,7 +36,7 @@ class ServiceManager {
         }
 
         this.serviceList = {};
-        
+
         let keys = Object.keys(vcapServices);
         for (let key of keys) {
             if (serviceClasses.hasOwnProperty(key)) {
@@ -103,7 +106,7 @@ class ServiceManager {
                 case 'speech_to_text':
                     optionList.speech_to_text[key] = {};
                     optionList.speech_to_text[key].options = [];
-                    serviceList[key].service.listModels(null, 
+                    serviceList[key].service.listModels(null,
                         function(err, speechModels) {
                             calls--;
                             let modelOptions;
@@ -129,8 +132,6 @@ class ServiceManager {
                     serviceList[key].service.listWorkspaces(null,
                         function(err, workspacesObj) {
                             calls--;
-                            //let workspaceNameList = [];
-                            //let workspaceIdList = [];
                             if (err) {
                                 if(err.code == 400) {
                                     callback(new Error('serviceManager.js: getOptionList(): Watson Assistant Service: Invalid Request'));
@@ -164,4 +165,4 @@ class ServiceManager {
 /* EXPORTS                                                                    */
 /*----------------------------------------------------------------------------*/
 
-module.exports = ServiceManager; 
+module.exports = ServiceManager;

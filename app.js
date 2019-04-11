@@ -75,7 +75,7 @@ io.on('connection', function (socket) {
 	});
 
 	// Whenever a new client connects send the browser an updated list
-	socket.on('checkin', function(data) { 
+	socket.on('checkin', function(data) {
 		console.log("socket checkin");
 		let config = botManager.addBotToList(data, socket, handleError);
 		console.log("checkin config: " + JSON.stringify(config));
