@@ -90,14 +90,12 @@ class ServiceManager {
                     serviceList[key].service.listVoices(null,
                         function(err, voicesObj) {
                             calls--;
-                            let voiceList = [];
                             if (err) {
                                 callback(err);
                             } else {
                                 for (let voice of voicesObj.voices) {
                                     optionList.text_to_speech[key].options.push({name: voice.name, id: voice.name});
                                 }
-
                                 if (calls == 0) {
                                     callback(null, JSON.stringify(optionList));
                                 }
@@ -111,7 +109,6 @@ class ServiceManager {
                     serviceList[key].service.listModels(null,
                         function(err, speechModels) {
                             calls--;
-                            let modelList = [];
                             let modelOptions;
                             if (err) {
                                 callback(err);
@@ -135,8 +132,6 @@ class ServiceManager {
                     serviceList[key].service.listWorkspaces(null,
                         function(err, workspacesObj) {
                             calls--;
-                            let workspaceNameList = [];
-                            let workspaceIdList = [];
                             if (err) {
                                 if(err.code == 400) {
                                     callback(new Error('serviceManager.js: getOptionList(): Watson Assistant Service: Invalid Request'));

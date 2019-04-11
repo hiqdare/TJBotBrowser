@@ -8,6 +8,8 @@ $(function(){
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
 	let micOn = {};
+	let imageList;
+	let serviceList;
 	const ENTERKEY = 13;
 	const TABKEY = 9;
 
@@ -37,7 +39,7 @@ $(function(){
 	};
 
 	/**
-	 * Updates bot enteries
+	 * Updates bot entry
 	 * @param {object} botlist array with bot objects
 	 */
 	function updateBotList(botlist) {
@@ -47,15 +49,40 @@ $(function(){
 		if (botlist.length > 0) {
 			$.getJSON('/botImageList', function(imageResult){
 				$.getJSON('/serviceOptionList', function(serviceResult){
-					imageResult = JSON.parse(imageResult);
-					serviceResult = JSON.parse(serviceResult);
+					imagelist = JSON.parse(imageResult);
+					serviceList = JSON.parse(serviceResult);
 					for (let bot of botlist) {
-						addBotToList(bot, imageResult, serviceResult);
+						let serial = bot.data.cpuinfo.Serial;
+						let clone = $('#bot').clone(true); // "deep" clone
+						clone.attr('id', "bot_" + serial);
+						clone.removeClass('ds-hide');
+						clone.addClass("card");
+						$('#bot').parent().append(clone);
+						updateBotCard(bot, clone, imagelist, serviceList);
+
+						for (let accordionItem of clone.find(".ds-accordion-container")) {
+							accordion = w3ds.accordion(accordionItem);
+						}
+				
+						for (let dropDownItem of clone.find(".ds-dropdown")) {
+							dropMenu = w3ds.dropdown(dropDownItem);
+						}
 					}
 				});
 			});
 		}
-	};
+	}
+
+	/**
+	 * Updates single bot card
+	 * @param {object} botlist array with bot objects
+	 */
+	function updateBot(tjbot) {
+		let serial = tjbot.data.cpuinfo.Serial;
+		let card = $("#bot_" + serial); // "deep" clone
+		console.log("bot update: " + serial);
+		updateBotCard(tjbot, card, imagelist, serviceList);
+	}
 
 	/**
 	 * Logs event and emits with type 'event'
@@ -67,31 +94,25 @@ $(function(){
 	}
 
   /**
-   * creates for every bot entry a clone with his own information and configuration
+   * update the card section of the bot with his own information and configuration
    * @param {object} bot object with information and configuration about the bot
    * @param {object} botImageList array with images
    * @param {object} serviceList object with service information and options
    */
-	function addBotToList(bot, botImageList, serviceList) {
-		let clone = $('#bot').clone(true); // "deep" clone
+	function updateBotCard(bot, card, botImageList, serviceList) {
 		let serial = bot.data.cpuinfo.Serial;
-		clone.attr('id', "bot_" + serial);
-		clone.removeClass('ds-hide');
-		clone.addClass("card");
-
-		$('#bot').parent().append(clone);
-		let source_update = clone.find(".source_update");
-		let nodejs_update = clone.find(".nodejs_update");
-		let npm_update = clone.find(".npm_update");
-		let nodemon_update = clone.find(".nodemon_update");
-		let tjImage = clone.find(".tjbot");
-		let bot_led = clone.find(".bot-led");
-		let bot_arm = clone.find(".bot-arm");
-		let microphone = clone.find(".microphone");
-		let canvas = clone.find('.picker');
-		let status = clone.find(".status");
-		let sttDropdown = clone.find(".speech_to_text").parent();
-		let ttsDropdown = clone.find(".text_to_speech").parent();
+		let source_update = card.find(".source_update");
+		let nodejs_update = card.find(".nodejs_update");
+		let npm_update = card.find(".npm_update");
+		let nodemon_update = card.find(".nodemon_update");
+		let tjImage = card.find(".tjbot");
+		let bot_led = card.find(".bot-led");
+		let bot_arm = card.find(".bot-arm");
+		let microphone = card.find(".microphone");
+		let canvas = card.find('.picker');
+		let status = card.find(".status");
+		let sttDropdown = card.find(".speech_to_text").parent();
+		let ttsDropdown = card.find(".text_to_speech").parent();
 		let assistantDropdown = clone.find(".assistant").parent();
 		let overlay = clone.find(".overlay");
 		let chathistory = clone.find(".chathistory");
@@ -136,6 +157,13 @@ $(function(){
 		});
 
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
+		bot_led.removeClass("ds-text-neutral-8 ds-text-neutral-4");
+		bot_arm.removeClass("ds-text-neutral-8 ds-text-neutral-4");
+		microphone.removeClass("ds-text-neutral-8 ds-text-neutral-4");
+		source_update.removeClass("ds-text-neutral-8 ds-text-neutral-4");
+		nodejs_update.removeClass("ds-text-neutral-8 ds-text-neutral-4");
+		npm_update.removeClass("ds-text-neutral-8 ds-text-neutral-4");
+		nodemon_update.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		if (bot.web.status == "online") {
 			// set color
 			source_update.addClass("ds-text-neutral-8");
@@ -165,7 +193,7 @@ $(function(){
 
 					overlay.find('.ds-icon-trash').click(function(e) {
 						console.log("klick")
-						chathistory.children('.message').remove()
+						chathistory.children('.message').remove();
 					});
 					overlay.find('.ds-icon-close').click(function(e) {
 						overlay.addClass('ds-hide');
@@ -205,47 +233,35 @@ $(function(){
 			bot_arm.click(false);
 		}
 
-		setEditableField(clone.find(".input-name"), bot.basic.name, serial);
-		setEditableField(clone.find(".input-chocolate"), bot.basic.chocolate, serial);
-		setEditableField(clone.find(".input-mentor"), bot.basic.mentor, serial);
-		setEditableField(clone.find(".input-location"), bot.basic.location, serial);
-		setBotImagelist(clone, serial, botImageList);
+		setEditableField(card.find(".input-name"), bot.basic.name, serial);
+		setEditableField(card.find(".input-chocolate"), bot.basic.chocolate, serial);
+		setEditableField(card.find(".input-mentor"), bot.basic.mentor, serial);
+		setEditableField(card.find(".input-location"), bot.basic.location, serial);
+		setBotImagelist(card.find(".botImageList"), serial, botImageList);
 
-		clone.find(".source_version").text(" " + bot.data.npm_version.tjbotclient + " ");
-		clone.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
-		clone.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
-		clone.find(".os_release").text(" " + bot.data.os_release + " ");
+		card.find(".source_version").text(" " + bot.data.npm_version.tjbotclient + " ");
+		card.find(".nodejs_version").text(" " + bot.data.nodejs_version + " ");
+		card.find(".npm_version").text(" " + bot.data.npm_version.npm + " ");
+		card.find(".os_release").text(" " + bot.data.os_release + " ");
 		if (bot.data.firmware) {
-			clone.find(".firmware").text(" " + bot.data.firmware[0] + " ");
+			card.find(".firmware").text(" " + bot.data.firmware[0] + " ");
 		}
 		if (bot.data.npm_package && bot.data.npm_package.nodemon) {
-			clone.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " "); // TO DO version not showing
+			card.find(".nodemon_version").text(" " + bot.data.npm_package.nodemon + " ");
 		}
+    
+		card.find(".tjbot-name").text(bot.basic.name); // set TJBot name in overlay
 
-		clone.find(".tjbot-name").text(bot.basic.name); // set TJBot name in overlay
-
-		fillAccordion(clone.find(".version_info"), bot.data.npm_version);
-		fillAccordion(clone.find(".pkg_info"), bot.data.npm_package);
-		fillAccordion(clone.find(".cpu_info"), bot.data.cpuinfo);
+		fillAccordion(card.find(".version_info"), bot.data.npm_version);
+		fillAccordion(card.find(".pkg_info"), bot.data.npm_package);
+		fillAccordion(card.find(".cpu_info"), bot.data.cpuinfo);
 
 		for (let type of Object.keys(serviceList)) {
 			for (let name of Object.keys(serviceList[type])) {
-				setServiceOptions(serial, type, name, clone.find("." + type), bot.config[type], serviceList[type][name].options);
+				setServiceOptions(serial, type, name, card.find("." + type), bot.config[type], serviceList[type][name].options);
 				//setServiceOptions(serial, type, name, clone.find("." + type), bot.config[type], []); // only for testing
 				break;
 			}
-		}
-
-		for (let accordionItem of clone.find(".ds-accordion-container")) {
-			accordion = w3ds.accordion(accordionItem);
-		}
-
-		for (let dropDownItem of clone.find(".ds-dropdown")) {
-			dropMenu = w3ds.dropdown(dropDownItem);
-		}
-
-		for (let trayItem of clone.find(".ds-tray")) {
-			tray = w3ds.tray(trayItem);
 		}
 	}
 
@@ -269,14 +285,13 @@ $(function(){
      * creates image options for dropdown
 	 * add an evenlistener for every option
 	 * sends the selected option to the backend
-     * @param {object} clone bot entry element
+     * @param {object} botImageDrop bot entry element
      * @param {string} serial
      * @param {string[]} botImageList array with images names
      */
-	function setBotImagelist(clone, serial, botImageList) {
-		botImageDrop = clone.find(".botImageList");
+	function setBotImagelist(botImageDrop, serial, botImageList) {
 		botImageDrop.children().remove();
-		for(let i=0; i< botImageList.length; i++) {
+		for(let i=0; i < botImageList.length; i++) {
 			option = jQuery('<div class="ds-option" role="menuitem">' + botImageList[i] + '</div>');
 			option.click(botImageList[i], function(param){
 				socket.emit('save', '{"serial":"' + serial + '", "field": "image", "value": "' + param.data + '"}');
@@ -301,7 +316,7 @@ $(function(){
 		/*if (!serial || !service || !serviceName || !dropField || !savedOption || !serviceOptionList) {
 			console.log('Error: tjbot.js: setServiceOptions(): Parameter missing');
 		}*/
-
+    
 		dropField.children().remove();
 
 		if (serviceOptionList.length == 0) {
@@ -351,26 +366,27 @@ $(function(){
 
 	/**
 	 * Updates bot enteries
-	 * @param {object} elem element to be filled with data
+	 * @param {object} accordion accordion to be filled with data
 	 * @param {object} part json object containing information for accordion
 	 */
-	function fillAccordion(elem, part) {
+	function fillAccordion(accordion, part) {
+		accordion.children().remove();
 		if (Array.isArray(part)) {
 			if (part.length == 1) {
-				elem.text(part[0]);
+				accordion.text(part[0]);
 			} else {
 				nesting = jQuery('<div class="ds-accordion-nested ds-mar-t-0 ds-mar-b-0">');
-				elem.append(nesting);
+				accordion.append(nesting);
 				console.log("is array");
 			}
 		} else if (typeof part === 'object' && part !== null) {
 			table = jQuery('<table class="ds-table ds-table-compact ds-pad-b-1 ds-pad-t-1"><tbody /></table>');
-			elem.append(table);
+			accordion.append(table);
 			Object.keys(part).sort().forEach(function(key) {
 				item = jQuery('<tr><td>' + key + "</td><td> " + part[key] + " </td>").appendTo(table);
 			});
 		} else {
-			elem.text(part);
+			accordion.text(part);
 		}
 	}
 
@@ -456,6 +472,10 @@ $(function(){
 		updateBotList(JSON.parse(data));
 	});
 
+	socket.on('updateBot', function(data) {
+		updateBot(JSON.parse(data));
+	});
+
 	socket.on('listen', function(data) {
 		createMessage(data, "userMessage");
 		console.log("tjbot msg: " + data);
@@ -465,5 +485,4 @@ $(function(){
 		createMessage(data, "tjbotMessage");
 		console.log("user msg: " + data);
 	});
-
 });
