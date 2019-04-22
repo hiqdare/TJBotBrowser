@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html style="height: 100%;" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="EN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="TJBot Cockpit" />
+    <meta name="author" content="Henrique Säuberli" />
+    <title>TJBot Cockpit</title>
+
+    <link rel="stylesheet" href="./vendor/w3ds5/w3ds.css" type="text/css">
+    <!-- if data tables are required -->
+    <link rel="stylesheet" href="./vendor/w3ds5/w3ds-data-tables.css" type="text/css">
+    <!-- if code syntax highlighting is required -->
+    <link rel="stylesheet" href="./vendor/w3ds5/w3ds-prism.css" rel="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  </head>
+    <div class="ds-grid">
+      <div class="ds-row ds-pad-b-3" id="rowbot">
+        <div class="ds-col-sm-12 ds-col-md-6 ds-col-lg-4 ds-pad-b-xs-1 " id="bot">
+          <div class="ds-row">
+            <div class="ds-col-6">
+              <div class="ds-flex ds-flex-align_items-center">
+                <div class="ds-row">
+                  <div class="ds-col-xs-12">
+                    <div class="ds-dropdown ds-flat ds-mar-b-0" tabindex="0" role="menu" aria-label="w3DS Flat Dropdown">
+                      <div class="ds-title ds-mar-b-0">image</div>
+                      <div class="ds-options botImageList" role="group">
+                        <div class="ds-option" role="menuitem">option 1</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END ds-row -->
+          <div class="ds-row">
+            <div class="ds-col-11">
+              <div class="ds-accordion-container ds-mar-t-0 ds-mar-b-0">
+                <!-- Services ds-accordion -->
+                <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
+                  <div class="ds-accordion-title">Services</div>
+                  <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
+                    <!-- STT -->
+                    <div class="ds-row">
+                      <div class="ds-col-xs-11">
+                        <h4 class="ds-heading-4">Speech-to-Text</h4>
+                      </div>
+                      <div class="ds-col-xs-11">
+                        <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
+                          <div class="ds-title" role="menu-title">Choose your Language</div>
+                          <div class="ds-options speech_to_text" role="group">
+                            <div class="ds-option" role="menuitem">option 1</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END STT -->
+                    <!-- ASSISTANT -->
+                    <div class="ds-row">
+                      <div class="ds-col-xs-11">
+                        <h4 class="ds-heading-4">Assistant</h4>
+                      </div>
+                      <div class="ds-col-xs-11">
+                        <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
+                          <div class="ds-title" role="menu-title">Choose your workspace</div>
+                          <div class="ds-options assistant" role="group">
+                            <div class="ds-option" role="menuitem">option 1</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END ASSISTANT -->
+                    <!-- TTS -->
+                    <div class="ds-row">
+                      <div class="ds-col-xs-11">
+                        <h4 class="ds-heading-4">Text-to-Speech</h4>
+                      </div>
+                      <div class="ds-col-xs-11">
+                        <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
+                          <div class="ds-title" role="menu-title">Choose your voice</div>
+                          <div class="ds-options text_to_speech" role="group">
+                            <div class="ds-option" role="menuitem">option 1</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END TTS -->
+                  </div>
+                </div>
+                <!-- END ds-accordion Services -->
+              </div>
+            </div>
+          </div>
+          <!-- END ds-row -->
+        </div>
+      </div>
+    </div>
+    <!-- END ds-grid -->
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="vendor/w3ds5/w3ds.js"></script>
+    <script>
+        let clone = $('#bot').clone(true); // "deep" clone
+		clone.attr('id', "bot_");
+        $('#bot').parent().append(clone);
+    </script>
+  </body>
+</html>

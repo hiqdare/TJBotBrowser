@@ -8,7 +8,7 @@ $(function(){
 /* DECLARATIONS & INITIALIZATION                                              */
 /*----------------------------------------------------------------------------*/
 	let micOn = {};
-	let imageList;
+	//let imageList;
 	let serviceList;
 	const ENTERKEY = 13;
 	const TABKEY = 9;
@@ -45,7 +45,7 @@ $(function(){
 	function updateBotList(botlist) {
 		$("#rowbot").children(".card").remove();
 		console.log("new bot list: " + botlist.length);
-		//$("#botcount").text("TJBots online: " + botlist.length); // fix, not displaying anywhere
+		$("#botcount").text("TJBots online: " + botlist.length); // fix, not displaying anywhere
 		if (botlist.length > 0) {
 			$.getJSON('/botImageList', function(imageResult){
 				$.getJSON('/serviceOptionList', function(serviceResult){
@@ -79,18 +79,18 @@ $(function(){
 	 */
 	function updateBot(tjbot) {
 		let serial = tjbot.data.cpuinfo.Serial;
-		let card = $("#bot_" + serial); // "deep" clone
+		let card = $("#bot_" + serial);
 		console.log("bot update: " + serial);
 		updateBotCard(tjbot, card, imagelist, serviceList);
 	}
 
 	/**
 	 * Logs event and emits with type 'event'
-	 * @param {object} param parameters of the event
+	 * @param {object} event parameters of the event
 	 */
-	function emitEvent(param) {
-		console.log("Emit event: ", param.data);
-		socket.emit('event', param.data);
+	function emitEvent(event) {
+		console.log("Emit event: ", event.data);
+		socket.emit('event', event.data);
 	}
 
   /**
@@ -111,11 +111,10 @@ $(function(){
 		let microphone = card.find(".microphone");
 		let canvas = card.find('.picker');
 		let status = card.find(".status");
-		let sttDropdown = card.find(".speech_to_text").parent();
-		let ttsDropdown = card.find(".text_to_speech").parent();
-		let assistantDropdown = clone.find(".assistant").parent();
-		let overlay = clone.find(".overlay");
-		let chathistory = clone.find(".chathistory");
+		let overlay = card.find(".overlay");
+		let overlay_bot = new OverlayBot(card.find(".overlay-bot"), serial, socket);
+		let service_list = card.find(".service_list");
+		let chathistory = card.find(".chathistory");
 		let param = {};
 
 
@@ -133,11 +132,11 @@ $(function(){
 
 		image.src = "images/colorwheel.png";
 
-		canvas.click(function(e) { // mouse move handler
+		canvas.click((event) => { // mouse move handler
 			// get coordinates of current position
 			let canvasOffset = $(canvas).offset();
-			let canvasX = Math.floor(e.pageX - canvasOffset.left);
-			let canvasY = Math.floor(e.pageY - canvasOffset.top);
+			let canvasX = Math.floor(event.pageX - canvasOffset.left);
+			let canvasY = Math.floor(event.pageY - canvasOffset.top);
 
 			// get current pixel
 			let imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
@@ -155,6 +154,15 @@ $(function(){
 			bot_led.css('backgroundColor', pixelColor);
 			emitEvent(param);
 		});
+
+		let img;
+		for (let type of Object.keys(serviceList)) {
+			img = $('<img src="images/services/' + type + '.svg" />');
+			img.on('click', (event) => {
+				overlay_bot.show(serviceList[type]);
+			});
+			service_list.append($('<div class="ds-col-xs-3 service-col"></div>').append(img));
+		}
 
 		status.removeClass("ds-text-neutral-8 ds-text-neutral-4");
 		bot_led.removeClass("ds-text-neutral-8 ds-text-neutral-4");
@@ -174,7 +182,6 @@ $(function(){
       		bot_led.addClass("ds-text-neutral-8");
 			bot_arm.addClass("ds-text-neutral-8");
 			microphone.addClass("ds-text-neutral-8");
-			assistantDropdown.removeClass("ds-disabled");
 			canvas.css("display", "block");
 
 			// set action
@@ -214,15 +221,6 @@ $(function(){
 			bot_led.addClass("ds-text-neutral-4");
 			bot_arm.addClass("ds-text-neutral-4");
 			microphone.addClass("ds-text-neutral-4");
-			sttDropdown.addClass("ds-disabled");
-			sttDropdown.attr("data-toggle", "tooltip");
-			sttDropdown.attr("title", "service not available");
-			ttsDropdown.addClass("ds-disabled");
-			ttsDropdown.attr("data-toggle", "tooltip");
-			ttsDropdown.attr("title", "service not available");
-			assistantDropdown.addClass("ds-disabled");
-			assistantDropdown.attr("data-toggle", "tooltip");
-			assistantDropdown.attr("title", "service not available");
 			canvas.css("display", "none");
 
 			// set action
@@ -458,10 +456,6 @@ $(function(){
 /*----------------------------------------------------------------------------*/
 /* MAIN							                                              */
 /*----------------------------------------------------------------------------*/
-
-	$(".close_detail").click(function() {
-		$(".detailinfo").hide("scale");
-	});
 
 	socket.on('start', function(data) {
 		console.log('start: ' + data);

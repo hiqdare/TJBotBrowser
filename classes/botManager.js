@@ -195,6 +195,10 @@ class BotManager {
 		}
 	}
 
+	addService(serial, service) {
+		
+	}
+
 	/**
 	 * updates the configuration in the DB
 	 * @param {string} socket_id
@@ -212,13 +216,12 @@ class BotManager {
 	 * @param {function} callback
 	 */
 	getJSONBotList(callback) {
-		let localTJbotlist = this.tjbotList;
-		callback(null, JSON.stringify(Object.keys(localTJbotlist).map(function(key) {
+		callback(null, JSON.stringify(Object.keys(this.tjbotList).map((key) => {
 			let blist = {};
-			blist.data = localTJbotlist[key].data;
-			blist.web = localTJbotlist[key].web;
-			blist.basic = localTJbotlist[key].basic;
-			blist.config = localTJbotlist[key].config;
+			blist.data = this.tjbotList[key].data;
+			blist.web = this.tjbotList[key].web;
+			blist.basic = this.tjbotList[key].basic;
+			blist.config = this.tjbotList[key].config;
 			return blist;
 		})));
 	}

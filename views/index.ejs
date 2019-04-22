@@ -37,8 +37,34 @@
     </div>
     <!-- END ds-grid -->
     <div class="ds-grid">
+      <!-- overlay-bot-services --
+      <div id="overlay-bot-services" class="ds-row ds-hide overlay-bot-services">
+        <div class="ds-col-xs-4 ds-col-md-3">
+          <img src="images/services/stt.png" class="ds-img-force-grow"></span>
+          <div class="ds-badge-small ds-secondary ds-tooltip-trigger" role="text" aria-label="help" onclick="addService('speech_to_text')">add</div>
+        </div>
+        <div class="ds-col-xs-4 ds-col-md-3">
+          <img src="images/services/tts.png" class="ds-img-force-grow"></span>
+          <div class="ds-badge-small ds-secondary ds-tooltip-trigger" role="text" aria-label="help" onclick="addService('text_to_speech')">add</div>
+        </div>
+        <div class="ds-col-xs-4 ds-col-md-3">
+          <img src="images/services/assistant.png" class="ds-img-force-grow"></span>
+          <div class="ds-badge-small ds-secondary ds-tooltip-trigger" role="text" aria-label="help" onclick="addService('assistant')">add</div>
+        </div>
+        <div class="ds-col-xs-4 ds-col-md-3">
+          <img src="images/services/assistant.png" class="ds-img-force-grow"></span>
+          <div class="ds-badge-small ds-secondary ds-tooltip-trigger" role="text" aria-label="help" onclick="addService('assistant')">add</div>
+        </div>
+      </div>
+      <-- end overlay-bot-services -->
       <div class="ds-row ds-pad-b-3" id="rowbot">
         <div class="ds-col-sm-12 ds-col-md-6 ds-col-lg-4 ds-pad-b-xs-1 ds-hide" id="bot">
+          <!-- Overlay Bot-->
+          <div class="overlay-bot">
+            <span class="ds-icon-close ds-float-right"></span>
+            <h4 class="overlay-title">title</h4>
+          </div>
+          <!-- END Overlay Bot-->
           <div class="ds-row">
             <div class="ds-col-6 thumbnail_div">
               <img src="images/bots/generic.jpeg" class="ds-img-force-grow ds-border-blue-6 tjbot" alt="TJBot Neon">
@@ -74,9 +100,7 @@
                     <div class="ds-dropdown ds-flat ds-mar-b-0" tabindex="0" role="menu" aria-label="w3DS Flat Dropdown">
                       <div class="ds-title ds-mar-b-0">image</div>
                       <div class="ds-options botImageList" role="group">
-                        <div class="ds-option" role="menuitem">
-                          option 1
-                        </div>
+                        <div class="ds-option" role="menuitem">option 1</div>
                       </div>
                     </div>
                   </div>
@@ -117,7 +141,9 @@
                       <div class="ds-col-xs-11">
                         <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
                           <div class="ds-title" role="menu-title">Choose your Language</div>
-                          <div class="ds-options speech_to_text" role="group"></div>
+                          <div class="ds-options speech_to_text" role="group">
+                            <div class="ds-option" role="menuitem">option 1</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -128,9 +154,11 @@
                         <h4 class="ds-heading-4">Assistant</h4>
                       </div>
                       <div class="ds-col-xs-11">
-                        <div class="ds-dropdown ds-disabled" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
+                        <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
                           <div class="ds-title" role="menu-title">Choose your workspace</div>
-                          <div class="ds-options assistant" role="group"></div>
+                          <div class="ds-options assistant" role="group">
+                            <div class="ds-option" role="menuitem">option 1</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -143,11 +171,25 @@
                       <div class="ds-col-xs-11">
                         <div class="ds-dropdown" tabindex="0" role="menu" aria-label="w3DS Auto Width Dropdown">
                           <div class="ds-title" role="menu-title">Choose your voice</div>
-                          <div class="ds-options text_to_speech" role="group"></div>
+                          <div class="ds-options text_to_speech" role="group">
+                            <div class="ds-option" role="menuitem">option 1</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                     <!-- END TTS -->
+                  </div>
+                </div>
+                <!-- END ds-accordion Services -->
+                <!-- Services ds-accordion -->
+                <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
+                  <div class="ds-accordion-title">Services *NEW*</div>
+                  <div class="ds-accordion-slidedown" aria-hidden="true" role="region">
+                    <div class="ds-row service_list">
+                      <!--div class="ds-col-xs-3 service-col">
+                        <span class="ds-icon-size-default ds-icon-plus-circle"></span>
+                      </div>-->
+                    </div>
                   </div>
                 </div>
                 <!-- END ds-accordion Services -->
@@ -269,8 +311,8 @@
     </footer>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="javascripts/assets/js/holder.min.js"></script>
 	  <script src="vendor/w3ds.js"></script>
+    <script src="javascripts/OverlayBot.js"></script>
     <script src="javascripts/tjbot.js"></script>
   </body>
 </html>

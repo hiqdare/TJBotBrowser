@@ -64,7 +64,7 @@ io.on('connection', function (socket) {
 	socket.on('browser', function() {
 		console.log("socket browser");
 		botManager.registerBrowser(socket);
-		botManager.getJSONBotList(function(err, tjbotList) {
+		botManager.getJSONBotList((err, tjbotList) => {
 			if (err) {
 				handleError(err);
 			} else {
@@ -96,8 +96,13 @@ io.on('connection', function (socket) {
 		let param = JSON.parse(data);
 		console.log("event: " + param.serial + " " + param.event.target);
 
-		if (param.event.target == 'microphone') {
-			botManager.updateObserver(param.serial, socket.id, param.event.action);
+		switch (param.event.target) {
+			case 'microphone':
+				botManager.updateObserver(param.serial, socket.id, param.event.action);
+				break;
+			case 'service':
+				botManager.addService(param.serial, param.event.action);
+				break;
 		}
 
 		console.log("observer set");
@@ -142,7 +147,6 @@ io.on('connection', function (socket) {
 			botManager.getBrowserSocket(observer).emit('output', data)
 		}
 	});
-
 });
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
@@ -150,7 +154,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 // Auslagern
 app.get('/botImageList', (req, res) => res.json(botManager.getBotImageList()));
 app.get('/serviceOptionList', (req, res) => serviceManager.getOptionList(
-		function(err, optionList) {
+		(err, optionList) => {
 			if (err) {
 				handleError(err);
 				res.json([]);

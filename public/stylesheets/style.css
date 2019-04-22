@@ -319,5 +319,66 @@ footer p {
      height: 60px;
      width: 60px;
     }
+}
 
+.service_list {
+  margin-top: 20px;
+}
+
+.service-col {
+  height: 100px;
+  border: 1px solid #dfe6eb;
+  background-color: white;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
+  padding: 0px;
+  text-align: center;
+  line-height: 100px;
+  margin: 4px;
+}
+
+.service-col img {
+  max-width: 50px;
+  margin: 20px auto 0px;
+}
+
+.service-col span {
+  display: block;
+  margin: auto;
+  width: 23px;
+  cursor: pointer;
+}
+
+.service-logo {
+  top: 20px;
+  left: 20px;
+}
+
+.overlay-bot {
+  position: absolute; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%;
+  max-width: 460px;
+  height: 100%;
+  top: 0px;
+  left: 0;
+  padding: 0.75rem;
+  background-color: white; /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  /*cursor: pointer; /* Add a pointer on hover */
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.overlay-bot-services {
+  max-width: 360px;
+  margin: auto;
+}
+
+.overlay-bot-services img {
+  max-width: 50px;
+  margin: 20px auto 0px;
+}
+
+.overlay-bot-services .ds-badge-small {
+  cursor: pointer;
 }
