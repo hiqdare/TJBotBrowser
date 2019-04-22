@@ -113,9 +113,9 @@ $(function(){
 		let status = card.find(".status");
 		let sttDropdown = card.find(".speech_to_text").parent();
 		let ttsDropdown = card.find(".text_to_speech").parent();
-		let assistantDropdown = clone.find(".assistant").parent();
-		let overlay = clone.find(".overlay");
-		let chathistory = clone.find(".chathistory");
+		let assistantDropdown = card.find(".assistant").parent();
+		let overlay = card.find(".overlay");
+		let chathistory = card.find(".chathistory");
 		let param = {};
 
 

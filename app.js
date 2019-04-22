@@ -35,7 +35,7 @@ let vcapServices;
 try {
 	vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } catch(err) {
-	vcapServices = require('./vcap-local.json').services;
+	vcapServices = require('./vcap-local.json');
 	console.log("Loaded local VCAP", vcapServices);
 }
 
