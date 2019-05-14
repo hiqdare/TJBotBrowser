@@ -341,6 +341,14 @@ footer p {
   margin: 20px auto 0px;
 }
 
+.ds-tooltip-content {
+  z-index: 500;
+}
+
+.ds-accordion-title {
+  z-index: -50;
+}
+
 .service-col span {
   display: block;
   margin: auto;

@@ -14,7 +14,7 @@ pre code.language-html .token.script.language-javascript .token.punctuation, pre
   color: #555; }
 
 pre code.language-html .token.script.language-javascript .token.function, pre code.language-javascript .token.function {
-  color: #00598a; }
+  color: #0370b0; }
 
 pre[class*='language-'] {
   background-color: transparent;
@@ -34,7 +34,7 @@ pre code.language-html .token.selector, pre code.language-html .token.attr-name,
   color: #066544; }
 
 pre code.language-html .token.operator, pre code.language-html .token.entity, pre code.language-html .token.url, pre code.language-html .token.variable {
-  color: #cc9e05; }
+  color: #781bb6; }
 
 pre code.language-html .token.atrule, pre code.language-html .token.attr-value, pre code.language-html .token.keyword, pre code.language-html .token.class-name {
-  color: #00598a; }
+  color: #0370b0; }

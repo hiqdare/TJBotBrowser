@@ -51,23 +51,29 @@ $(function(){
 				$.getJSON('/serviceOptionList', function(serviceResult){
 					imagelist = JSON.parse(imageResult);
 					serviceList = JSON.parse(serviceResult);
+					let botdiv = $('#bot');
 					for (let bot of botlist) {
 						let serial = bot.data.cpuinfo.Serial;
-						let clone = $('#bot').clone(true); // "deep" clone
+						let clone = botdiv.clone(true); // "deep" clone
 						clone.attr('id', "bot_" + serial);
 						clone.removeClass('ds-hide');
 						clone.addClass("card");
-						$('#bot').parent().append(clone);
+						botdiv.parent().append(clone);
 						updateBotCard(bot, clone, imagelist, serviceList);
-
-						for (let accordionItem of clone.find(".ds-accordion-container")) {
-							accordion = w3ds.accordion(accordionItem);
-						}
-				
-						for (let dropDownItem of clone.find(".ds-dropdown")) {
-							dropMenu = w3ds.dropdown(dropDownItem);
-						}
 					}
+
+					for (let accordionItem of $(".ds-accordion-container")) {
+						accordion = w3ds.accordion(accordionItem);
+					}
+			
+					for (let dropDownItem of $(".ds-dropdown")) {
+						dropMenu = w3ds.dropdown(dropDownItem);
+					}
+
+					for (let tooltipItem of $(".ds-tooltip")) {
+						tooltip = w3ds.tooltip(tooltipItem);
+					}
+
 				});
 			});
 		}
@@ -111,6 +117,11 @@ $(function(){
 		let microphone = card.find(".microphone");
 		let canvas = card.find('.picker');
 		let status = card.find(".status");
+		let tooltip = card.find('#tooltip-status');
+		tooltip.attr('id', 'tooltip-status' + serial);
+		tooltip.attr('aria-describedby', 'tooltip-status-content' + serial);
+		tooltip = tooltip.children('div');
+		tooltip.attr('id', 'tooltip-status-content' + serial);
 		let overlay = card.find(".overlay");
 		let overlay_bot = new OverlayBot(card.find(".overlay-bot"), serial, socket);
 		let service_list = card.find(".service_list");
@@ -184,6 +195,9 @@ $(function(){
 			microphone.addClass("ds-text-neutral-8");
 			canvas.css("display", "block");
 
+			//set title
+			tooltip.html(bot.data.network);
+
 			// set action
 			source_update.click('{"serial":"' + serial + '", "event": {"target": "source"}}', emitEvent);
 			nodejs_update.click('{"serial":"' + serial + '", "event": {"target": "nodejs"}}', emitEvent);
@@ -212,6 +226,7 @@ $(function(){
 				emitEvent(param);
 			});
 		} else {
+			tooltip.html(JSON.stringify(bot.data.network));
 			// set color
 			source_update.addClass("ds-text-neutral-4");
 			nodejs_update.addClass("ds-text-neutral-4");

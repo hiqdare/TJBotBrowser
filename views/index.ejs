@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="./vendor/w3ds-prism.css" rel="text/css" />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body class="ds-has-sticky-footer">
     <div class="ds-grid">
@@ -115,7 +114,10 @@
                 <!-- Bot Control ds-accordion -->
                 <div class="ds-row ds-accordion-item" aria-controls="ds-accordion-slidedown" aria-expanded="false" role="accordion item">
                   <div class="ds-accordion-title">
-                    <span class="ds-mar-r-1 status ds-icon-size-default ds-icon-wireless"></span>
+                    <div class="ds-tooltip ds-text-align-center" id="tooltip-status" role="button" aria-describedby="tooltip-status-content">
+                      <span class="ds-mar-r-1 status ds-icon-size-default ds-icon-wireless ds-tooltip-trigger" tabindex="0" role="text" aria-label="wifi"></span>
+                      <div class="ds-tooltip-content ds-dark" id="tooltip-status-content" role="tooltip">Click activated tooltip content</div>
+                    </div>
                     <i class="ds-mar-r-1 far fa-lightbulb bot-led" alt="LED" data-toggle="tooltip" title="LED"></i>
                     <i class="ds-mar-r-1 far fa-hand-paper bot-arm" alt="arm" data-toggle="tooltip" title="arm"></i>
                     <span class="ds-mar-r-1 microphone ds-icon-size-default ds-icon-mic-on-fill"></span>
@@ -309,7 +311,9 @@
         </h5>
       </div>
     </footer>
+    </div>
     <!-- jQuery library -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	  <script src="vendor/w3ds.js"></script>
     <script src="javascripts/OverlayBot.js"></script>
